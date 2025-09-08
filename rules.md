@@ -23,6 +23,7 @@ These rules define the branching strategy, review process, commit message conven
      - Well-structured and easy to understand.
      - Implemented with proper tests.
      - Following **SOLID principles** and/or relevant **design patterns** where possible.
+
 4. **Bug fixes**
    - We use `develop` for ongoing work and `master` for stable releases. 
    - Urgent issues in `master` are handled via **hotfix branches**, while bugs in `develop` are fixed through **bugfix branches**.
@@ -96,6 +97,8 @@ These rules define the branching strategy, review process, commit message conven
 ## 6. General Principles
 - Collaboration and transparency are encouraged through frequent commits and early PRs.
 - Everyone is responsible for maintaining project stability and quality.
+
+---
 
 ## 7. Versioning
 - project-1 once merged completely the version will have a major update `1.x.x`.
