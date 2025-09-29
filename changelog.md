@@ -1,5 +1,6 @@
 | version | branch         | comments                                                      |
 | ------- | -------------- | ------------------------------------------------------------- |
+| 1.0.0   | feature/SE04-5 | Poster for the project with use cases and tech stack          |
 | 0.0.5   | feature/SE04-4 | Pain points in using llms                                     |
 | 0.0.4   | feature/SE04-3 | Generate use cases for MVP release                            |
 | 0.0.3   | feature/SE04-2 | RAG to generate use cases                                     |
