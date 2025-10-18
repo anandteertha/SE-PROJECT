@@ -13,6 +13,11 @@ class SetupDatabase:
         print("CREATED USER TABLE..")
         pass
     
+    def create_menu_categories_table(self):
+        self.cursor.execute(SimpleQueries.CREATE_MENU_CATEGORIES_TABLE.value)
+        print("CREATED MENU CATEGORIES TABLE..")
+        pass
+    
     def create_menu_items_table(self):
         self.cursor.execute(SimpleQueries.CREATE_MENU_ITEMS_TABLE.value)
         print("CREATED MENU ITEMS TABLE..")
@@ -30,6 +35,7 @@ class SetupDatabase:
     
     def setup(self):
         self.create_user_authentication_table()
+        self.create_menu_categories_table()
         self.create_menu_items_table()
         self.create_user_cart_table()
         self.create_user_menu_settings_table()
