@@ -26,11 +26,11 @@ class SimpleQueries(Enum):
             CalorieCount FLOAT NOT NULL,
             ProteinCount FLOAT NOT NULL,
             ImageUrl VARCHAR(255) NOT NULL,
-            Category VARCHAR(255) NOT NULL,
+            Category VARCHAR(255) NOT NULL DEFAULT 'NutriBite Special',
             
             FOREIGN KEY (Category)
             REFERENCES menu_category (Name)
-            ON DELETE DEFAULT 'NutriBite Special'
+            ON DELETE SET DEFAULT
             ON UPDATE CASCADE
         );
     '''
