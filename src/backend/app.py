@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from backend.connect_to_database import Connect
 
 app = Flask(__name__)
 
@@ -13,3 +14,4 @@ def get_data():
 
 if __name__ == '__main__':
     app.run(debug=True) # debug=True is for development, disable in production
+    Connect().setup()
