@@ -26,7 +26,7 @@ class SimpleQueries(Enum):
             CalorieCount FLOAT NOT NULL,
             ProteinCount FLOAT NOT NULL,
             ImageUrl VARCHAR(255) NOT NULL,
-            Category VARCHAR(255) NOT NULL
+            Category VARCHAR(255) NOT NULL,
             
             FOREIGN KEY (Category)
             REFERENCES menu_category (Name)
