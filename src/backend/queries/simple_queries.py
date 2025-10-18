@@ -22,7 +22,22 @@ class SimpleQueries(Enum):
         CREATE TABLE IF NOT EXISTS menu_item (
             Id INT AUTO_INCREMENT PRIMARY KEY,
             Name VARCHAR(255) UNIQUE NOT NULL,
-            Cost DECIMAL(4, 2) CHECK (cost > 0) NOT NULL
+            Cost DECIMAL(4, 2) CHECK (cost > 0) NOT NULL,
+            CalorieCount FLOAT NOT NULL,
+            ProteinCount FLOAT NOT NULL,
+            ImageUrl VARCHAR(255) NOT NULL,
+            Category VARCHAR(255) NOT NULL
+            
+            FOREIGN KEY (Category)
+            REFERENCES menu_category (Name)
+            ON DELETE DEFAULT 'NutriBite Special'
+            ON UPDATE CASCADE
+        );
+    '''
+    
+    CREATE_MENU_CATEGORIES_TABLE = '''
+        CREATE TABLE IF NOT EXISTS menu_category (
+            Name VARCHAR(255) PRIMARY KEY
         );
     '''
     
