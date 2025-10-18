@@ -2,8 +2,8 @@ import mysql.connector
 from mysql.connector import MySQLConnection
 import os
 from dotenv import load_dotenv
-from backend.queries.simple_queries import SimpleQueries
-from backend.setup_database import SetupDatabase
+from queries.simple_queries import SimpleQueries
+from setup_database import SetupDatabase
 
 
 class Connect:
@@ -16,6 +16,7 @@ class Connect:
             host=os.getenv("DB_HOST"),
             user=os.getenv("DB_USERNAME"),
             password=os.getenv("DB_PASSWORD"),
+            port=os.getenv("PORT"),
             database=db
         )
     
