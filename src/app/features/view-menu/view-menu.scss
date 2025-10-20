@@ -1,0 +1,169 @@
+.menu-container {
+  // Layout & spacing
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  // Filter controls
+  .filter {
+    margin-bottom: 1.5rem;
+
+    button {
+      margin-right: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #e6e6e6;
+      color: #222;
+      cursor: pointer;
+
+      &.active {
+        background: #007acc;
+        color: #fff;
+      }
+    }
+  }
+
+  // Grid and cards
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(12, 24, 36, 0.04);
+  padding: 0;
+    }
+
+    // Featured card (first item) spans full row
+    .card.featured {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      align-items: stretch;
+    }
+
+    .card.featured .media img {
+      width: 320px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .card.featured .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #f4f4f4;
+    }
+
+    .info {
+      padding: 0.75rem;
+    }
+
+    .card .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.5rem;
+    }
+
+    .add-small,
+    .add {
+      background: #007acc;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .add-small {
+      padding: 0.25rem 0.6rem;
+    }
+
+    .add {
+      padding: 0.6rem 1rem;
+    }
+
+    // Hide the duplicate first item in the grid (featured shown separately)
+    .card.hide-first {
+      display: none;
+    }
+
+    // Responsive tweaks
+    @media (max-width: 900px) {
+      .card.featured {
+        flex-direction: column;
+      }
+
+      .card.featured .media img {
+        width: 100%;
+        height: 180px;
+      }
+
+      .thumb img {
+        height: 120px;
+      }
+    }
+  }
+
+  // Subtle background logo (non-interactive)
+  // Decorative logo element (placed behind content)
+  .bg-logo {
+    position: fixed;
+    right: 6%;
+    top: 18%;
+    width: 320px;
+    height: 96px;
+    background-image: url('/assets/nutribite-logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+    transform: translateZ(0);
+    /* subtle floating animation */
+    animation: floatLogo 8s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-6px) scale(1.02); }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  // Hide or reposition the background logo on small screens for clarity
+  @media (max-width: 640px) {
+    &::before {
+      display: none;
+    }
+  }
+}

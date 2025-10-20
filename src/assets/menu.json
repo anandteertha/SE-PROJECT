@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Grilled Chicken Bowl",
+    "descripton": "Juicy grilled chicken with quinoa and roasted veggies.",
+    "price": 12.5,
+    "tags": ["non-veg"],
+    "protein": 32,
+    "calories": 540,
+  "imageUrl": "/assets/images/chicken-bowl.svg"
+  },
+  {
+    "id": "2",
+    "name": "Vegan Buddha Bowl",
+    "descripton": "Mixed greens, chickpeas, avocado, and brown rice.",
+    "price": 10.0,
+    "tags": ["vegan", "gluten-free"],
+    "protein": 14,
+    "calories": 420,
+  "imageUrl": "/assets/images/buddha-bowl.svg"
+  },
+  {
+    "id": "3",
+    "name": "Paneer Tikka",
+    "descripton": "Charred paneer with yogurt marinade and spices.",
+    "price": 11.0,
+    "tags": ["vegetarian"],
+    "protein": 18,
+    "calories": 480,
+  "imageUrl": "/assets/placeholder-food.svg"
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Quinoa Bowl", "description": "Veggies & quinoa", "price": 9.99, "tags": ["vegan", "gluten-free"] },
+  { "id": 2, "name": "Chicken Wrap", "description": "Grilled chicken wrap", "price": 8.49, "tags": ["non-veg"] },
+  { "id": 3, "name": "Avocado Toast", "description": "Avocado on multigrain bread", "price": 6.50, "tags": ["vegetarian"] }
+]
