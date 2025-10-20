@@ -1,5 +1,7 @@
 | version | branch         | comments                                                      |
 | ------- | -------------- | ------------------------------------------------------------- |
+| 1.0.2   | feature/SE04-9 | Setup Backend and database for the project                    |
+| 1.0.1   | feature/SE04-6 | Setup Frontend for the project                                |
 | 1.0.0   | feature/SE04-5 | Poster for the project with use cases and tech stack          |
 | 0.0.5   | feature/SE04-4 | Pain points in using llms                                     |
 | 0.0.4   | feature/SE04-3 | Generate use cases for MVP release                            |
