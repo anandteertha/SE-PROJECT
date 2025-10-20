@@ -2,8 +2,8 @@ import mysql.connector
 from mysql.connector import MySQLConnection
 import os
 from dotenv import load_dotenv
-from queries.simple_queries import SimpleQueries
-from setup_database import SetupDatabase
+from backend.queries.simple_queries import SimpleQueries
+from backend.setup_database import SetupDatabase
 
 
 class Connect:
