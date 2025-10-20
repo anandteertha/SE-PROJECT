@@ -1,5 +1,5 @@
 from mysql.connector import MySQLConnection
-from queries.simple_queries import SimpleQueries
+from backend.queries.simple_queries import SimpleQueries
 
 
 class SetupDatabase:
