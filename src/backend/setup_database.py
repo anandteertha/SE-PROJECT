@@ -8,6 +8,11 @@ class SetupDatabase:
         self.cursor = self.connection.cursor()
         pass
     
+    def create_dietary_preference_table(self):
+        self.cursor.execute(SimpleQueries.CREATE_DIETARY_PREFERENCE_TABLE.value)
+        print("CREATED DIETARY PREFERENCE TABLE..")
+        pass
+    
     def create_user_authentication_table(self):
         self.cursor.execute(SimpleQueries.CREATE_USER_AUTHENTICATION_TABLE.value)
         print("CREATED USER TABLE..")
@@ -34,6 +39,7 @@ class SetupDatabase:
         pass
     
     def setup(self):
+        self.create_dietary_preference_table()
         self.create_user_authentication_table()
         self.create_menu_categories_table()
         self.create_menu_items_table()

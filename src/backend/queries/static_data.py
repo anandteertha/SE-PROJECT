@@ -15,6 +15,16 @@ class PostStaticData:
             print(e)
             return
     
+    def drop_database(self):
+        self.cursor.execute(SimpleQueries.DROP_DATABASE.value)
+        print("Database dropped..")
+        pass
+    
+    def dietary_preferences(self):
+        self.cursor.execute(SimpleQueries.INSERT_DIETARY_PREFERENCES.value)
+        print("Added static data for dietary preferences..")
+        pass
+    
     def menu_categories(self):
         self.cursor.execute(SimpleQueries.INSERT_MENU_CATEGORIES.value)
         print("Added static data for menu categories..")
@@ -26,6 +36,7 @@ class PostStaticData:
         pass
     
     def execute(self):
+        self.dietary_preferences()
         self.menu_categories()
         self.menu_items()
         self.connection.commit()
