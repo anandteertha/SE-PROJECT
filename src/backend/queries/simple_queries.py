@@ -1,7 +1,15 @@
 from enum import Enum
 
 class SimpleQueries(Enum):
+    DROP_DATABASE = 'DROP DATABASE IF EXISTS nutribite;'
+    
     CREATE_DATABASE_IF_NOT_EXISTS = "CREATE DATABASE IF NOT EXISTS nutribite;"
+    
+    CREATE_DIETARY_PREFERENCE_TABLE = '''
+        CREATE TABLE IF NOT EXISTS dietary_preference (
+            Name VARCHAR(255) PRIMARY KEY
+        );
+    '''
     
     CREATE_USER_AUTHENTICATION_TABLE = '''
         CREATE TABLE IF NOT EXISTS user (
@@ -12,9 +20,12 @@ class SimpleQueries(Enum):
             Spiciness FLOAT CHECK (Spiciness >= 0 AND Spiciness <= 10) DEFAULT 5,
             Sweetness FLOAT CHECK (Sweetness >= 0 AND Sweetness <= 10) DEFAULT 5,
             Salt VARCHAR(6) CHECK (Salt IN ('Less', 'Medium', 'High')) DEFAULT 'Medium',
-            DietaryPreference VARCHAR(20) 
-            CHECK (DietaryPreference IN ('Vegan', 'Vegetarian', 'Swami Narayan', 'Jain', 'Non vegetarian')) 
-            DEFAULT 'Vegetarian'
+            DietaryPreference VARCHAR(20),            
+            
+            FOREIGN KEY (DietaryPreference)
+            REFERENCES dietary_preference (Name)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
         );
     '''
     
@@ -90,6 +101,18 @@ class SimpleQueries(Enum):
             ON DELETE CASCADE
             ON UPDATE CASCADE
         );
+    '''
+    
+    INSERT_DIETARY_PREFERENCES = '''
+        INSERT INTO dietary_preference 
+        VALUES ("Vegan"), 
+        ("Vegetarian"), 
+        ("Swami Narayan"), 
+        ("Jain"), 
+        ("Non vegetarian"), 
+        ("Gluten Free"),
+        ("Kosher"), 
+        ("Halal");
     '''
     
     INSERT_MENU_CATEGORIES = '''
