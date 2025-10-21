@@ -3,8 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private _count$ = new BehaviorSubject<number>(0);
-
+  private readonly _count$ = new BehaviorSubject<number>(0);
   readonly count$ = this._count$.asObservable();
 
   add(quantity = 1) {

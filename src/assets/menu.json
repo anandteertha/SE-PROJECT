@@ -7,7 +7,7 @@
     "tags": ["non-veg"],
     "protein": 32,
     "calories": 540,
-  "imageUrl": "/assets/images/chicken-bowl.svg"
+  "imageUrl": "/assets/images/image1.jpg"
   },
   {
     "id": "2",
@@ -17,7 +17,7 @@
     "tags": ["vegan", "gluten-free"],
     "protein": 14,
     "calories": 420,
-  "imageUrl": "/assets/images/buddha-bowl.svg"
+  "imageUrl": "/assets/images/image2.jpg"
   },
   {
     "id": "3",
@@ -27,6 +27,6 @@
     "tags": ["vegetarian"],
     "protein": 18,
     "calories": 480,
-  "imageUrl": "/assets/placeholder-food.svg"
+  "imageUrl": "/assets/images/image3.jpg"
   }
 ]

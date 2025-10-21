@@ -16,28 +16,10 @@
     <button (click)="filterByTag('gluten-free')" [class.active]="selectedTag === 'gluten-free'">Gluten-Free</button>
   </div>
 
+
   <div class="menu-grid">
     <ng-container *ngIf="filteredItems && filteredItems.length">
-      <!-- Featured: make first item span full row -->
-      <div class="card featured" *ngIf="filteredItems.length > 0">
-        <div class="media">
-          <img [src]="filteredItems[0].imageUrl || '/assets/placeholder-food.svg'" alt="{{ filteredItems[0].name }}" />
-        </div>
-        <div class="content">
-          <h3>{{ filteredItems[0].name }}</h3>
-          <p class="description">{{ filteredItems[0].descripton }}</p>
-          <div class="meta">
-            <span class="price"><b>{{ filteredItems[0].price | currency }}</b></span>
-            <span class="nutrition">{{ getNutrition(filteredItems[0]) }}</span>
-          </div>
-          <div class="actions">
-            <button class="add">Add to cart</button>
-          </div>
-        </div>
-      </div>
-
-  <!-- Remaining items in responsive grid -->
-  <div class="card" *ngFor="let item of filteredItems.slice(1); let i = index">
+      <div class="card" *ngFor="let item of filteredItems">
         <div class="thumb">
           <img [src]="item.imageUrl || '/assets/placeholder-food.svg'" alt="{{ item.name }}" />
         </div>
@@ -46,6 +28,7 @@
           <p class="desc">{{ item.descripton }}</p>
           <div class="row">
             <span class="price">{{ item.price | currency }}</span>
+            <button class="remove-small" (click)="removeFromCart(item)">-</button>
             <button class="add-small" (click)="addToCart(item)">+</button>
           </div>
         </div>

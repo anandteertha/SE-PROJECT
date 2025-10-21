@@ -45,7 +45,10 @@ export class ViewMenuComponent implements OnInit {
   }
 
   addToCart(item: menuItem) {
-    // simple add one item; real logic could include item id & quantities
     this.cart.add(1);
+  }
+
+  removeFromCart(item: menuItem) {
+    this.cart.add(-1);
   }
 }

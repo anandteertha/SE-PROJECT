@@ -1,169 +1,270 @@
+// Top-level styles for menu page
 .menu-container {
-  // Layout & spacing
-  padding: 1.5rem;
-  max-width: 1100px;
+  padding: 2rem 1rem;
+  max-width: 1200px;
   margin: 0 auto;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
+  position: relative;
 
   h2 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #388e3c;
+    letter-spacing: 0.02em;
+    text-align: left;
   }
 
-  .menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-
-  // Filter controls
   .filter {
-    margin-bottom: 1.5rem;
-
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
     button {
-      margin-right: 0.5rem;
-      padding: 0.5rem 1rem;
+      padding: 0.7rem 1.6rem;
       border: none;
-      border-radius: 6px;
-      background: #e6e6e6;
-      color: #222;
+      border-radius: 10px;
+      background: #e8f5e9;
+      color: #388e3c;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
-
+      box-shadow: 0 2px 8px rgba(56,142,60,0.07);
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
       &.active {
-        background: #007acc;
+        background: #388e3c;
         color: #fff;
+        box-shadow: 0 2px 8px rgba(56,142,60,0.13);
+      }
+      &:hover {
+        background: #c8e6c9;
+        color: #226622;
+      }
+      &:focus-visible {
+        outline: 2px solid #388e3c;
+        outline-offset: 2px;
       }
     }
   }
 
-  // Grid and cards
   .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.2rem;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0 auto;
+  }
 
-    .card {
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(56, 142, 60, 0.10);
+    border: 1px solid #e0e0e0;
+    padding: 2.2rem 2rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 220px;
+    transition: box-shadow 0.18s, transform 0.18s;
+    &:hover {
+      box-shadow: 0 8px 32px rgba(56, 142, 60, 0.16);
+      transform: translateY(-2px);
+    }
+    h4 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #226622;
+      margin-bottom: 1.1rem;
+    }
+    .price {
+      font-size: 1.5rem;
+      color: #388e3c;
+      font-weight: 700;
+      margin: 0;
+    }
+    .desc {
+      font-size: 1.08rem;
+      color: #555;
+      margin-bottom: 0.7rem;
+    }
+    .meta {
+      font-size: 1.05rem;
+      color: #888;
+      margin-bottom: 0.7rem;
       display: flex;
-      flex-direction: column;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 6px 18px rgba(12, 24, 36, 0.04);
-  padding: 0;
+      gap: 0.7rem;
     }
-
-    // Featured card (first item) spans full row
-    .card.featured {
-      grid-column: 1 / -1;
-      display: flex;
-      gap: 1rem;
-      padding: 1rem;
-      align-items: stretch;
+    .tags {
+      font-size: 1.05rem;
+      color: #388e3c;
+      margin-top: 0.7rem;
+      font-weight: 500;
     }
-
-    .card.featured .media img {
-      width: 320px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .card.featured .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .thumb img {
+    .thumb {
       width: 100%;
-      height: 140px;
-      object-fit: cover;
-      display: block;
-      border-bottom: 1px solid #f4f4f4;
-    }
-
-    .info {
-      padding: 0.75rem;
-    }
-
-    .card .row {
+      height: 120px;
+      margin-bottom: 1.2rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding-top: 0.5rem;
+      justify-content: center;
+      img {
+        max-width: 90%;
+        max-height: 100px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(56, 142, 60, 0.07);
+      }
     }
-
-    .add-small,
-    .add {
-      background: #007acc;
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0 0.5rem 0;
+      width: 100%;
+    }
+    .add-small {
+      background: #388e3c;
       color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(56,142,60,0.09);
       cursor: pointer;
-    }
-
-    .add-small {
-      padding: 0.25rem 0.6rem;
-    }
-
-    .add {
-      padding: 0.6rem 1rem;
-    }
-
-    // Hide the duplicate first item in the grid (featured shown separately)
-    .card.hide-first {
-      display: none;
-    }
-
-    // Responsive tweaks
-    @media (max-width: 900px) {
-      .card.featured {
-        flex-direction: column;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+      margin: 0 0.1rem;
+      &:hover {
+        background: #2e7031;
+        box-shadow: 0 4px 16px rgba(56,142,60,0.13);
+        transform: scale(1.08);
       }
-
-      .card.featured .media img {
-        width: 100%;
-        height: 180px;
+      &:active {
+        background: #1b5e20;
+        transform: scale(0.97);
       }
-
-      .thumb img {
-        height: 120px;
+      &:focus-visible {
+        outline: 2px solid #388e3c;
+        outline-offset: 2px;
+      }
+    }
+    .remove-small {
+      background: #388e3c;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(56,142,60,0.09);
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+      margin: 0 0.1rem;
+      &:hover {
+        background: #2e7031;
+        box-shadow: 0 4px 16px rgba(56,142,60,0.13);
+        transform: scale(1.08);
+      }
+      &:active {
+        background: #1b5e20;
+        transform: scale(0.97);
+      }
+      &:focus-visible {
+        outline: 2px solid #388e3c;
+        outline-offset: 2px;
       }
     }
   }
-
-  // Subtle background logo (non-interactive)
+  // Responsive tweaks
+  @media (max-width: 900px) {
+    .menu-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+    .card {
+      min-height: 220px;
+    }
+    .thumb {
+      height: 90px;
+    }
+    .thumb img { max-height: 70px; }
+  }
+  @media (max-width: 640px) {
+    .bg-logo { display: none; }
+  }
   // Decorative logo element (placed behind content)
   .bg-logo {
     position: fixed;
-    right: 6%;
-    top: 18%;
-    width: 320px;
-    height: 96px;
+    left: 50%;
+    top: 8%;
+    width: clamp(220px, 32vw, 400px);
+    height: clamp(66px, 10vw, 140px);
     background-image: url('/assets/nutribite-logo.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    opacity: 0.06;
+    opacity: 0.13;
     pointer-events: none;
     z-index: 0;
-    transform: translateZ(0);
-    /* subtle floating animation */
-    animation: floatLogo 8s ease-in-out infinite;
+    transform: translate(-50%, 0);
   }
+  > *:not(.bg-logo) {
+    position: relative;
+    z-index: 1;
+  }
+}
 
-  @keyframes floatLogo {
-    0% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-6px) scale(1.02); }
-    100% { transform: translateY(0) scale(1); }
-  }
-
-  // Hide or reposition the background logo on small screens for clarity
-  @media (max-width: 640px) {
-    &::before {
-      display: none;
-    }
-  }
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  background: transparent;
+  position: relative;
+}
+.menu-header h2 {
+  flex: 1;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #388e3c;
+  margin: 0;
+}
+.menu-header .cart {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.menu-header .cart-btn {
+  background: #fff;
+  color: #388e3c;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(56,142,60,0.07);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.menu-header .cart-btn:hover {
+  background: #e8f5e9;
+  color: #226622;
 }
