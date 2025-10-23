@@ -1,38 +1,58 @@
-<div class="menu-container">
-  <!-- Decorative background logo -->
-  <div class="bg-logo" aria-hidden="true"></div>
+<div class="menu-container" [class.dark-mode]="darkMode">
   <header class="menu-header">
-    <h2>Menu</h2>
-    <div class="cart">
-      <button class="cart-btn">Cart (<span class="count">{{ cartCount$ | async }}</span>)</button>
+    <h1 class="logo">🥗 NutriBite</h1>
+
+    <div class="header-actions">
+      <button (click)="toggleDarkMode()">
+        {{ darkMode ? "☀️" : "🌙" }}
+      </button>
+      <button class="cart-btn">
+        Cart ({{ cartCount$ | async }})
+      </button>
     </div>
   </header>
 
   <div class="filter">
-    <button (click)="filterByTag('all')" [class.active]="selectedTag === 'all'">All</button>
-    <button (click)="filterByTag('vegan')" [class.active]="selectedTag === 'vegan'">Vegan</button>
-    <button (click)="filterByTag('vegetarian')" [class.active]="selectedTag === 'vegetarian'">Vegetarian</button>
-    <button (click)="filterByTag('non-veg')" [class.active]="selectedTag === 'non-veg'">Non-Veg</button>
-    <button (click)="filterByTag('gluten-free')" [class.active]="selectedTag === 'gluten-free'">Gluten-Free</button>
+    <button
+      [class.active]="selectedTag === 'all'"
+      (click)="filterByTag('all')"
+    >All</button>
+    <button
+      [class.active]="selectedTag === 'vegan'"
+      (click)="filterByTag('vegan')"
+    >Vegan</button>
+    <button
+      [class.active]="selectedTag === 'vegetarian'"
+      (click)="filterByTag('vegetarian')"
+    >Vegetarian</button>
+    <button
+      [class.active]="selectedTag === 'non-veg'"
+      (click)="filterByTag('non-veg')"
+    >Non-Veg</button>
+    <button
+      [class.active]="selectedTag === 'gluten-free'"
+      (click)="filterByTag('gluten-free')"
+    >Gluten-Free</button>
   </div>
 
-
   <div class="menu-grid">
-    <ng-container *ngIf="filteredItems && filteredItems.length">
-      <div class="card" *ngFor="let item of filteredItems">
-        <div class="thumb">
-          <img [src]="item.imageUrl || '/assets/placeholder-food.svg'" alt="{{ item.name }}" />
-        </div>
-        <div class="info">
-          <h4>{{ item.name }}</h4>
-          <p class="desc">{{ item.descripton }}</p>
-          <div class="row">
-            <span class="price">{{ item.price | currency }}</span>
-            <button class="remove-small" (click)="removeFromCart(item)">-</button>
-            <button class="add-small" (click)="addToCart(item)">+</button>
-          </div>
-        </div>
+    <div *ngFor="let item of filteredItems" class="card">
+      <div class="thumb">
+        <img
+          [src]="getImageSrc(item)"
+          [alt]="item.name"
+          (error)="onImgError($event)"
+        />
       </div>
-    </ng-container>
+      <h4>{{ item.name }}</h4>
+      <p class="desc">{{ item.description }}</p>
+      <div class="price">${{ item.price }}</div>
+
+      <div class="row">
+        <button class="remove-small" (click)="removeFromCart(item)">−</button>
+        <span>{{ item.count || 0 }}</span>
+        <button class="add-small" (click)="addToCart(item)">+</button>
+      </div>
+    </div>
   </div>
 </div>

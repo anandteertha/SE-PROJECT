@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { menuItem } from '../models/menu-item';
+import { MenuItem } from '../models/menu-item';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
@@ -9,7 +9,7 @@ export class MenuService {
 
   constructor(private http: HttpClient) {}
 
-  getMenuItems(): Observable<menuItem[]> {
-    return this.http.get<menuItem[]>(this.dataUrl);
+  getMenuItems(): Observable<MenuItem[]> {
+    return this.http.get<MenuItem[]>(this.dataUrl);
   }
 }
