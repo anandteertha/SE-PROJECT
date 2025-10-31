@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ViewMenuComponent } from './features/view-menu/view-menu';
+import { ViewMenuComponent } from './view-menu/view-menu.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'menu', pathMatch: 'full' },

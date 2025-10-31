@@ -1,9 +1,10 @@
 <div class="menu-container" [class.dark-mode]="darkMode">
+  <!-- Header -->
   <header class="menu-header">
     <h1 class="logo">🥗 NutriBite</h1>
 
     <div class="header-actions">
-      <button (click)="toggleDarkMode()">
+      <button (click)="toggleDarkMode()" class="theme-toggle">
         {{ darkMode ? "☀️" : "🌙" }}
       </button>
       <button class="cart-btn">
@@ -12,29 +13,16 @@
     </div>
   </header>
 
+  <!-- Tag Filters -->
   <div class="filter">
-    <button
-      [class.active]="selectedTag === 'all'"
-      (click)="filterByTag('all')"
-    >All</button>
-    <button
-      [class.active]="selectedTag === 'vegan'"
-      (click)="filterByTag('vegan')"
-    >Vegan</button>
-    <button
-      [class.active]="selectedTag === 'vegetarian'"
-      (click)="filterByTag('vegetarian')"
-    >Vegetarian</button>
-    <button
-      [class.active]="selectedTag === 'non-veg'"
-      (click)="filterByTag('non-veg')"
-    >Non-Veg</button>
-    <button
-      [class.active]="selectedTag === 'gluten-free'"
-      (click)="filterByTag('gluten-free')"
-    >Gluten-Free</button>
+    <button [class.active]="selectedTag === 'all'" (click)="filterByTag('all')">All</button>
+    <button [class.active]="selectedTag === 'vegan'" (click)="filterByTag('vegan')">Vegan</button>
+    <button [class.active]="selectedTag === 'vegetarian'" (click)="filterByTag('vegetarian')">Vegetarian</button>
+    <button [class.active]="selectedTag === 'non-veg'" (click)="filterByTag('non-veg')">Non-Veg</button>
+    <button [class.active]="selectedTag === 'gluten-free'" (click)="filterByTag('gluten-free')">Gluten-Free</button>
   </div>
 
+  <!-- Menu Items Grid -->
   <div class="menu-grid">
     <div *ngFor="let item of filteredItems" class="card">
       <div class="thumb">
@@ -55,4 +43,13 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer with Pacman -->
+  <footer class="menu-footer">
+    <div class="footer-pacman">
+      <app-pacman-loader></app-pacman-loader>
+    </div>
+    <p>© 2025 NutriBite. All rights reserved.</p>
+  </footer>
+
 </div>

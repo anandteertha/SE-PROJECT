@@ -1,0 +1,87 @@
+/* Stage container */
+.pacman-container {
+  position: relative;
+  width: 180px;
+  height: 80px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* Pacman built with two rotating halves (triangles formed by borders) */
+.pacman {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+}
+
+/* Use pseudo-elements to build the two halves of Pacman from one
+   DOM node. This prevents accidental duplicate pacman elements and
+   keeps the DOM simpler. */
+.pacman::before,
+.pacman::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 30px solid #f4c542; /* controls size and color */
+  border-right-color: transparent;
+  border-radius: 50%;
+  /* Set the transform origin to the center of the circle */
+  transform-origin: 30px 30px;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+
+.pacman::before {
+  /* Position the top half and set its animation */
+  top: -30px;
+  left: -30px;
+  animation-name: rotate-up;
+}
+
+.pacman::after {
+  /* Position the bottom half and set its animation */
+  top: -30px;
+  left: -30px;
+  animation-name: rotate-down;
+}
+
+@keyframes rotate-up {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-45deg); }
+}
+
+@keyframes rotate-down {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(45deg); }
+}
+
+/* Food: three items moving left toward Pacman */
+.food {
+  position: absolute;
+  top: 50%;
+  left: calc(100% - 10px);
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  animation: moveFood 2.2s linear infinite;
+}
+
+.food:nth-of-type(1) { animation-delay: 0s; }
+.food:nth-of-type(2) { animation-delay: 0.5s; }
+.food:nth-of-type(3) { animation-delay: 1s; }
+
+@keyframes moveFood {
+  0%   { transform: translate(0, -50%); opacity: 1; }
+  85%  { transform: translate(-115px, -50%); opacity: 1; }
+  100% { transform: translate(-115px, -50%); opacity: 0; }
+}
+
+/* Dark mode tint */
+:host-context(body.dark-mode) .pacman::before,
+:host-context(body.dark-mode) .pacman::after {
+  border-color: #ffee58;
+  border-right-color: transparent;
+}

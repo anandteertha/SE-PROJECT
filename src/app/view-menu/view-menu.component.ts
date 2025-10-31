@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem } from '../../models/menu-item';
-import { MenuService } from '../../services/menu.service';
-import { CartService } from '../../services/cart.service';
+import { MenuItem } from '../models/menu-item';
+import { MenuService } from '../services/menu.service';
+import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
+import { PacmanLoaderComponent } from '../pacman-loader/pacman-loader.component';
+
 
 @Component({
   selector: 'app-view-menu',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './view-menu.html',
-  styleUrls: ['./view-menu.scss']
+  imports: [CommonModule, PacmanLoaderComponent],
+  templateUrl: './view-menu.component.html',
+  styleUrls: ['./view-menu.component.scss']
 })
 export class ViewMenuComponent implements OnInit {
   menuItems: MenuItem[] = [];
