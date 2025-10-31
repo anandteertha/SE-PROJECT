@@ -37,9 +37,17 @@
       <div class="price">${{ item.price }}</div>
 
       <div class="row">
-        <button class="remove-small" (click)="removeFromCart(item)">−</button>
-        <span>{{ item.count || 0 }}</span>
-        <button class="add-small" (click)="addToCart(item)">+</button>
+        <app-revolving-button
+          text="Remove from Cart"
+          icon="−"
+          (buttonClick)="removeFromCart(item)"
+        ></app-revolving-button>
+        <span class="item-count">{{ item.count || 0 }}</span>
+        <app-revolving-button
+          text="Add to Cart"
+          icon="+"
+          (buttonClick)="addToCart(item)"
+        ></app-revolving-button>
       </div>
     </div>
   </div>

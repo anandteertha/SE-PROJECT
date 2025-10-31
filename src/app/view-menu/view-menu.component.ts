@@ -5,12 +5,13 @@ import { MenuService } from '../services/menu.service';
 import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
 import { PacmanLoaderComponent } from '../pacman-loader/pacman-loader.component';
+import { RevolvingButtonComponent } from '../revolving-button/revolving-button.component';
 
 
 @Component({
   selector: 'app-view-menu',
   standalone: true,
-  imports: [CommonModule, PacmanLoaderComponent],
+  imports: [CommonModule, PacmanLoaderComponent, RevolvingButtonComponent],
   templateUrl: './view-menu.component.html',
   styleUrls: ['./view-menu.component.scss']
 })

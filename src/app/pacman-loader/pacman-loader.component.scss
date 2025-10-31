@@ -82,6 +82,6 @@
 /* Dark mode tint */
 :host-context(body.dark-mode) .pacman::before,
 :host-context(body.dark-mode) .pacman::after {
-  border-color: #ffee58;
+  border-color: #ff9b58;
   border-right-color: transparent;
 }

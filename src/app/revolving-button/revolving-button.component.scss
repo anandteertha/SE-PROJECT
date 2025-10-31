@@ -1,0 +1,58 @@
+.revolving-button-container {
+  position: relative;
+  width: 100px; /* Reduced size */
+  height: 100px; /* Reduced size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.center-button {
+  width: 50px; /* Reduced size */
+  height: 50px; /* Reduced size */
+  background-color: #f1fff1; /* Lighter green background */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem; /* Reduced size */
+  color: #2e7d32; /* Main green color */
+  border: 3px solid #66bb6a; /* Green border */
+  box-shadow: 0 0 8px rgba(102, 187, 106, 0.5), 0 0 15px rgba(102, 187, 106, 0.3); /* Green glow */
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.revolving-button-container:hover .center-button {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(102, 187, 106, 0.7), 0 0 25px rgba(102, 187, 106, 0.5); /* Enhanced green glow */
+}
+
+.text-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: rotate 10s linear infinite;
+  pointer-events: none; /* Allows clicks to pass through to the button */
+}
+
+.text-circle text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; /* Reduced size */
+  font-weight: 600;
+  text-transform: uppercase;
+  fill: #2e7d32; /* Main green color */
+  letter-spacing: 2px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
