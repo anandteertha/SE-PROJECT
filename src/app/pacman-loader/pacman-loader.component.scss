@@ -26,7 +26,7 @@
   position: absolute;
   width: 0;
   height: 0;
-  border: 30px solid #f4c542; /* controls size and color */
+  border: 30px solid #2e7d32; /* controls size and color */
   border-right-color: transparent;
   border-radius: 50%;
   /* Set the transform origin to the center of the circle */
@@ -72,6 +72,8 @@
 .food:nth-of-type(1) { animation-delay: 0s; }
 .food:nth-of-type(2) { animation-delay: 0.5s; }
 .food:nth-of-type(3) { animation-delay: 1s; }
+.food:nth-of-type(4) { animation-delay: 1.5s; }
+.food:nth-of-type(5) { animation-delay: 2s; }
 
 @keyframes moveFood {
   0%   { transform: translate(0, -50%); opacity: 1; }
@@ -80,8 +82,8 @@
 }
 
 /* Dark mode tint */
-:host-context(body.dark-mode) .pacman::before,
-:host-context(body.dark-mode) .pacman::after {
-  border-color: #ff9b58;
+:host-context(.dark-mode) .pacman::before,
+:host-context(.dark-mode) .pacman::after {
+  border-color: #a5d6a7; /* Lighter green for dark mode */
   border-right-color: transparent;
 }

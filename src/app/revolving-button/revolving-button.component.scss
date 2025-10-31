@@ -19,14 +19,16 @@
   font-size: 1.8rem; /* Reduced size */
   color: #2e7d32; /* Main green color */
   border: 3px solid #66bb6a; /* Green border */
-  box-shadow: 0 0 8px rgba(102, 187, 106, 0.5), 0 0 15px rgba(102, 187, 106, 0.3); /* Green glow */
+  box-shadow: 0 0 5px rgba(102, 187, 106, 0.4), 0 0 10px rgba(102, 187, 106, 0.2); /* Reduced green glow */
   transition: all 0.3s ease;
   z-index: 10;
+  line-height: 50px; /* Center the icon vertically */
+  text-align: center; /* Center the icon horizontally */
 }
 
 .revolving-button-container:hover .center-button {
   transform: scale(1.1);
-  box-shadow: 0 0 12px rgba(102, 187, 106, 0.7), 0 0 25px rgba(102, 187, 106, 0.5); /* Enhanced green glow */
+  box-shadow: 0 0 8px rgba(102, 187, 106, 0.6), 0 0 15px rgba(102, 187, 106, 0.4); /* Enhanced green glow */
 }
 
 .text-circle {
