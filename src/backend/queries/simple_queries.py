@@ -103,6 +103,11 @@ class SimpleQueries(Enum):
         );
     '''
     
+    INSERT_MOCK_USER = '''
+        INSERT INTO user (Name, Password, Email)
+        VALUES ("test", "test", "test@test.com")
+    '''
+    
     INSERT_DIETARY_PREFERENCES = '''
         INSERT INTO dietary_preference 
         VALUES ("Vegan"), 

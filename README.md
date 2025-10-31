@@ -11,7 +11,7 @@
    3. DB_PASSWORD=your-workbench-connection-password
    4. PORT=3306
 5. cd src `python -m backend.queries.static_data` to post static data into the database.
-6. Start the flask server `cd src\backend` `python -m app.py`
+6. Start the flask server `cd src` `python -m backend.app`
 7. Current node.js version used for development v22.20.0
 8. `cd src\client\nutri-bite `npm i`
 9. Start the front-end server `npm start`

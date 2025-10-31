@@ -6,14 +6,19 @@ from backend.setup_database import SetupDatabase
 class PostStaticData:
     def __init__(self):
         try:
-            connect = Connect()
-            self.connection = connect.create_database_and_connect()
-            self.setupDatabase = SetupDatabase(self.connection)
-            self.setupDatabase.setup()
-            self.cursor = self.setupDatabase.cursor
+            self.get_connection()
+            self.drop_database()
+            self.get_connection()
         except Exception as e:
             print(e)
             return
+    
+    def get_connection(self):
+        connect = Connect()
+        self.connection = connect.create_database_and_connect()
+        self.setupDatabase = SetupDatabase(self.connection)
+        self.setupDatabase.setup()
+        self.cursor = self.setupDatabase.cursor
     
     def drop_database(self):
         self.cursor.execute(SimpleQueries.DROP_DATABASE.value)
@@ -35,8 +40,14 @@ class PostStaticData:
         print("Added static data for menu items..")
         pass
     
+    def mock_user(self):
+        self.cursor.execute(SimpleQueries.INSERT_MOCK_USER.value)
+        print("Added mock user..")
+        pass
+    
     def execute(self):
         self.dietary_preferences()
+        self.mock_user()
         self.menu_categories()
         self.menu_items()
         self.connection.commit()
