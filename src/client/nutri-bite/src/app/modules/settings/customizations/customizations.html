@@ -1,0 +1,40 @@
+<form [formGroup]="formGroup">
+    <app-fieldset class="form-items" [legend]="'Customizations'">
+        <mat-form-field class="item">
+            <mat-label>Dietary Preference</mat-label>
+            <mat-select>
+                @for (dietaryPreferences of dietaryPreferences; track dietaryPreferences) {
+                <mat-option [value]="dietaryPreferences">{{dietaryPreferences}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="item">
+            <mat-label>Salt</mat-label>
+            <mat-select>
+                @for (saltLevel of saltLevel; track saltLevel) {
+                <mat-option [value]="saltLevel">{{saltLevel}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <app-fieldset class="item" [legend]="'Spiciness'">
+            <mat-slider min="0" max="100" step="0.5" showTickMarks discrete [displayWith]="formatLabel">
+                <input formControlName="Spiciness" matSliderThumb>
+            </mat-slider>
+            <mat-form-field class="example-full-width">
+                <mat-label>selected spiciness value</mat-label>
+                <input matInput disabled="" placeholder="selected spiciness value"
+                    [value]="this.customization.Spiciness">
+            </mat-form-field>
+        </app-fieldset>
+        <app-fieldset class="item" [legend]="'Sweetness'">
+            <mat-slider min="0" max="100" step="0.5" showTickMarks discrete [displayWith]="formatLabel">
+                <input formControlName="Sweetness" matSliderThumb>
+            </mat-slider>
+            <mat-form-field class="example-full-width">
+                <mat-label>selected sweetness value</mat-label>
+                <input matInput disabled="" placeholder="selected sweetness value"
+                    [value]="this.customization.Sweetness">
+            </mat-form-field>
+        </app-fieldset>
+    </app-fieldset>
+</form>

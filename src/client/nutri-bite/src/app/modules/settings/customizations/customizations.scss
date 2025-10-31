@@ -1,0 +1,13 @@
+.form-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    gap: 1rem 1rem;
+    .item {
+        flex: 1 1 200px;
+        height: fit-content;
+        margin: auto 1rem;
+
+    }
+}

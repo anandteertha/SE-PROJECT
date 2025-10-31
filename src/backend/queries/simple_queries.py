@@ -17,8 +17,8 @@ class SimpleQueries(Enum):
             Name VARCHAR(255) NOT NULL,
             Password VARCHAR(255) NOT NULL,
             Email VARCHAR(255) UNIQUE NOT NULL,
-            Spiciness FLOAT CHECK (Spiciness >= 0 AND Spiciness <= 10) DEFAULT 5,
-            Sweetness FLOAT CHECK (Sweetness >= 0 AND Sweetness <= 10) DEFAULT 5,
+            Spiciness FLOAT CHECK (Spiciness >= 0 AND Spiciness <= 100) DEFAULT 50,
+            Sweetness FLOAT CHECK (Sweetness >= 0 AND Sweetness <= 100) DEFAULT 50,
             Salt VARCHAR(6) CHECK (Salt IN ('Less', 'Medium', 'High')) DEFAULT 'Medium',
             DietaryPreference VARCHAR(20),            
             
@@ -114,7 +114,7 @@ class SimpleQueries(Enum):
         ("Vegetarian"), 
         ("Swami Narayan"), 
         ("Jain"), 
-        ("Non vegetarian"), 
+        ("Non Vegetarian"), 
         ("Gluten Free"),
         ("Kosher"), 
         ("Halal");

@@ -18,6 +18,15 @@
     "paths": {
       "@modules/*": [
         "app/modules/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@models/*": [
+        "app/models/*"
+      ],
+      "@enums/*": [
+        "app/enums/*"
       ]
     }
   },
