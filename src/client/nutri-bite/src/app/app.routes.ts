@@ -1,10 +1,15 @@
 import { Routes } from '@angular/router';
-import { Settings } from '@modules/settings/settings';
+import { Customizations } from '@modules/settings/customizations/customizations';
 
 export const routes: Routes = [
     {
         title: "Customize your choices!",
-        component: Settings,
-        path: 'settings'
+        component: Customizations,
+        path: 'settings/customizations'
+    },
+    {
+        title: "Customize your choices!",
+        path: 'settings',
+        redirectTo: 'settings/customizations'
     }
 ];

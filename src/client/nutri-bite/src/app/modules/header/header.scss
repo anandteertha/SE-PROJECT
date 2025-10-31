@@ -1,0 +1,41 @@
+.app-toolbar {
+    padding-inline: 8px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.brand img {
+    display: block;
+    height: 28px;
+}
+
+.brand-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+mat-toolbar {
+    height: 64px;
+}
+
+@media (max-width: 599px) {
+    mat-toolbar {
+        height: 56px;
+    }
+
+    .brand-name {
+        font-size: 1rem;
+    }
+}

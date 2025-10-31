@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" class="app-toolbar" role="banner">
+    <a class="brand" routerLink="/" aria-label="Go to home">
+        <span class="brand-name">
+            <h1>🥗 NutriBite</h1>
+        </span>
+    </a>
+    <span class="spacer" aria-hidden="true"></span>
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu" aria-label="Open settings">
+        <mat-icon>settings</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-menu #settingsMenu="matMenu" xPosition="before" onclick="redirect('settings')">
+    <button mat-menu-item [routerLink]="customizations">Customizations</button>
+</mat-menu>
