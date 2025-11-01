@@ -1,0 +1,26 @@
+<div class="search-container">
+  <div class="search-wrapper">
+    <span class="search-icon">🔍</span>
+    <input 
+      type="text" 
+      class="search-input"
+      [(ngModel)]="searchQuery"
+      (input)="onSearchChange()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      aria-label="Search menu items"
+    />
+    <span *ngIf="!searchQuery && !isFocused" class="typing-text">
+      {{ displayText }}<span class="cursor"></span>
+    </span>
+    <button 
+      *ngIf="searchQuery" 
+      class="clear-btn"
+      (click)="clearSearch()"
+      aria-label="Clear search"
+    >
+      ✕
+    </button>
+  </div>
+  <div class="search-underline"></div>
+</div>

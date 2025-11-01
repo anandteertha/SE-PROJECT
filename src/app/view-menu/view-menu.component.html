@@ -11,6 +11,9 @@
     </div>
   </header>
 
+  <!-- Animated Search Bar -->
+  <app-search-bar (searchChange)="onSearchChange($event)"></app-search-bar>
+
   <!-- Tag Filters -->
   <div class="filter">
     <button [class.active]="selectedTag === 'all'" (click)="filterByTag('all')">All</button>

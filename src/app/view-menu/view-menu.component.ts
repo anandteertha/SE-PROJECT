@@ -6,12 +6,13 @@ import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
 import { PacmanLoaderComponent } from '../pacman-loader/pacman-loader.component';
 import { RevolvingButtonComponent } from '../revolving-button/revolving-button.component';
+import { SearchBar } from '../search-bar/search-bar';
 
 
 @Component({
   selector: 'app-view-menu',
   standalone: true,
-  imports: [CommonModule, PacmanLoaderComponent, RevolvingButtonComponent],
+  imports: [CommonModule, PacmanLoaderComponent, RevolvingButtonComponent, SearchBar],
   templateUrl: './view-menu.component.html',
   styleUrls: ['./view-menu.component.scss']
 })
@@ -21,6 +22,7 @@ export class ViewMenuComponent implements OnInit {
   selectedTag = 'all';
   darkMode = false;
   cartCount$: Observable<number>;
+  searchQuery: string = '';
 
   constructor(private menuService: MenuService, private cart: CartService) {
     this.cartCount$ = this.cart.count$;
@@ -45,10 +47,32 @@ export class ViewMenuComponent implements OnInit {
 
   filterByTag(tag: string) {
     this.selectedTag = tag;
-    this.filteredItems =
-      tag === 'all'
-        ? this.menuItems
-        : this.menuItems.filter((item) => item.tags?.includes(tag));
+    this.applyFilters();
+  }
+
+  onSearchChange(query: string) {
+    this.searchQuery = query.toLowerCase();
+    this.applyFilters();
+  }
+
+  private applyFilters() {
+    let items = this.menuItems;
+
+    // Apply tag filter
+    if (this.selectedTag !== 'all') {
+      items = items.filter((item) => item.tags?.includes(this.selectedTag));
+    }
+
+    // Apply search filter
+    if (this.searchQuery) {
+      items = items.filter((item) =>
+        item.name.toLowerCase().includes(this.searchQuery) ||
+        (item.description && item.description.toLowerCase().includes(this.searchQuery)) ||
+        item.tags?.some(tag => tag.toLowerCase().includes(this.searchQuery))
+      );
+    }
+
+    this.filteredItems = items;
   }
 
   addToCart(item: MenuItem) {
