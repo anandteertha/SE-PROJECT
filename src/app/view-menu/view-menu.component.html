@@ -4,9 +4,7 @@
     <h1 class="logo">🥗 NutriBite</h1>
 
     <div class="header-actions">
-      <button (click)="toggleDarkMode()" class="theme-toggle">
-        {{ darkMode ? "☀️" : "🌙" }}
-      </button>
+      <button (click)="toggleDarkMode()" class="theme-toggle"></button>
       <button class="cart-btn">
         Cart ({{ cartCount$ | async }})
       </button>

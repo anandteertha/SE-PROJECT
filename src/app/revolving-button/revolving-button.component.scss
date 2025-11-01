@@ -50,6 +50,15 @@
   letter-spacing: 2px;
 }
 
+/* Dark mode overrides when an ancestor (e.g., .menu-container) has .dark-mode */
+:host-context(.dark-mode) .center-button {
+  color: #81c784; /* Brighter green for + / - in dark */
+}
+
+:host-context(.dark-mode) .text-circle text {
+  fill: #c8e6c9; /* Light readable ring text in dark */
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
