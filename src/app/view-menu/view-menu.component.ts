@@ -23,6 +23,7 @@ export class ViewMenuComponent implements OnInit {
   darkMode = false;
   cartCount$: Observable<number>;
   searchQuery: string = '';
+  cartBounce: boolean = false;
 
   constructor(private menuService: MenuService, private cart: CartService) {
     this.cartCount$ = this.cart.count$;
@@ -78,13 +79,27 @@ export class ViewMenuComponent implements OnInit {
   addToCart(item: MenuItem) {
     item.count = (item.count || 0) + 1;
     this.cart.add(1);
+    this.triggerCartBounce();
   }
 
   removeFromCart(item: MenuItem) {
     if (item.count && item.count > 0) {
       item.count--;
       this.cart.add(-1);
+      this.triggerCartBounce();
     }
+  }
+
+  onCartClick() {
+    // Add your cart navigation or modal logic here
+    console.log('Cart clicked');
+  }
+
+  private triggerCartBounce() {
+    this.cartBounce = true;
+    setTimeout(() => {
+      this.cartBounce = false;
+    }, 600);
   }
 
   getImageSrc(item: MenuItem): string {
