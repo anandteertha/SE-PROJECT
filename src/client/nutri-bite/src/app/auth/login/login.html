@@ -1,0 +1,27 @@
+<div class="form-container">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+
+    <mat-card-content>
+      <form>
+        <mat-form-field appearance="outline">
+          <mat-label>Username or Email</mat-label>
+          <input matInput placeholder="user@example.com" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" required>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </mat-card-actions>
+
+    <mat-card-footer>
+      <a routerLink="/register">Don't have an account? Register</a>
+    </mat-card-footer>
+  </mat-card>
+</div>

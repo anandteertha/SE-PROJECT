@@ -1,0 +1,14 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+mat-card {
+  min-width: 400px;
+}
+
+mat-form-field {
+  width: 100%;
+}
