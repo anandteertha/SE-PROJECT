@@ -19,16 +19,18 @@
     </div>
   </header>
 
-  <!-- Animated Search Bar -->
-  <app-search-bar (searchChange)="onSearchChange($event)"></app-search-bar>
-
-  <!-- Tag Filters -->
-  <div class="filter">
-    <button [class.active]="selectedTag === 'all'" (click)="filterByTag('all')">All</button>
-    <button [class.active]="selectedTag === 'vegan'" (click)="filterByTag('vegan')">Vegan</button>
-    <button [class.active]="selectedTag === 'vegetarian'" (click)="filterByTag('vegetarian')">Vegetarian</button>
-    <button [class.active]="selectedTag === 'non-veg'" (click)="filterByTag('non-veg')">Non-Veg</button>
-    <button [class.active]="selectedTag === 'gluten-free'" (click)="filterByTag('gluten-free')">Gluten-Free</button>
+  <div class="search-tools">
+    <app-search-bar (searchChange)="onSearchChange($event)"></app-search-bar>
+    <app-filters-panel
+      [selectedCategory]="selectedCategory"
+      [selectedTag]="selectedTag"
+      [selectedSpiciness]="selectedSpiciness"
+      [selectedSweetness]="selectedSweetness"
+      [selectedSalt]="selectedSalt"
+      [categories]="categories"
+      [tags]="tags"
+      (filterChange)="onFiltersChanged($event)"
+    ></app-filters-panel>
   </div>
 
   <!-- Menu Items Grid -->

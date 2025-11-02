@@ -317,6 +317,250 @@
   }
 }
 
+/* Category filter uses same animation style as tag filter for consistency */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin: 1rem 0 1.6rem;
+
+  button {
+    position: relative;
+    background: #f5fff5;
+    border: none;
+    padding: 0.6rem 1.1rem;
+    border-radius: 25px;
+    font-weight: 600;
+    color: #2e7d32;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.25s ease;
+    font-size: 0.93rem;
+    overflow: hidden;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      background-color: #4caf50;
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+    }
+
+    &::before { left: -10px; transform: translate(-50%, -50%); }
+    &::after { right: -10px; transform: translate(50%, -50%); }
+
+    &.active { background: #66bb6a; color: #fff; transform: translateY(-2px); }
+
+    &:hover {
+      color: white;
+      &::before { animation: criss-cross-left 0.6s both; opacity: 1; }
+      &::after { animation: criss-cross-right 0.6s both; opacity: 1; }
+    }
+
+    &:focus { outline: none; box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.4); }
+  }
+}
+
+.menu-container.dark-mode .category-filter button {
+  background: #2e2e2e;
+  color: #c8e6c9;
+}
+
+.menu-container.dark-mode .category-filter button.active { background: #66bb6a; color: #fff; }
+
+/* ===== Taste filters (spiciness & sweetness sliders) ===== */
+.taste-filters {
+  /* center and limit width so sliders align with the salt control */
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 1.8rem;
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  .taste-row {
+    /* two columns where possible, stack on small screens */
+    flex: 1 1 calc(50% - 0.625rem);
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    label {
+      font-size: 0.9rem;
+      color: #2e7d32;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .taste-value {
+        background: #f1fff1;
+        color: #2e7d32;
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba(46,125,50,0.06);
+        transition: transform 0.18s ease;
+      }
+    }
+
+    .range-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    input[type='range'] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      /* two layers: the filled track (left) and base gradient (full) */
+      background: linear-gradient(#66bb6a, #66bb6a) no-repeat,
+                  linear-gradient(90deg, #ffeead 0%, #ff8a65 40%, #66bb6a 100%);
+      background-size: calc(var(--val, 0) * 10%) 100%, 100% 100%;
+      outline: none;
+      padding: 6px 0;
+      box-sizing: border-box;
+      transition: box-shadow 0.18s ease, background-size 0.18s ease;
+      box-shadow: 0 3px 10px rgba(102,187,106,0.12) inset;
+    }
+
+    /* Spiciness: gradient to red as value increases */
+    &.spicy input[type='range'] {
+      background: linear-gradient(#e53935, #e53935) no-repeat,
+                  linear-gradient(90deg, #fff8e1 0%, #ffb74d 40%, #ff7043 70%, #e53935 100%);
+      background-size: calc(var(--val, 0) * 10%) 100%, 100% 100%;
+      box-shadow: 0 3px 10px rgba(229,57,53,0.18) inset;
+    }
+    &.spicy input[type='range']::-webkit-slider-thumb { border-color: #e53935; }
+    &.spicy input[type='range']::-moz-range-thumb { border-color: #e53935; }
+    &.spicy .bubble {
+      background: linear-gradient(135deg, #ff7043, #e53935);
+      box-shadow: 0 4px 12px rgba(229,57,53,0.35);
+    }
+
+    /* Sweetness: greener as value increases */
+    &.sweet input[type='range'] {
+      background: linear-gradient(#2e7d32, #2e7d32) no-repeat,
+                  linear-gradient(90deg, #fff8e1 0%, #c8e6c9 40%, #a5d6a7 70%, #2e7d32 100%);
+      background-size: calc(var(--val, 0) * 10%) 100%, 100% 100%;
+      box-shadow: 0 3px 10px rgba(46,125,50,0.18) inset;
+    }
+    &.sweet input[type='range']::-webkit-slider-thumb { border-color: #2e7d32; }
+    &.sweet input[type='range']::-moz-range-thumb { border-color: #2e7d32; }
+    &.sweet .bubble {
+      background: linear-gradient(135deg, #66bb6a, #2e7d32);
+      box-shadow: 0 4px 12px rgba(46,125,50,0.35);
+    }
+
+    /* Webkit thumb */
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #66bb6a;
+      box-shadow: 0 6px 18px rgba(102,187,106,0.25);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      margin-top: 0; /* avoid vertical shift */
+    }
+
+    /* Firefox thumb */
+    input[type='range']::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #66bb6a;
+      box-shadow: 0 6px 18px rgba(102,187,106,0.12);
+    }
+
+    input[type='range']:active::-webkit-slider-thumb,
+    input[type='range']:active::-moz-range-thumb {
+      transform: scale(0.96);
+      filter: drop-shadow(0 2px 8px rgba(102,187,106,0.35));
+    }
+
+    /* Value bubble that tracks the thumb */
+    .bubble {
+      position: absolute;
+      top: -36px;
+      left: calc(var(--val, 0) * 10%);
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #66bb6a, #81c784);
+      color: #fff;
+      padding: 0.2rem 0.55rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(102,187,106,0.35);
+      animation: bubble-pop 200ms ease;
+      pointer-events: none;
+    }
+  }
+}
+
+/* Dark mode overrides for taste filters */
+.menu-container.dark-mode .taste-filters {
+  .taste-row {
+    label { color: #c8e6c9; }
+    .taste-value {
+      background: #1b1b1b;
+      color: #c8e6c9;
+      box-shadow: none;
+    }
+    input[type='range'] {
+      background: linear-gradient(#81c784, #81c784) no-repeat,
+                  linear-gradient(90deg, #4e342e 0%, #c62828 40%, #2e7d32 100%);
+      background-size: calc(var(--val, 0) * 10%) 100%, 100% 100%;
+    }
+    input[type='range']::-webkit-slider-thumb {
+      border: 3px solid #81c784;
+      background: #121212;
+    }
+    .bubble { background: linear-gradient(135deg, #2e7d32, #66bb6a); }
+  }
+}
+
+/* Salt control enhancements */
+.salt-control .knob {
+  animation: knob-breathe 2.8s ease-in-out infinite;
+}
+.salt-control .salt-btn:active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  box-shadow: 0 0 0 0 rgba(102,187,106,0.35);
+  animation: ripple 600ms ease-out;
+}
+.salt-control .salt-btn:hover { transform: translateY(-1px); }
+
+@keyframes bubble-pop {
+  0% { transform: translateX(-50%) scale(0.8); opacity: 0.6; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes knob-breathe {
+  0%, 100% { box-shadow: 0 6px 18px rgba(46,125,50,0.12); }
+  50% { box-shadow: 0 10px 24px rgba(46,125,50,0.24); }
+}
+
+@keyframes ripple {
+  to { box-shadow: 0 0 0 16px rgba(102,187,106,0); }
+}
+
 @keyframes bubble-effect {
   0% {
     box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7),
@@ -380,6 +624,83 @@
   gap: 1.8rem;
   justify-items: center;
   transition: all 0.3s ease;
+}
+
+/* Search + Filters row */
+.search-tools {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Salt filter styles ===== */
+.salt-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+
+  .salt-control {
+    position: relative;
+    display: flex;
+    gap: 0.25rem;
+    background: rgba(255,255,255,0.04);
+    padding: 6px;
+    border-radius: 999px;
+    align-items: center;
+    width: 100%;
+    max-width: 760px;
+    box-shadow: 0 6px 20px rgba(46,125,50,0.04);
+
+    .knob {
+      position: absolute;
+      top: 50%;
+      left: 16.66%;
+      transform: translate(-50%, -50%);
+      width: 32%;
+      height: 36px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(245,255,245,0.9));
+      border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(46,125,50,0.12);
+      transition: left 0.32s cubic-bezier(0.2,0.8,0.2,1), transform 0.28s ease;
+      z-index: 0;
+    }
+
+    .salt-btn {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      padding: 0.8rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+      color: #2e7d32;
+      cursor: pointer;
+      transition: color 0.18s ease, transform 0.18s ease;
+      flex: 1 1 0;
+      text-align: center;
+    }
+
+    /* knob positions correspond to thirds of the control */
+    &.salt-less .knob { left: 16.66%; }
+    &.salt-medium .knob { left: 50%; }
+    &.salt-high .knob { left: 83.33%; }
+
+    &.salt-less .salt-btn.active,
+    &.salt-medium .salt-btn.active,
+    &.salt-high .salt-btn.active {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Dark mode salt control tweaks */
+.menu-container.dark-mode .salt-control .knob {
+  background: linear-gradient(135deg, #2a2a2a, #1b1b1b);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
 // ====== Menu Cards ======
