@@ -9,12 +9,13 @@ import { PacmanLoaderComponent } from '../pacman-loader/pacman-loader.component'
 import { RevolvingButtonComponent } from '../revolving-button/revolving-button.component';
 import { SearchBar } from '../search-bar/search-bar';
 import { FiltersPanelComponent, FilterCriteria } from '../filters-panel/filters-panel.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 
 @Component({
   selector: 'app-view-menu',
   standalone: true,
-  imports: [CommonModule, FormsModule, PacmanLoaderComponent, RevolvingButtonComponent, SearchBar, FiltersPanelComponent],
+  imports: [CommonModule, FormsModule, PacmanLoaderComponent, RevolvingButtonComponent, SearchBar, FiltersPanelComponent, UserProfileComponent],
   templateUrl: './view-menu.component.html',
   styleUrls: ['./view-menu.component.scss']
 })
@@ -137,6 +138,12 @@ export class ViewMenuComponent implements OnInit {
   onCartClick() {
     // Add your cart navigation or modal logic here
     console.log('Cart clicked');
+  }
+
+  onProfileAction(action: string) {
+    // Placeholder for profile-related actions; other team will wire auth/routing
+    console.log('Profile action:', action);
+    // Example: if (action === 'login') { navigate to login }
   }
 
   private triggerCartBounce() {

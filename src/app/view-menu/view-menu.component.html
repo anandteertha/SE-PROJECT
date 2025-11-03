@@ -3,6 +3,8 @@
   <header class="menu-header">
     <h1 class="logo">🥗 NutriBite</h1>
 
+    <app-user-profile (action)="onProfileAction($event)"></app-user-profile>
+
     <div class="header-actions">
       <button (click)="toggleDarkMode()" class="theme-toggle"></button>
       <button class="cart-btn" (click)="onCartClick()">

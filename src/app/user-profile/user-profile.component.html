@@ -1,0 +1,23 @@
+<div class="user-profile">
+  <button class="profile-btn" (click)="onPrimaryClick()" [class.guest]="!isAuthenticated">
+    <!-- Avatar Circle -->
+    <div class="avatar">
+      <span class="avatar-text">{{ (displayName && displayName.length > 0 ? displayName[0] : 'G').toUpperCase() }}</span>
+      <div class="glow-ring"></div>
+    </div>
+    <span class="username">{{ displayName }}</span>
+  </button>
+
+  <!-- Dropdown menu for authenticated users -->
+  <div class="profile-menu" *ngIf="isAuthenticated">
+    <button class="menu-item" (click)="action.emit('settings')">
+      <span class="icon">⚙️</span> Settings
+    </button>
+    <button class="menu-item" (click)="action.emit('orders')">
+      <span class="icon">📦</span> My Orders
+    </button>
+    <button class="menu-item signout" (click)="onSignOut()">
+      <span class="icon">🚪</span> Sign Out
+    </button>
+  </div>
+</div>
