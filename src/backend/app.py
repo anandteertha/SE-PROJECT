@@ -98,7 +98,49 @@ def login_user():
     email = data.get("email")
     password = data.get("password")
 
-    print(f"RECEIVED DATA: Email={email}")
+    try:
+        db_connector = Connect()
+        connection = db_connector.connect()
+
+        # Use dictionary=True to get results as a {"column_name": "value"} dict
+        cursor = connection.cursor(dictionary=True)
+    
+        cursor.execute("USE nutribite;")
+
+
+        # Find the user by email
+        cursor.execute(SimpleQueries.SELECT_USER_BY_EMAIL.value, (email,))
+        user = cursor.fetchone() # get the first (and only) result
+
+        # check if user exists and password is correct
+        if user and bcrypt.check_password_hash(user['Password'], password):
+            # Password is correct!
+            print(f"Login successful for: {email}")
+
+            #close connection
+            cursor.close()
+            connection.close()
+
+            #Login successful
+            # sending dummy token now
+            return jsonify({
+                "message": "Login successful",
+                "token": "dummy-jwt-token-for-testing",
+                "username": user['Name']
+            }), 200
+        else:
+            #invalid email or password
+            print(f"Invalid login attempt for: {email}")
+
+            #Close connection
+            cursor.close()
+            connection.close()
+
+            return jsonify({"error": "Invalid email or password"}), 401
+        
+    except Exception as e:
+        print(f"DATABASE ERROR: {e}")
+        return jsonify({"error": "An error occured during the login."}), 500    
 
     # ---
     # TODO: Find the user in the database

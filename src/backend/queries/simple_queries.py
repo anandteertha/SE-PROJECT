@@ -151,3 +151,6 @@ class SimpleQueries(Enum):
         ('Plain Rice',            'Steamed basmati rice',                       3.50, 205,  4.3, 'plain%20rice.png?updatedAt=1760828000563', 'Rice');
     '''
     
+    SELECT_USER_BY_EMAIL = '''
+          SELECT * FROM user where Email = %s;
+    '''
