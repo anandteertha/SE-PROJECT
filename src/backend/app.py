@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+from flask_bcrypt import Bcrypt
 from backend.connect_to_database import Connect
 from backend.setup_database import SetupDatabase
 from backend.queries.static_data import PostStaticData
@@ -16,6 +17,7 @@ except Exception as e:
     print(f"DATABASE SETUP FAILED: {e}")
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 # CORS(app)
 
 @app.route('/')
@@ -36,15 +38,25 @@ def register_user():
     email = data.get("email")
     password = data.get("password")
 
+    # --- Password Validation & Hashin ---
+    if not password or len(password) < 8:
+        return jsonify({"error" : "Password must be atleast 8 character long"}), 400
+
+
+    #Hash the passowrd
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
     print(f"RECEIVED DATA: Username={username}, Email={email}")
+    print(f"HASHED PASSWORD: {hashed_password}")
 
     # ---
-    # TODO: Add password strength check (AC 4)
-    # TODO: Hash the password (for security)
-    # TODO: Save the new user to the database
+    # TODO: Save the 'username', email, and 'hashed_password' to the database
     # ---
 
-    return jsonify({"message": f"User {username} registered successfully"}), 201
+    return jsonify({"message": f"User {username} registered successfully",
+                    "username": username,
+                    "email": email
+            }), 201
 
 
 @app.route("/login", methods=["POST"])
