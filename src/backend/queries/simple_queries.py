@@ -11,6 +11,11 @@ class SimpleQueries(Enum):
         );
     '''
     
+    INSERT_NEW_USER = '''
+        INSERT INTO user (Name, Email, Password)
+        VALUES (%s, %s, %s);
+    '''
+
     CREATE_USER_AUTHENTICATION_TABLE = '''
         CREATE TABLE IF NOT EXISTS user (
             Id INT AUTO_INCREMENT PRIMARY KEY,

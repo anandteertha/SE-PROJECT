@@ -4,17 +4,23 @@ from flask_bcrypt import Bcrypt
 from backend.connect_to_database import Connect
 from backend.setup_database import SetupDatabase
 from backend.queries.static_data import PostStaticData
+from backend.queries.simple_queries import SimpleQueries
 
-# Set up the database
 
 try:
-    db_connector = Connect()    # 1. Create your connector
-    connection = db_connector.connect()    # 2. Get the raw connection from it
+    print("SETTING UP DATABASE...")
+    db_connector = Connect()
+    connection = db_connector.connect()
     
-    setup = SetupDatabase(connection)    # 3. Pass the connection to SetupDatabase
-    setup.setup()          # 4. Call the 'setup()' method
+    setup = SetupDatabase(connection)
+    setup.setup()  # run create_database(), use_database(), etc.
+    
+    # After setup, close this initial connection
+    connection.close()
+    print("DATABASE SETUP COMPLETE.")
 except Exception as e:
-    print(f"DATABASE SETUP FAILED: {e}")
+    print(f"FATAL DATABASE SETUP FAILED: {e}")
+
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -38,25 +44,50 @@ def register_user():
     email = data.get("email")
     password = data.get("password")
 
-    # --- Password Validation & Hashin ---
+    # --- Password Validation ---
     if not password or len(password) < 8:
         return jsonify({"error" : "Password must be atleast 8 character long"}), 400
 
 
-    #Hash the passowrd
+    #Hash the password
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    print(f"RECEIVED DATA: Username={username}, Email={email}")
-    print(f"HASHED PASSWORD: {hashed_password}")
+    # -- Database logic --
 
-    # ---
-    # TODO: Save the 'username', email, and 'hashed_password' to the database
-    # ---
+    try: 
+        # getting new db connection and cursor for this request
+        db_connector = Connect()
+        connection = db_connector.connect()
+        cursor = connection.cursor()
 
-    return jsonify({"message": f"User {username} registered successfully",
-                    "username": username,
-                    "email": email
-            }), 201
+        # Use the nutribite database
+        cursor.execute("USE nutribite;")
+
+        # define the data to insert
+        user_data = (username, email, hashed_password)
+
+        # Execute the query
+        cursor.execute(SimpleQueries.INSERT_NEW_USER.value, user_data)
+
+        # Commit (save) the changes to the database
+        connection.commit()
+
+        # Close the connection
+        cursor.close()
+        connection.close()
+
+    except Exception as e:
+        #Handle errors
+        print(f"DATABASE ERROR: {e}")
+        return jsonify({"error": "Failed to register user. Email may already exist."}), 500
+    
+    print(f"Successfully registered: Username={username}, Email={email}")
+
+    return jsonify({
+        "message": f"User {username} registered successfully",
+        "username": username,
+        "email": email
+    }), 201
 
 
 @app.route("/login", methods=["POST"])
@@ -79,5 +110,5 @@ def login_user():
     return jsonify({"message": "Login successful", "token": "dummy-token-123"}), 200
 
 if __name__ == '__main__':
-    Connect().setup()
+    #Connect().setup()
     app.run(debug=True) # debug=True is for development, disable in production
