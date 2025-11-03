@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { RouterModule } from '@angular/router'; // For the "register" link
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 // Import all the Material modules you need
 import { MatCardModule } from '@angular/material/card';
@@ -25,19 +26,32 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './login.html', // Use 'login.html'
   styleUrls: ['./login.scss'] // Use 'login.scss'
 })
-export class Login { // The class is 'Login'
+
+export class Login { 
 
   // Create the form group
   loginForm = new FormGroup({
-    // We can just call this 'email' for simplicity
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
   });
 
+  constructor(private http: HttpClient) {}
+
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Login Form is valid');
-      console.log(this.loginForm.value);
+      console.log('Login Form is valid. Sending to backend...');
+      
+      // 2. Use HttpClient to send the form value to Flask API
+      this.http.post('http://127.0.0.1:5000/login', this.loginForm.value)
+        .subscribe({
+          next: (response) => {
+            console.log('Login Success!', response);
+          },
+          error: (error) => {
+            console.error('Login Error!', error);
+          }
+        });
+
     } else {
       console.log('Login Form is invalid');
     }
