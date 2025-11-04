@@ -79,10 +79,13 @@ export class ViewMenuComponent implements OnInit {
   applyFilters() {
     let items = this.menuItems;
 
-    if (this.selectedTag !== 'all') {
-      const select = this.selectedTag?.toLowerCase();
-      items = items.filter((item) => item.tags?.some(tag => tag.toLowerCase() === select));
-    }
+    if (this.selectedTag && this.selectedTag !== 'all') {
+  const select = this.selectedTag.toLowerCase();
+  items = items.filter(item =>
+    item.tags && item.tags.some(tag => tag.toLowerCase() === select)
+  );
+}
+
 
     items = items.filter(item => (item as any).spiciness == null || (item as any).spiciness >= this.selectedSpiciness ? true : false);
     items = items.filter(item => (item as any).sweetness == null || (item as any).sweetness >= this.selectedSweetness ? true : false);
