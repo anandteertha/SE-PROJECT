@@ -25,11 +25,7 @@ export class UserProfileComponent {
   }
 
   onPrimaryClick() {
-    if (this.isAuthenticated) {
-      this.action.emit('profile');
-    } else {
-      this.action.emit('login');
-    }
+    this.action.emit(this.isAuthenticated ? 'profile' : 'login');
   }
 
   onSignOut() {
