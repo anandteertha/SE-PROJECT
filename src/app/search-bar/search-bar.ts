@@ -29,7 +29,7 @@ export class SearchBar implements OnInit, OnDestroy {
   private typingSpeed: number = 150;
   private deletingSpeed: number = 100;
   private pauseTime: number = 2000;
-  private typingInterval: any;
+  private typingInterval: ReturnType<typeof setTimeout> = 0 as unknown as ReturnType<typeof setTimeout>;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
