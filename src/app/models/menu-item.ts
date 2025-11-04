@@ -1,11 +1,13 @@
 export interface MenuItem {
   id: number;
   name: string;
-  description?: string;  
-  price?: number;
-  tags: string[];
-  protein?: number;
-  calories?: number;
+  description?: string;
   imageUrl?: string;
-  count?: number; 
+  price: number;
+  tags?: string[];
+  count?: number;
+  spiciness?: number;
+  sweetness?: number;
+  saltLevel?: string;
+  category?: string;
 }

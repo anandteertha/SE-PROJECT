@@ -11,13 +11,20 @@ import { SearchBar } from '../search-bar/search-bar';
 import { FiltersPanelComponent, FilterCriteria } from '../filters-panel/filters-panel.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
-
 @Component({
   selector: 'app-view-menu',
   standalone: true,
-  imports: [CommonModule, FormsModule, PacmanLoaderComponent, RevolvingButtonComponent, SearchBar, FiltersPanelComponent, UserProfileComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    PacmanLoaderComponent,
+    RevolvingButtonComponent,
+    SearchBar,
+    FiltersPanelComponent,
+    UserProfileComponent,
+  ],
   templateUrl: './view-menu.component.html',
-  styleUrls: ['./view-menu.component.scss']
+  styleUrls: ['./view-menu.component.scss'],
 })
 export class ViewMenuComponent implements OnInit {
   menuItems: MenuItem[] = [];
@@ -31,8 +38,29 @@ export class ViewMenuComponent implements OnInit {
   selectedSweetness: number = 0;
   selectedSalt: FilterCriteria['salt'] = 'any';
   selectedCategory: string = 'all';
-  readonly categories = ['Breakfast','Curry','Starters','Breads','Rice','Soups','Ice-cream','Snacks','Tea','Coffee','Milkshake'];
-  readonly tags = ['Vegan','Vegetarian','Swami Narayan','Jain','Non Vegetarian','Gluten Free','Kosher','Halal'];
+  readonly categories = [
+    'Breakfast',
+    'Curry',
+    'Starters',
+    'Breads',
+    'Rice',
+    'Soups',
+    'Ice-cream',
+    'Snacks',
+    'Tea',
+    'Coffee',
+    'Milkshake',
+  ];
+  readonly tags = [
+    'Vegan',
+    'Vegetarian',
+    'Swami Narayan',
+    'Jain',
+    'Non Vegetarian',
+    'Gluten Free',
+    'Kosher',
+    'Halal',
+  ];
 
   constructor(private menuService: MenuService, private cart: CartService) {
     this.cartCount$ = this.cart.count$;
@@ -80,31 +108,36 @@ export class ViewMenuComponent implements OnInit {
     let items = this.menuItems;
 
     if (this.selectedTag && this.selectedTag !== 'all') {
-  const select = this.selectedTag.toLowerCase();
-  items = items.filter(item =>
-    item.tags && item.tags.some(tag => tag.toLowerCase() === select)
-  );
-}
+      const select = this.selectedTag.toLowerCase();
+      items = items.filter(
+        (item) => item.tags && item.tags.some((tag) => tag.toLowerCase() === select)
+      );
+    }
 
+    items = items.filter(
+      (item) => item.spiciness == null || item.spiciness >= this.selectedSpiciness
+    );
 
-    items = items.filter(item => (item as any).spiciness == null || (item as any).spiciness >= this.selectedSpiciness ? true : false);
-    items = items.filter(item => (item as any).sweetness == null || (item as any).sweetness >= this.selectedSweetness ? true : false);
+    items = items.filter(
+      (item) => item.sweetness == null || item.sweetness >= this.selectedSweetness
+    );
 
     if (this.selectedSalt && this.selectedSalt !== 'any') {
       const s = this.selectedSalt.toLowerCase();
-      items = items.filter(item => ((item as any).saltLevel || '').toLowerCase() === s);
+      items = items.filter((item) => (item.saltLevel || '').toLowerCase() === s);
     }
 
     if (this.selectedCategory !== 'all') {
       const c = this.selectedCategory.toLowerCase();
-      items = items.filter(item => ((item as any).category || '').toLowerCase() === c);
+      items = items.filter((item) => (item.category || '').toLowerCase() === c);
     }
 
     if (this.searchQuery) {
-      items = items.filter((item) =>
-        item.name.toLowerCase().includes(this.searchQuery) ||
-        (item.description && item.description.toLowerCase().includes(this.searchQuery)) ||
-        item.tags?.some(tag => tag.toLowerCase().includes(this.searchQuery))
+      items = items.filter(
+        (item) =>
+          item.name.toLowerCase().includes(this.searchQuery) ||
+          (item.description && item.description.toLowerCase().includes(this.searchQuery)) ||
+          (item.tags && item.tags.some((tag) => tag.toLowerCase().includes(this.searchQuery)))
       );
     }
 
