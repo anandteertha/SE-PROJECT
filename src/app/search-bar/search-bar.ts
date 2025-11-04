@@ -31,7 +31,7 @@ export class SearchBar implements OnInit, OnDestroy {
   private pauseTime: number = 2000;
   private typingInterval: any;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.startTyping();
@@ -50,7 +50,7 @@ export class SearchBar implements OnInit, OnDestroy {
       // Typing forward
       this.displayText = currentText.substring(0, this.charIndex + 1);
       this.charIndex++;
-      this.cdr.detectChanges(); // Manually trigger change detection
+      this.changeDetectorRef.detectChanges(); // Manually trigger change detection
       
       if (this.charIndex === currentText.length) {
         // Finished typing, pause then start deleting
@@ -64,7 +64,7 @@ export class SearchBar implements OnInit, OnDestroy {
       // Deleting backward
       this.displayText = currentText.substring(0, this.charIndex - 1);
       this.charIndex--;
-      this.cdr.detectChanges(); // Manually trigger change detection
+      this.changeDetectorRef.detectChanges(); // Manually trigger change detection
       
       if (this.charIndex === 0) {
         // Finished deleting, move to next text
