@@ -1,7 +1,7 @@
 export interface MenuItem {
   id: number;
   name: string;
-  description?: string;  // fixed typo
+  description?: string;  
   price?: number;
   tags: string[];
   protein?: number;
