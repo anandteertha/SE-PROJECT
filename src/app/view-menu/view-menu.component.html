@@ -1,5 +1,4 @@
 <div class="menu-container" [class.dark-mode]="darkMode">
-  <!-- Header -->
   <header class="menu-header">
     <h1 class="logo">🥗 NutriBite</h1>
 
@@ -35,7 +34,6 @@
     ></app-filters-panel>
   </div>
 
-  <!-- Menu Items Grid -->
   <div class="menu-grid">
     <div *ngFor="let item of filteredItems" class="card">
       <div class="thumb">
@@ -65,7 +63,6 @@
     </div>
   </div>
 
-  <!-- Footer with Pacman -->
   <footer class="menu-footer">
     <div class="footer-pacman">
       <app-pacman-loader></app-pacman-loader>

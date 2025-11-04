@@ -9,18 +9,15 @@ describe('ViewMenuComponent', () => {
   let fixture: ComponentFixture<ViewMenuComponent>;
 
   beforeEach(async () => {
-    // Mock services to isolate the component during testing
     const mockMenuService = {
-      getMenuItems: () => of([]), // Return an observable with empty data
+      getMenuItems: () => of([]), 
     };
     const mockCartService = {
-      count$: of(0), // Return an observable for the cart count
+      count$: of(0), 
       add: () => {},
     };
 
     await TestBed.configureTestingModule({
-      // For standalone components, import them directly.
-      // The `declarations` array is not used for standalone components.
       imports: [ViewMenuComponent],
       providers: [
         { provide: MenuService, useValue: mockMenuService },

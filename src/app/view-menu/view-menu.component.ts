@@ -27,14 +27,10 @@ export class ViewMenuComponent implements OnInit {
   cartCount$: Observable<number>;
   searchQuery: string = '';
   cartBounce: boolean = false;
-  // taste filters (0-10)
   selectedSpiciness: number = 0;
   selectedSweetness: number = 0;
-  // salt levels: 'any' | 'less' | 'medium' | 'high'
   selectedSalt: FilterCriteria['salt'] = 'any';
-  // category filter
   selectedCategory: string = 'all';
-  // filter lists
   readonly categories = ['Breakfast','Curry','Starters','Breads','Rice','Soups','Ice-cream','Snacks','Tea','Coffee','Milkshake'];
   readonly tags = ['Vegan','Vegetarian','Swami Narayan','Jain','Non Vegetarian','Gluten Free','Kosher','Halal'];
 
@@ -51,9 +47,6 @@ export class ViewMenuComponent implements OnInit {
 
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
-    // Also toggle a global body class so the entire page (outside this
-    // component) can switch to dark mode. Guard against server-side
-    // rendering where `document` may be undefined.
     if (typeof document !== 'undefined') {
       document.body.classList.toggle('dark-mode', this.darkMode);
     }
@@ -83,33 +76,27 @@ export class ViewMenuComponent implements OnInit {
     this.applyFilters();
   }
 
-  // made public so template can call it on range input events
   applyFilters() {
     let items = this.menuItems;
 
-    // Apply tag filter (case-insensitive exact match)
     if (this.selectedTag !== 'all') {
       const sel = this.selectedTag?.toLowerCase();
       items = items.filter((item) => item.tags?.some(t => t.toLowerCase() === sel));
     }
 
-    // Apply taste filters: treat missing values as 0
     items = items.filter(item => (item as any).spiciness == null || (item as any).spiciness >= this.selectedSpiciness ? true : false);
     items = items.filter(item => (item as any).sweetness == null || (item as any).sweetness >= this.selectedSweetness ? true : false);
 
-    // Apply salt filter (exact match if selectedSalt != 'any')
     if (this.selectedSalt && this.selectedSalt !== 'any') {
       const s = this.selectedSalt.toLowerCase();
       items = items.filter(item => ((item as any).saltLevel || '').toLowerCase() === s);
     }
 
-    // Apply category filter (case-insensitive exact, 'all' means no filter)
     if (this.selectedCategory !== 'all') {
       const c = this.selectedCategory.toLowerCase();
       items = items.filter(item => ((item as any).category || '').toLowerCase() === c);
     }
 
-    // Apply search filter
     if (this.searchQuery) {
       items = items.filter((item) =>
         item.name.toLowerCase().includes(this.searchQuery) ||
@@ -136,14 +123,11 @@ export class ViewMenuComponent implements OnInit {
   }
 
   onCartClick() {
-    // Add your cart navigation or modal logic here
     console.log('Cart clicked');
   }
 
   onProfileAction(action: string) {
-    // Placeholder for profile-related actions; other team will wire auth/routing
     console.log('Profile action:', action);
-    // Example: if (action === 'login') { navigate to login }
   }
 
   private triggerCartBounce() {
