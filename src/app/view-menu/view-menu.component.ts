@@ -81,7 +81,7 @@ export class ViewMenuComponent implements OnInit {
 
     if (this.selectedTag !== 'all') {
       const sel = this.selectedTag?.toLowerCase();
-      items = items.filter((item) => item.tags?.some(t => t.toLowerCase() === sel));
+      items = items.filter((item) => item.tags?.some(tag => tag.toLowerCase() === sel));
     }
 
     items = items.filter(item => (item as any).spiciness == null || (item as any).spiciness >= this.selectedSpiciness ? true : false);
