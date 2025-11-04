@@ -62,12 +62,12 @@ export class ViewMenuComponent implements OnInit {
     this.applyFilters();
   }
 
-  onFiltersChanged(f: FilterCriteria) {
-    this.selectedCategory = f.category;
-    this.selectedTag = f.tag;
-    this.selectedSpiciness = f.spiciness;
-    this.selectedSweetness = f.sweetness;
-    this.selectedSalt = f.salt;
+  onFiltersChanged(filters: FilterCriteria) {
+    this.selectedCategory = filters.category;
+    this.selectedTag = filters.tag;
+    this.selectedSpiciness = filters.spiciness;
+    this.selectedSweetness = filters.sweetness;
+    this.selectedSalt = filters.salt;
     this.applyFilters();
   }
 
