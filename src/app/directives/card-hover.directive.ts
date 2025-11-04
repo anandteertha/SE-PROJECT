@@ -11,7 +11,7 @@ export class CardHoverDirective implements AfterViewInit {
   private isBrowser: boolean;
 
   constructor(
-    private el: ElementRef<HTMLElement>,
+    private element: ElementRef<HTMLElement>,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) platformId: Object
   ) {
@@ -24,21 +24,21 @@ export class CardHoverDirective implements AfterViewInit {
       // We need to create and append the glow element dynamically.
       this.glowElement = this.renderer.createElement('div');
       this.renderer.addClass(this.glowElement, 'glow');
-      this.renderer.appendChild(this.el.nativeElement, this.glowElement);
+      this.renderer.appendChild(this.element.nativeElement, this.glowElement);
     }
   }
 
   @HostListener('mouseenter')
   onMouseEnter() {
     if (this.isBrowser) {
-      this.bounds = this.el.nativeElement.getBoundingClientRect();
+      this.bounds = this.element.nativeElement.getBoundingClientRect();
     }
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
     if (this.isBrowser) {
-      this.renderer.setStyle(this.el.nativeElement, 'transform', '');
+      this.renderer.setStyle(this.element.nativeElement, 'transform', '');
       this.renderer.setStyle(this.glowElement, 'background-image', '');
     }
   }
@@ -61,7 +61,7 @@ export class CardHoverDirective implements AfterViewInit {
 
     // Set transform on the card
     this.renderer.setStyle(
-      this.el.nativeElement,
+      this.element.nativeElement,
       'transform',
       `
         scale3d(1.07, 1.07, 1.07)
