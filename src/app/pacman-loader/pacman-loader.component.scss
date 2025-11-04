@@ -1,4 +1,3 @@
-/* Stage container */
 .pacman-container {
   position: relative;
   width: 180px;
@@ -7,7 +6,6 @@
   overflow: visible;
 }
 
-/* Pacman built with two rotating halves (triangles formed by borders) */
 .pacman {
   position: absolute;
   left: 20px;
@@ -17,33 +15,27 @@
   height: 0;
 }
 
-/* Use pseudo-elements to build the two halves of Pacman from one
-   DOM node. This prevents accidental duplicate pacman elements and
-   keeps the DOM simpler. */
 .pacman::before,
 .pacman::after {
   content: '';
   position: absolute;
   width: 0;
   height: 0;
-  border: 30px solid #2e7d32; /* controls size and color */
+  border: 30px solid #2e7d32; 
   border-right-color: transparent;
   border-radius: 50%;
-  /* Set the transform origin to the center of the circle */
   transform-origin: 30px 30px;
   animation-duration: 0.5s;
   animation-iteration-count: infinite;
 }
 
 .pacman::before {
-  /* Position the top half and set its animation */
   top: -30px;
   left: -30px;
   animation-name: rotate-up;
 }
 
 .pacman::after {
-  /* Position the bottom half and set its animation */
   top: -30px;
   left: -30px;
   animation-name: rotate-down;
@@ -59,7 +51,6 @@
   50% { transform: rotate(45deg); }
 }
 
-/* Food: three items moving left toward Pacman */
 .food {
   position: absolute;
   top: 50%;
@@ -81,9 +72,8 @@
   100% { transform: translate(-115px, -50%); opacity: 0; }
 }
 
-/* Dark mode tint */
 :host-context(.dark-mode) .pacman::before,
 :host-context(.dark-mode) .pacman::after {
-  border-color: #a5d6a7; /* Lighter green for dark mode */
+  border-color: #a5d6a7; 
   border-right-color: transparent;
 }
