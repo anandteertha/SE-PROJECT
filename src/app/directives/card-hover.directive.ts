@@ -20,8 +20,6 @@ export class CardHoverDirective implements AfterViewInit {
 
   ngAfterViewInit() {
     if (this.isBrowser) {
-      // The directive's host element is the card itself.
-      // We need to create and append the glow element dynamically.
       this.glowElement = this.renderer.createElement('div');
       this.renderer.addClass(this.glowElement, 'glow');
       this.renderer.appendChild(this.element.nativeElement, this.glowElement);
