@@ -9,10 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent {
-  // Emit when user clicks login/profile to let parent handle routing/auth
   @Output() action = new EventEmitter<string>();
 
-  // lightweight guest-mode detection (other team will wire proper auth)
   get isAuthenticated(): boolean {
     try {
       return !!localStorage.getItem('user');

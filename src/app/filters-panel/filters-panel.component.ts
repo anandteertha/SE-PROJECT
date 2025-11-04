@@ -21,7 +21,6 @@ export interface FilterCriteria {
 })
 export class FiltersPanelComponent {
   showPanel = false;
-  // Inputs from parent to initialize and display the current selections
   @Input() selectedCategory: string = 'all';
   @Input() selectedTag: string = 'all';
   @Input() selectedSpiciness: number = 0;

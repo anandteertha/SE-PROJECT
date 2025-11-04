@@ -4,7 +4,6 @@
   </button>
 
   <div class="filters-panel" role="menu" *ngIf="showPanel">
-    <!-- Categories -->
     <section class="group">
       <h4>Categories</h4>
       <div class="btns">
@@ -15,7 +14,6 @@
       </div>
     </section>
 
-    <!-- Dietary Preferences (Tags) -->
     <section class="group">
       <h4>Dietary Preferences</h4>
       <div class="btns">
@@ -26,7 +24,6 @@
       </div>
     </section>
 
-    <!-- Taste sliders -->
     <section class="group two-col">
       <div class="taste-row spicy">
         <label>Spiciness <span class="taste-value">{{ selectedSpiciness }}</span></label>
@@ -44,7 +41,6 @@
       </div>
     </section>
 
-    <!-- Salt selector -->
     <section class="group">
       <h4>Salt level</h4>
       <div class="salt-control" [ngClass]="'salt-' + selectedSalt">

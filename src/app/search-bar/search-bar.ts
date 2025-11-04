@@ -47,13 +47,11 @@ export class SearchBar implements OnInit, OnDestroy {
     const currentText = this.placeholders[this.currentIndex];
     
     if (!this.isDeleting) {
-      // Typing forward
       this.displayText = currentText.substring(0, this.charIndex + 1);
       this.charIndex++;
-      this.changeDetectorRef.detectChanges(); // Manually trigger change detection
+      this.changeDetectorRef.detectChanges(); 
       
       if (this.charIndex === currentText.length) {
-        // Finished typing, pause then start deleting
         this.isDeleting = true;
         this.typingInterval = setTimeout(() => this.startTyping(), this.pauseTime);
         return;
@@ -61,13 +59,11 @@ export class SearchBar implements OnInit, OnDestroy {
       
       this.typingInterval = setTimeout(() => this.startTyping(), this.typingSpeed);
     } else {
-      // Deleting backward
       this.displayText = currentText.substring(0, this.charIndex - 1);
       this.charIndex--;
-      this.changeDetectorRef.detectChanges(); // Manually trigger change detection
+      this.changeDetectorRef.detectChanges(); 
       
       if (this.charIndex === 0) {
-        // Finished deleting, move to next text
         this.isDeleting = false;
         this.currentIndex = (this.currentIndex + 1) % this.placeholders.length;
         this.typingInterval = setTimeout(() => this.startTyping(), 500);
