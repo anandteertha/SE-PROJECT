@@ -6,30 +6,22 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
   @Output() action = new EventEmitter<string>();
 
   get isAuthenticated(): boolean {
-    try {
-      return !!localStorage.getItem('user');
-    } catch (e) {
-      return false;
-    }
+    return !!localStorage.getItem('user');
   }
 
   get displayName(): string {
-    if (this.isAuthenticated) {
-      try {
-        const u = JSON.parse(localStorage.getItem('user') || '{}');
-        const emailName = u?.email ? u.email.split('@')[0] : undefined;
-        return u?.name || emailName || 'You';
-      } catch {
-        return 'You';
-      }
-    }
-    return 'Guest';
+    const userJson = localStorage.getItem('user');
+    if (!userJson) return 'Guest';
+
+    const user = JSON.parse(userJson);
+    const emailName = user.email ? user.email.split('@')[0] : undefined;
+    return user.name || emailName || 'You';
   }
 
   onPrimaryClick() {
