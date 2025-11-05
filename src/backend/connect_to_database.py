@@ -31,8 +31,8 @@ class Connect:
     
     def setup(self):
         try:
-            connection = self.create_database_and_connect()
-            SetupDatabase(connection).setup()
+            self.connection = self.create_database_and_connect()
+            SetupDatabase(self.connection).setup()
+            return self.connection
         except Exception as e:
-            print(e)
-            return
+            raise e

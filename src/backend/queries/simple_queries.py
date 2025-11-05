@@ -11,6 +11,10 @@ class SimpleQueries(Enum):
         );
     '''
     
+    SELECT_DIETARY_PREFERENCE = '''
+        SELECT * FROM dietary_preference;
+    '''    
+    
     CREATE_USER_AUTHENTICATION_TABLE = '''
         CREATE TABLE IF NOT EXISTS user (
             Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,12 +58,22 @@ class SimpleQueries(Enum):
             ProteinCount FLOAT NOT NULL,
             ImageUrl VARCHAR(255) NOT NULL,
             Category VARCHAR(255) NOT NULL DEFAULT 'NutriBite Special',
+            DietType VARCHAR(255) NOT NULL DEFAULT 'Vegetarian',
+            
+            FOREIGN KEY (DietType)
+            REFERENCES dietary_preference (Name)
+            ON DELETE SET DEFAULT
+            ON UPDATE CASCADE,
             
             FOREIGN KEY (Category)
             REFERENCES menu_category (Name)
             ON DELETE SET DEFAULT
             ON UPDATE CASCADE
         );
+    '''
+    
+    SELECT_MENU_ITEMS = '''
+        SELECT * FROM menu_item;
     '''
     
     CREATE_USER_CART_TABLE = '''
@@ -82,6 +96,33 @@ class SimpleQueries(Enum):
         );
     '''
     
+    SELECT_USER_CART = '''
+        SELECT *
+        FROM cart
+        WHERE UserId = %s;
+    '''
+    
+    SELECT_USER_CART_WITH_MENU = '''
+        SELECT *
+        FROM cart
+        WHERE UserId = %s AND MenuItemId = %s;
+    '''
+    
+    INSERT_USER_CART = '''
+        INSERT INTO cart (UserId, MenuItemId, Quantity, ExtraNote)
+        VALUES (%s, %s, %s, %s)
+        ON DUPLICATE KEY UPDATE
+            Quantity = VALUES(Quantity),
+            ExtraNote = VALUES(ExtraNote);
+
+    '''
+    
+    DELETE_USER_CART = '''
+        DELETE *
+        FROM cart
+        WHERE UserId = %s;
+    '''
+    
     CREATE_USER_MENU_SETTINGS = '''
         CREATE TABLE IF NOT EXISTS user_settings (
             UserId INT NOT NULL,
@@ -101,6 +142,21 @@ class SimpleQueries(Enum):
             ON DELETE CASCADE
             ON UPDATE CASCADE
         );
+    '''
+    
+    INSERT_MOCK_USER = '''
+        INSERT INTO user (Name, Password, Email)
+        VALUES ("test", "test", "test@test.com")
+    '''
+    
+    SELECT_USER_MENU_SETTINGS = '''
+        SELECT * FROM user_settings;
+    '''
+    
+    SELECT_ONE_USER_MENU_SETTINGS = '''
+        SELECT *
+        FROM user_settings
+        WHERE UserId = %s
     '''
     
     INSERT_DIETARY_PREFERENCES = '''
@@ -128,6 +184,10 @@ class SimpleQueries(Enum):
         ("Tea"),
         ("Coffee"),
         ("Milkshake");
+    '''
+    
+    SELECT_MENU_CATEGORIES = '''
+        SELECT * FROM menu_category;
     '''
     
     INSERT_MENU_ITEMS = '''
