@@ -160,7 +160,7 @@ class SimpleQueries(Enum):
     ORDER BY mi.Name ASC;
     """
 
-    UPSERT_CART_ITEM = """
+    INSERT_CART_ITEM = """
     INSERT INTO cart (UserId, MenuItemId, Quantity)
     VALUES (%s, %s, %s)
     ON DUPLICATE KEY UPDATE Quantity = VALUES(Quantity);
