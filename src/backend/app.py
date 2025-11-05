@@ -6,6 +6,121 @@ import math
 
 app = Flask(__name__)
 
+def fetchall_try(cur, sqls):
+    for sql in sqls:
+        try:
+            cur.execute(sql)
+            return cur.fetchall()
+        except Exception as _:
+            continue
+    raise Exception("No compatible menu table found (menu_item or menu_items)")
+
+def execute_try(cur, sqls, params):
+    for sql in sqls:
+        try:
+            cur.execute(sql, params)
+            return True
+        except Exception as _:
+            continue
+    raise Exception("No compatible cart table found (cart/user_cart)")
+
+# ---------- GET /api/menu ----------
+@app.route('/api/menu', methods=['GET'])
+def get_menu():
+    conn = get_db()
+    cur = conn.cursor(dictionary=True)
+    try:
+        rows = fetchall_try(cur, [
+            """
+            SELECT 
+              Id           AS product_id,
+              Name         AS name,
+              Description  AS description,
+              Cost         AS price,
+              CalorieCount AS calories,
+              ProteinCount AS protein,
+              0            AS carbs,
+              0            AS fat,
+              ImageUrl     AS image_url,
+              Category     AS category
+            FROM menu_item
+            ORDER BY Name ASC
+            """,
+            """
+            SELECT 
+              product_id, name, description, price, calories, protein,
+              COALESCE(carbs,0) AS carbs, COALESCE(fat,0) AS fat,
+              image_url, category
+            FROM menu_items
+            ORDER BY name ASC
+            """
+        ])
+        items = [{
+            "productId": r.get("product_id"),
+            "name": r.get("name"),
+            "description": r.get("description"),
+            "price": float(r.get("price")),
+            "imageUrl": r.get("image_url"),
+            "category": r.get("category"),
+            "nutrition": {
+                "calories": int(r.get("calories") or 0),
+                "protein": float(r.get("protein") or 0),
+                "carbs": float(r.get("carbs") or 0),
+                "fat": float(r.get("fat") or 0)
+            }
+        } for r in rows]
+        return jsonify(items)
+    finally:
+        cur.close()
+
+# ---------- POST /api/cart/items ----------
+@app.route('/api/cart/items', methods=['POST'])
+def add_to_cart():
+    user_id = current_user_id()
+    data = request.get_json(silent=True) or {}
+    product_id = data.get('productId')
+    quantity = data.get('quantity', 1)
+
+    if product_id is None or quantity is None:
+        return jsonify({"ok": False, "message": "productId and quantity required"}), 400
+    try:
+        quantity = int(quantity)
+        if quantity <= 0:
+            return jsonify({"ok": False, "message": "quantity must be > 0"}), 400
+    except:
+        return jsonify({"ok": False, "message": "quantity must be integer"}), 400
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    try:
+        ok = execute_try(cur, [
+            """
+            INSERT INTO cart (UserId, MenuItemId, Quantity)
+            VALUES (%s,
+                    -- if client sent a string product_id, map it to Id via menu_items/menu_item
+                    CASE WHEN %s REGEXP '^[0-9]+$' THEN %s
+                         ELSE (SELECT Id FROM menu_item WHERE Name = %s OR Id = %s LIMIT 1)
+                    END,
+                    %s)
+            ON DUPLICATE KEY UPDATE Quantity = Quantity + VALUES(Quantity)
+            """,
+            """
+            INSERT INTO user_cart (user_id, product_id, quantity)
+            VALUES (%s, %s, %s)
+            ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)
+            """
+        ], (user_id, str(product_id), product_id, str(product_id), product_id, quantity))
+
+        conn.commit()
+        return jsonify({"ok": True}), 200
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"ok": False, "message": str(e)}), 500
+    finally:
+        cur.close()
+
+
 @app.after_request
 def add_cors_headers(resp):
     resp.headers["Access-Control-Allow-Origin"] = "http://localhost:4200"
