@@ -57,10 +57,10 @@ export class FiltersPanelComponent {
 
   reset() {
     this.selectedCategory = 'all';
-    this.selectedDietaryPreference = 'all';
-    this.selectedSpiciness = 0;
-    this.selectedSweetness = 0;
-    this.selectedSalt = 'any';
+    this.selectedDietaryPreference = 'Vegetarian';
+    this.selectedSpiciness = 5;
+    this.selectedSweetness = 5;
+    this.selectedSalt = 'Medium' as SaltLevel;
     this.emit();
     this.closePanel();
   }

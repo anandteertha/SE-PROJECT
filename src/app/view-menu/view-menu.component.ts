@@ -1,12 +1,14 @@
-import { map, Observable } from 'rxjs';
+import { map, mergeMap, Observable, Subject, takeUntil } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FilterCriteria, FiltersPanelComponent } from '@app/filters-panel/filters-panel.component';
+import {
+    FilterCriteria, FiltersPanelComponent, SaltLevel
+} from '@app/filters-panel/filters-panel.component';
 import { CartItem } from '@app/models/cart-item';
-import { MenuData } from '@app/models/menu-data';
 import { MenuSettings } from '@app/models/menu-settings';
+import { UserDetails } from '@app/models/user-details';
 import { PacmanLoaderComponent } from '@app/pacman-loader/pacman-loader.component';
 import { RevolvingButtonComponent } from '@app/revolving-button/revolving-button.component';
 import { SearchBar } from '@app/search-bar/search-bar';
@@ -30,11 +32,11 @@ import { MenuItem } from '@models/menu-item';
   templateUrl: './view-menu.component.html',
   styleUrls: ['./view-menu.component.scss'],
 })
-export class ViewMenuComponent implements OnInit {
+export class ViewMenuComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [];
   filteredItems: MenuItem[] = [];
   selectedDietaryPreference = 'all';
-  darkMode = false;
+  darkMode!: boolean;
   cartCount$: Observable<number>;
   searchQuery: string = '';
   cartBounce: boolean = false;
@@ -47,16 +49,20 @@ export class ViewMenuComponent implements OnInit {
   menuSettings: MenuSettings[] = [];
   cartItems: Map<number, CartItem> = new Map<number, CartItem>();
   userId: number = 1;
+  userData!: UserDetails;
+  destroyed: Subject<boolean> = new Subject<boolean>();
 
   constructor(private menuService: MenuService, private cart: CartService) {
     this.cartCount$ = this.cart.count$;
   }
 
   ngOnInit() {
+    this.darkMode = localStorage.getItem('darkMode') === 'yes';
+    this.setDarkMode();
     this.menuService
-      .getMenuData(this.userId) // replace with user_id
+      .getMenuData(this.userId)
       .pipe(
-        map((menuData: MenuData) => {
+        mergeMap((menuData) => {
           this.dietaryPreferences = menuData.dietary_preferences.map(
             (dietaryPreference) => dietaryPreference.Name
           );
@@ -67,20 +73,34 @@ export class ViewMenuComponent implements OnInit {
             this.cartItems.set(cartItem.MenuItemId, cartItem);
             this.cart.add(cartItem.Quantity);
           });
-        })
+          return this.menuService.getUserDetails(this.userId);
+        }),
+        takeUntil(this.destroyed)
       )
       .subscribe({
+        next: (userDetails: UserDetails) => {
+          this.userData = userDetails;
+          this.selectedDietaryPreference = this.userData.DietaryPreference;
+          this.selectedSalt = this.userData.Salt as SaltLevel;
+          this.selectedSpiciness = this.userData.Spiciness;
+          this.selectedSweetness = this.userData.Sweetness;
+        },
         complete: () => {
           this.filteredItems = [...this.menuItems];
         },
       });
   }
 
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
+  setDarkMode(): void {
     if (typeof document !== 'undefined') {
       document.body.classList.toggle('dark-mode', this.darkMode);
     }
+    localStorage.setItem('darkMode', this.darkMode ? 'yes' : 'no');
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    this.setDarkMode();
   }
 
   filterByTag(tag: string) {
@@ -107,6 +127,20 @@ export class ViewMenuComponent implements OnInit {
     this.applyFilters();
   }
 
+  updateUserDetails(): void {
+    this.userData.DietaryPreference = this.selectedDietaryPreference;
+    this.userData.Salt = this.selectedSalt;
+    this.userData.Spiciness = this.selectedSpiciness;
+    this.userData.Sweetness = this.selectedSweetness;
+
+    this.menuService
+      .patchUserDetails(this.userData)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe({
+        complete: () => {},
+      });
+  }
+
   applyFilters() {
     let items = this.menuItems;
 
@@ -126,7 +160,7 @@ export class ViewMenuComponent implements OnInit {
           (item.DietType && item.DietType.toLowerCase().includes(this.searchQuery))
       );
     }
-
+    this.updateUserDetails();
     this.filteredItems = items;
   }
 
@@ -178,5 +212,9 @@ export class ViewMenuComponent implements OnInit {
 
   onImgError(event: Event) {
     const img = event.target as HTMLImageElement;
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
   }
 }

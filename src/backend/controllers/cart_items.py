@@ -16,4 +16,3 @@ class CartItems:
             cur.execute(SimpleQueries.SELECT_USER_CART_WITH_MENU.value, (cart_items.UserId, cart_items.MenuItemId))
             row = cur.fetchone()
         return row
-    

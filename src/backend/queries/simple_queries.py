@@ -24,7 +24,7 @@ class SimpleQueries(Enum):
             Spiciness FLOAT CHECK (Spiciness >= 0 AND Spiciness <= 10) DEFAULT 5,
             Sweetness FLOAT CHECK (Sweetness >= 0 AND Sweetness <= 10) DEFAULT 5,
             Salt VARCHAR(6) CHECK (Salt IN ('Less', 'Medium', 'High')) DEFAULT 'Medium',
-            DietaryPreference VARCHAR(20),            
+            DietaryPreference VARCHAR(20) DEFAULT 'Vegetarian',
             
             FOREIGN KEY (DietaryPreference)
             REFERENCES dietary_preference (Name)
@@ -33,7 +33,11 @@ class SimpleQueries(Enum):
         );
     '''
     
-    
+    SELECT_USER_DETAILS = '''
+        SELECT * FROM user
+        WHERE Id = %s;
+    '''
+      
     CREATE_MENU_CATEGORIES_TABLE = '''
         CREATE TABLE IF NOT EXISTS menu_category (
             Name VARCHAR(255) PRIMARY KEY
@@ -149,6 +153,18 @@ class SimpleQueries(Enum):
         VALUES ("test", "test", "test@test.com")
     '''
     
+    UPDATE_USER = '''
+        UPDATE user SET 
+            Name = COALESCE(%s, Name),
+            Password = COALESCE(%s, Password),
+            Email = COALESCE(%s, Email),
+            Spiciness = COALESCE(%s, Spiciness),
+            Sweetness = COALESCE(%s, Sweetness),
+            Salt = COALESCE(%s, Salt),
+            DietaryPreference = COALESCE(%s, DietaryPreference)
+        WHERE Id = %s;
+    '''
+    
     SELECT_USER_MENU_SETTINGS = '''
         SELECT * FROM user_settings;
     '''
@@ -168,7 +184,8 @@ class SimpleQueries(Enum):
         ("Non vegetarian"), 
         ("Gluten Free"),
         ("Kosher"), 
-        ("Halal");
+        ("Halal"),
+        ("all");
     '''
     
     INSERT_MENU_CATEGORIES = '''
