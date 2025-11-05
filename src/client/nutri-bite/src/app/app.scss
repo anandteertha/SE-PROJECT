@@ -1,0 +1,39 @@
+
+.navbar {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+.nav-links button,
+.nav-links a {
+  background: none;
+  border: none;
+  color: #3f51b5; 
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.nav-links button:hover,
+.nav-links a:hover {
+  text-decoration: underline;
+}
