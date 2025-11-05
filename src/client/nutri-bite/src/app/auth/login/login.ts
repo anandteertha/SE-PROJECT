@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; // For the "register" link
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 // Import all the Material modules you need
 import { MatCardModule } from '@angular/material/card';
@@ -35,7 +36,7 @@ export class Login {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -46,6 +47,8 @@ export class Login {
         .subscribe({
           next: (response) => {
             console.log('Login Success!', response);
+            this.router.navigate(['/home']);
+
           },
           error: (error) => {
             console.error('Login Error!', error);
