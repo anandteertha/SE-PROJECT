@@ -1,15 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MenuItem } from '../models/menu-item';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CartItem } from '@app/models/cart-item';
+import { MenuData } from '@app/models/menu-data';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
-  private dataUrl = 'menu.json';
+  private dataUrl = '/api';
 
   constructor(private http: HttpClient) {}
 
-  getMenuItems(): Observable<MenuItem[]> {
-    return this.http.get<MenuItem[]>(this.dataUrl);
+  getMenuData(user_id: number): Observable<MenuData> {
+    const params = new HttpParams().set('user_id', user_id);
+    return this.http.get<MenuData>(`${this.dataUrl}/menu-items`, {
+      params: params,
+    });
+  }
+
+  postUserCartData(cartData: CartItem): Observable<CartItem> {
+    return this.http.post<CartItem>(`${this.dataUrl}/cart`, cartData);
   }
 }

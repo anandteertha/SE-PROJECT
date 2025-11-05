@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
+
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MenuItem } from '../models/menu-item';
-import { MenuService } from '../services/menu.service';
-import { CartService } from '../services/cart.service';
-import { Observable } from 'rxjs';
-import { PacmanLoaderComponent } from '../pacman-loader/pacman-loader.component';
-import { RevolvingButtonComponent } from '../revolving-button/revolving-button.component';
-import { SearchBar } from '../search-bar/search-bar';
-import { FiltersPanelComponent, FilterCriteria } from '../filters-panel/filters-panel.component';
-import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { FilterCriteria, FiltersPanelComponent } from '@app/filters-panel/filters-panel.component';
+import { CartItem } from '@app/models/cart-item';
+import { MenuData } from '@app/models/menu-data';
+import { MenuSettings } from '@app/models/menu-settings';
+import { PacmanLoaderComponent } from '@app/pacman-loader/pacman-loader.component';
+import { RevolvingButtonComponent } from '@app/revolving-button/revolving-button.component';
+import { SearchBar } from '@app/search-bar/search-bar';
+import { CartService } from '@app/services/cart.service';
+import { MenuService } from '@app/services/menu.service';
+import { UserProfileComponent } from '@app/user-profile/user-profile.component';
+import { MenuItem } from '@models/menu-item';
 
 @Component({
   selector: 'app-view-menu',
@@ -29,7 +33,7 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 export class ViewMenuComponent implements OnInit {
   menuItems: MenuItem[] = [];
   filteredItems: MenuItem[] = [];
-  selectedTag = 'all';
+  selectedDietaryPreference = 'all';
   darkMode = false;
   cartCount$: Observable<number>;
   searchQuery: string = '';
@@ -38,39 +42,38 @@ export class ViewMenuComponent implements OnInit {
   selectedSweetness: number = 0;
   selectedSalt: FilterCriteria['salt'] = 'any';
   selectedCategory: string = 'all';
-  readonly categories = [
-    'Breakfast',
-    'Curry',
-    'Starters',
-    'Breads',
-    'Rice',
-    'Soups',
-    'Ice-cream',
-    'Snacks',
-    'Tea',
-    'Coffee',
-    'Milkshake',
-  ];
-  readonly tags = [
-    'Vegan',
-    'Vegetarian',
-    'Swami Narayan',
-    'Jain',
-    'Non Vegetarian',
-    'Gluten Free',
-    'Kosher',
-    'Halal',
-  ];
+  dietaryPreferences: string[] = [];
+  menuCategories: string[] = [];
+  menuSettings: MenuSettings[] = [];
+  cartItems: Map<number, CartItem> = new Map<number, CartItem>();
+  userId: number = 1;
 
   constructor(private menuService: MenuService, private cart: CartService) {
     this.cartCount$ = this.cart.count$;
   }
 
   ngOnInit() {
-    this.menuService.getMenuItems().subscribe((data) => {
-      this.menuItems = data.map((item) => ({ ...item, count: 0 }));
-      this.filteredItems = [...this.menuItems];
-    });
+    this.menuService
+      .getMenuData(this.userId) // replace with user_id
+      .pipe(
+        map((menuData: MenuData) => {
+          this.dietaryPreferences = menuData.dietary_preferences.map(
+            (dietaryPreference) => dietaryPreference.Name
+          );
+          this.menuCategories = menuData.menu_categories.map((menuCategory) => menuCategory.Name);
+          this.menuItems = menuData.menu_items;
+          this.menuSettings = menuData.user_menu_settings;
+          menuData.cart_items.forEach((cartItem) => {
+            this.cartItems.set(cartItem.MenuItemId, cartItem);
+            this.cart.add(cartItem.Quantity);
+          });
+        })
+      )
+      .subscribe({
+        complete: () => {
+          this.filteredItems = [...this.menuItems];
+        },
+      });
   }
 
   toggleDarkMode() {
@@ -81,7 +84,7 @@ export class ViewMenuComponent implements OnInit {
   }
 
   filterByTag(tag: string) {
-    this.selectedTag = tag;
+    this.selectedDietaryPreference = tag;
     this.applyFilters();
   }
 
@@ -92,7 +95,7 @@ export class ViewMenuComponent implements OnInit {
 
   onFiltersChanged(filters: FilterCriteria) {
     this.selectedCategory = filters.category;
-    this.selectedTag = filters.tag;
+    this.selectedDietaryPreference = filters.dietaryPreference;
     this.selectedSpiciness = filters.spiciness;
     this.selectedSweetness = filters.sweetness;
     this.selectedSalt = filters.salt;
@@ -107,37 +110,20 @@ export class ViewMenuComponent implements OnInit {
   applyFilters() {
     let items = this.menuItems;
 
-    if (this.selectedTag && this.selectedTag !== 'all') {
-      const select = this.selectedTag.toLowerCase();
-      items = items.filter(
-        (item) => item.tags && item.tags.some((tag) => tag.toLowerCase() === select)
-      );
-    }
-
-    items = items.filter(
-      (item) => item.spiciness == null || item.spiciness >= this.selectedSpiciness
-    );
-
-    items = items.filter(
-      (item) => item.sweetness == null || item.sweetness >= this.selectedSweetness
-    );
-
-    if (this.selectedSalt && this.selectedSalt !== 'any') {
-      const s = this.selectedSalt.toLowerCase();
-      items = items.filter((item) => (item.saltLevel || '').toLowerCase() === s);
+    if (this.selectedDietaryPreference && this.selectedDietaryPreference !== 'all') {
+      items = items.filter((item) => item.DietType === this.selectedDietaryPreference);
     }
 
     if (this.selectedCategory !== 'all') {
-      const c = this.selectedCategory.toLowerCase();
-      items = items.filter((item) => (item.category || '').toLowerCase() === c);
+      items = items.filter((item) => item.Category === this.selectedCategory);
     }
 
     if (this.searchQuery) {
       items = items.filter(
         (item) =>
-          item.name.toLowerCase().includes(this.searchQuery) ||
-          (item.description && item.description.toLowerCase().includes(this.searchQuery)) ||
-          (item.tags && item.tags.some((tag) => tag.toLowerCase().includes(this.searchQuery)))
+          item.Name.toLowerCase().includes(this.searchQuery) ||
+          (item.Description && item.Description.toLowerCase().includes(this.searchQuery)) ||
+          (item.DietType && item.DietType.toLowerCase().includes(this.searchQuery))
       );
     }
 
@@ -145,26 +131,38 @@ export class ViewMenuComponent implements OnInit {
   }
 
   addToCart(item: MenuItem) {
-    item.count = (item.count || 0) + 1;
+    const count = this.cartItems?.get(item.Id)?.Quantity || 0;
+    this.cartItems.set(item.Id, {
+      MenuItemId: item.Id,
+      Quantity: count + 1,
+      UserId: this.userId,
+    });
     this.cart.add(1);
     this.triggerCartBounce();
+    this.menuService.postUserCartData(this.cartItems.get(item.Id) as CartItem).subscribe({
+      complete: () => {},
+    });
   }
 
   removeFromCart(item: MenuItem) {
-    if (item.count && item.count > 0) {
-      item.count--;
+    const cartItem: CartItem = this.cartItems.get(item.Id) as CartItem;
+    const count: number = cartItem?.Quantity || 0;
+    if (count > 0) {
+      this.cartItems.set(item.Id, {
+        ...cartItem,
+        Quantity: cartItem.Quantity - 1,
+      });
       this.cart.add(-1);
       this.triggerCartBounce();
+      this.menuService.postUserCartData(this.cartItems.get(item.Id) as CartItem).subscribe({
+        complete: () => {},
+      });
     }
   }
 
-  onCartClick() {
-    console.log('Cart clicked');
-  }
+  onCartClick() {}
 
-  onProfileAction(action: string) {
-    console.log('Profile action:', action);
-  }
+  onProfileAction(action: string) {}
 
   private triggerCartBounce() {
     this.cartBounce = true;
@@ -174,12 +172,11 @@ export class ViewMenuComponent implements OnInit {
   }
 
   getImageSrc(item: MenuItem): string {
-    if (!item.imageUrl) return 'assets/images/placeholder.png';
-    return item.imageUrl.startsWith('/') ? item.imageUrl : '/' + item.imageUrl;
+    const baseUrl = 'https://ik.imagekit.io/SEProjectG4/menu-items/menu-items-images/';
+    return `${baseUrl}${item.ImageUrl}`;
   }
 
   onImgError(event: Event) {
     const img = event.target as HTMLImageElement;
-    img.src = 'assets/images/placeholder.png';
   }
 }
