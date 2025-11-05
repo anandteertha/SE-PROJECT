@@ -30,7 +30,11 @@ export class Register { // The class is 'Register'
   registerForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    password: new FormControl('', [
+    Validators.required,
+    Validators.minLength(10),
+    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$')
+])
   });
 
   // 1. Add a constructor to "inject" the HttpClient

@@ -1,3 +1,4 @@
+import re
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from flask_bcrypt import Bcrypt
@@ -48,43 +49,49 @@ def register_user():
     email = data.get("email")
     password = data.get("password")
 
-    # --- Password Validation ---
-    if not password or len(password) < 8:
-        return jsonify({"error" : "Password must be atleast 8 character long"}), 400
+    # --- New Strong Password Validation ---
+    if not password:
+        return jsonify({"error": "Password is required"}), 400
 
+    if len(password) < 10:
+        return jsonify({"error": "Password must be at least 10 characters long"}), 400
 
-    #Hash the password
+    # Check for at least one uppercase letter
+    if not re.search(r"[A-Z]", password):
+        return jsonify({"error": "Password must contain at least one uppercase letter"}), 400
+
+    # Check for at least one lowercase letter
+    if not re.search(r"[a-z]", password):
+        return jsonify({"error": "Password must contain at least one lowercase letter"}), 400
+
+    # Check for at least one number
+    if not re.search(r"[0-9]", password):
+        return jsonify({"error": "Password must contain at least one number"}), 400
+
+    if not re.search(r"[^a-zA-Z0-9]", password):
+        return jsonify({"error": "Password must contain at least one special character"}), 400
+
+    # --- End Validation ---
+
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    # -- Database logic --
-
     try: 
-        # getting new db connection and cursor for this request
         db_connector = Connect()
         connection = db_connector.connect()
         cursor = connection.cursor()
 
-        # Use the nutribite database
         cursor.execute("USE nutribite;")
 
-        # define the data to insert
         user_data = (username, email, hashed_password)
-
-        # Execute the query
         cursor.execute(SimpleQueries.INSERT_NEW_USER.value, user_data)
-
-        # Commit (save) the changes to the database
         connection.commit()
-
-        # Close the connection
         cursor.close()
         connection.close()
 
     except Exception as e:
-        #Handle errors
         print(f"DATABASE ERROR: {e}")
         return jsonify({"error": "Failed to register user. Email may already exist."}), 500
-    
+
     print(f"Successfully registered: Username={username}, Email={email}")
 
     return jsonify({
@@ -93,13 +100,12 @@ def register_user():
         "email": email
     }), 201
 
-
 @app.route("/login", methods=["POST"])
 @cross_origin(origins="http://localhost:4200", allow_headers=["Content-Type"])
 def login_user():
     # Get the data from the frontend's request
     data = request.json
-    email = data.get("email")
+    login_id = data.get("loginId") 
     password = data.get("password")
 
     try:
@@ -113,15 +119,15 @@ def login_user():
 
 
         # Find the user by email
-        cursor.execute(SimpleQueries.SELECT_USER_BY_EMAIL.value, (email,))
+        cursor.execute(SimpleQueries.SELECT_USER_BY_USERNAME_OR_EMAIL.value, (login_id, login_id))
         user = cursor.fetchone() # get the first (and only) result
 
         # check if user exists and password is correct
         if user and bcrypt.check_password_hash(user['Password'], password):
             # Password is correct!
-            print(f"Login successful for: {email}")
+            print(f"Login successful for: {login_id}")
 
-            access_token = create_access_token(identity=email)
+            access_token = create_access_token(identity=user['Email'])
             #close connection
             cursor.close()
             connection.close()
@@ -135,7 +141,7 @@ def login_user():
             }), 200
         else:
             #invalid email or password
-            print(f"Invalid login attempt for: {email}")
+            print(f"Invalid login attempt for: {login_id}")
 
             #Close connection
             cursor.close()

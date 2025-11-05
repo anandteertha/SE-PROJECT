@@ -154,3 +154,7 @@ class SimpleQueries(Enum):
     SELECT_USER_BY_EMAIL = '''
           SELECT * FROM user where Email = %s;
     '''
+
+    SELECT_USER_BY_USERNAME_OR_EMAIL = '''
+        SELECT * FROM user WHERE Name = %s OR Email = %s;
+    '''

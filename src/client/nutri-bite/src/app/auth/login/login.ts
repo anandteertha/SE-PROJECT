@@ -30,10 +30,9 @@ import { MatButtonModule } from '@angular/material/button';
 
 export class Login { 
 
-  // Create the form group
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+  loginId: new FormControl('', [Validators.required]), 
+  password: new FormControl('', [Validators.required])
   });
 
   constructor(private http: HttpClient, private router: Router) {}
