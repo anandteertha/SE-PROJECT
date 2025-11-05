@@ -43,10 +43,17 @@ export class Login {
       console.log('Login Form is valid. Sending to backend...');
       
       // 2. Use HttpClient to send the form value to Flask API
-      this.http.post('http://127.0.0.1:5000/login', this.loginForm.value)
+      this.http.post<any>('http://127.0.0.1:5000/login', this.loginForm.value)
         .subscribe({
           next: (response) => {
             console.log('Login Success!', response);
+
+            //save the token
+            localStorage.setItem('token', response.token);
+
+            //save the username
+            localStorage.setItem('username', response.username)
+
             this.router.navigate(['/home']);
 
           },

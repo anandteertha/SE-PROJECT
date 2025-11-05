@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import create_access_token, JWTManager
 from backend.connect_to_database import Connect
 from backend.setup_database import SetupDatabase
 from backend.queries.static_data import PostStaticData
 from backend.queries.simple_queries import SimpleQueries
-
 
 try:
     print("SETTING UP DATABASE...")
@@ -24,7 +24,11 @@ except Exception as e:
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-# CORS(app)
+
+
+# Setup the JWT manager
+app.config["JWT_SECRET_KEY"] = "keep-the-user-logged-in"
+jwt = JWTManager(app)
 
 @app.route('/')
 def home():
@@ -117,6 +121,7 @@ def login_user():
             # Password is correct!
             print(f"Login successful for: {email}")
 
+            access_token = create_access_token(identity=email)
             #close connection
             cursor.close()
             connection.close()
@@ -125,7 +130,7 @@ def login_user():
             # sending dummy token now
             return jsonify({
                 "message": "Login successful",
-                "token": "dummy-jwt-token-for-testing",
+                "token": access_token,
                 "username": user['Name']
             }), 200
         else:
@@ -142,14 +147,6 @@ def login_user():
         print(f"DATABASE ERROR: {e}")
         return jsonify({"error": "An error occured during the login."}), 500    
 
-    # ---
-    # TODO: Find the user in the database
-    # TODO: Check if the password matches
-    # TODO: Create and return a session token (JWT)
-    # ---
-
-    # send back a dummy success message
-    return jsonify({"message": "Login successful", "token": "dummy-token-123"}), 200
 
 if __name__ == '__main__':
     #Connect().setup()
