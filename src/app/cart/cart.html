@@ -1,0 +1,26 @@
+<div class="cart">
+  <h2>Your Cart</h2>
+  <div *ngIf="items.length">
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price ($)</th>
+          <th>Calories</th>
+          <th>Protein</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let it of items">
+          <td>{{ it.Name }}</td>
+          <td>{{ it.Quantity }}</td>
+          <td>{{ it.Cost | number : '1.2-2' }}</td>
+          <td>{{ it.CalorieCount }}</td>
+          <td>{{ it.ProteinCount }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="clearCart()">Clear Cart</button>
+  </div>
+</div>

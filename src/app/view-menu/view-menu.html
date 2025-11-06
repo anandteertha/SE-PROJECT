@@ -1,0 +1,66 @@
+<div class="menu-container" [class.dark-mode]="darkMode">
+  <header class="menu-header">
+    <h1 class="logo">🥗 NutriBite</h1>
+    <app-user-profile (action)="onProfileAction($event)"></app-user-profile>
+    <div class="header-actions">
+      <button (click)="toggleDarkMode()" class="theme-toggle"></button>
+      <button class="cart-btn" (click)="onCartClick()">
+        <span class="cart-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+            />
+          </svg>
+        </span>
+        <span class="cart-text">Cart</span>
+        <span class="cart-badge" *ngIf="cartCount$ | async as count" [class.bounce]="cartBounce">
+          {{ count }}
+        </span>
+      </button>
+    </div>
+  </header>
+  <div class="search-tools">
+    <app-search-bar (searchChange)="onSearchChange($event)"></app-search-bar>
+    <app-filters-panel
+      [selectedCategory]="selectedCategory"
+      [selectedDietaryPreference]="selectedDietaryPreference"
+      [selectedSpiciness]="selectedSpiciness"
+      [selectedSweetness]="selectedSweetness"
+      [selectedSalt]="selectedSalt"
+      [categories]="menuCategories"
+      [dietaryPreferences]="dietaryPreferences"
+      (filterChange)="onFiltersChanged($event)"
+    ></app-filters-panel>
+  </div>
+  <div class="menu-grid">
+    <div *ngFor="let item of filteredItems" class="card">
+      <div class="thumb">
+        <img [src]="getImageSrc(item)" [alt]="item.Name" (error)="onImgError($event)" />
+      </div>
+      <h4>{{ item.Name }}</h4>
+      <p class="desc">{{ item.Description }}</p>
+      <div class="price">${{ item.Cost }}</div>
+
+      <div class="row">
+        <app-revolving-button
+          text="Remove from Cart"
+          icon="−"
+          (buttonClick)="removeFromCart(item)"
+        ></app-revolving-button>
+        <span class="item-count">{{ cartItems?.get(item.Id)?.Quantity || 0 }}</span>
+        <app-revolving-button
+          text="Add to Cart"
+          icon="+"
+          (buttonClick)="addToCart(item)"
+        ></app-revolving-button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="menu-footer">
+    <div class="footer-pacman">
+      <app-pacman-loader></app-pacman-loader>
+    </div>
+    <p>© 2025 NutriBite. All rights reserved.</p>
+  </footer>
+</div>

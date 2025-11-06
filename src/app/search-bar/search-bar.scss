@@ -1,0 +1,244 @@
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0;
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f5fff5;
+  border-radius: 50px;
+  padding: 0.8rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(102, 187, 106, 0.15), rgba(165, 214, 167, 0.15));
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    border-radius: 50px;
+  }
+
+  &:focus-within {
+    box-shadow: 0 8px 30px rgba(46, 125, 50, 0.25),
+                0 0 0 4px rgba(102, 187, 106, 0.15);
+    transform: translateY(-3px) scale(1.02);
+
+    &::before {
+      width: 100%;
+    }
+
+    .search-icon {
+      transform: scale(1.3) rotate(360deg);
+      color: #2e7d32;
+    }
+  }
+
+  &:hover:not(:focus-within) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.18);
+  }
+}
+
+.search-icon {
+  font-size: 1.3rem;
+  margin-right: 0.8rem;
+  color: #66bb6a;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(46, 125, 50, 0.2));
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #2e7d32;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  z-index: 1;
+  caret-color: #66bb6a;
+
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.typing-text {
+  position: absolute;
+  left: 3.2rem;
+  font-size: 1rem;
+  color: #66bb6a;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: #66bb6a;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.clear-btn {
+  background: #e8f5e9;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #2e7d32;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 1;
+  animation: fadeIn 0.3s ease;
+  box-shadow: 0 2px 5px rgba(46, 125, 50, 0.15);
+
+  &:hover {
+    background: #66bb6a;
+    color: white;
+    transform: rotate(180deg) scale(1.15);
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+  }
+
+  &:active {
+    transform: rotate(180deg) scale(0.95);
+  }
+}
+
+.search-underline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #66bb6a, #81c784, #a5d6a7);
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-wrapper:focus-within ~ .search-underline {
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Pulsing glow effect
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(46, 125, 50, 0.1);
+  }
+  50% {
+    box-shadow: 0 6px 25px rgba(46, 125, 50, 0.25);
+  }
+}
+
+.search-wrapper:not(:focus-within):not(:has(input:not(:placeholder-shown))) {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+:host-context(.dark-mode) {
+  .search-wrapper {
+    background: #2e2e2e;
+    box-shadow: 0 4px 15px rgba(129, 199, 132, 0.2);
+
+    &:focus-within {
+      box-shadow: 0 6px 25px rgba(129, 199, 132, 0.3),
+                  0 0 0 3px rgba(129, 199, 132, 0.2);
+    }
+
+    &::before {
+      background: linear-gradient(90deg, rgba(129, 199, 132, 0.15), rgba(165, 214, 167, 0.15));
+    }
+  }
+
+  .search-icon {
+    color: #81c784;
+
+    &:focus-within {
+      color: #a5d6a7;
+    }
+  }
+
+  .search-input {
+    color: #c8e6c9;
+    caret-color: #81c784;
+  }
+
+  .typing-text {
+    color: #81c784;
+  }
+
+  .cursor {
+    background-color: #81c784;
+  }
+
+  .clear-btn {
+    background: #424242;
+    color: #c8e6c9;
+
+    &:hover {
+      background: #66bb6a;
+      color: white;
+    }
+  }
+
+  .search-underline {
+    background: linear-gradient(90deg, #66bb6a, #81c784, #a5d6a7);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-wrapper {
+    padding: 0.7rem 1.2rem;
+  }
+
+  .search-input {
+    font-size: 0.95rem;
+  }
+}

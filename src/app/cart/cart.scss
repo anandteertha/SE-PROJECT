@@ -1,0 +1,42 @@
+.cart {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th, td {
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #fafafa;
+    }
+  }
+
+  .totals {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  button {
+    margin-top: 1rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #b02a37;
+  }
+}
