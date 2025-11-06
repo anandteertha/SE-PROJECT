@@ -1,31 +1,35 @@
-<div class="form-container">
-  <mat-card>
-    <mat-card-title>Login</mat-card-title>
+<div class="auth-page-container">
+  
+  <div class="image-column">
+    </div>
 
-    <mat-card-content>
+  <div class="form-column">
+    
+    <div class="form-wrapper">
+      <h2>Welcome back</h2>
+      
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Username or Email</mat-label>
-          <input matInput placeholder="Username or Email" formControlName="loginId">
+        
+        <mat-form-field appearance="fill">
+          <mat-label>Username or E-mail</mat-label>
+          <input matInput formControlName="loginId">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password">
         </mat-form-field>
-
-        <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
-            Login
-          </button>
-        </mat-card-actions>
-
+        
+        <button class="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+          Sign in
+        </button>
       </form>
-    </mat-card-content>
 
-    <mat-card-footer>
-      <a routerLink="/register">Don't have an account? Register</a>
-    </mat-card-footer>
-  </mat-card>
+      <div class="redirect-link">
+        <span>Don't have an account? </span>
+        <a routerLink="/register">Sign up Here</a>
+      </div>
+
+    </div>
+  </div>
 </div>

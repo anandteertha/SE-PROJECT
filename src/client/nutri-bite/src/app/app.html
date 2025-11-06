@@ -1,15 +1,1 @@
-<nav class="navbar">
-  <span class="navbar-brand">NutriBite</span>
-  
-  <div class="nav-links">
-    @if (isLoggedIn()) {
-      <button (click)="logout()">Logout</button>
-    }
-    
-    @if (!isLoggedIn()) {
-      <a routerLink="/login">Login</a>
-    }
-  </div>
-</nav>
-
 <router-outlet></router-outlet>
