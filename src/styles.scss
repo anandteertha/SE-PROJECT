@@ -1,0 +1,27 @@
+/* Global page-level styles used for full-page dark-mode
+	 The component `view-menu` has its own `.menu-container.dark-mode`
+	 overrides for component-scoped elements. These global rules ensure
+	 the page background and base text color also update when the
+	 body receives the `dark-mode` class. */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: #f9fff9;
+	margin: 0;
+	color: #1b5e20;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+	background-color: #121212;
+	color: #e8f5e9;
+}
+
+/* Optional: ensure app root stretches so body background covers full window */
+#app-root, #main, app-root {
+	min-height: 100%;
+}
