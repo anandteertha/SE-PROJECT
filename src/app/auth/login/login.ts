@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms'; 
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-
-// Import all the Material modules
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { Router, RouterModule } from '@angular/router';
+import { UserDetails } from '@app/models/user-details';
 
 @Component({
   selector: 'app-login',
@@ -19,16 +17,15 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
 })
 export class Login {
-
   loginForm = new FormGroup({
-    loginId: new FormControl('', [Validators.required]), 
-    password: new FormControl('', [Validators.required])
+    loginId: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   });
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -40,20 +37,23 @@ export class Login {
     }
 
     console.log('Login Form is valid. Sending to backend...');
+    const userDetails: UserDetails = {
+      Name: this.loginForm.get('loginId')?.value || '',
+      Password: this.loginForm.get('password')?.value || '',
+      Email: this.loginForm.get('loginId')?.value || '',
+    };
+    this.http.post<any>('/api/login', userDetails).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', response.username);
+        localStorage.setItem('userId', response.id);
+        localStorage.setItem('email', response.email);
 
-    this.http.post<any>('http://127.0.0.1:5000/login', this.loginForm.value)
-      .subscribe({
-        next: (response) => {
-          console.log('Login Success!', response);
-
-          localStorage.setItem('token', response.token); 
-          localStorage.setItem('username', response.username);
-
-          this.router.navigate(['/home']);
-        },
-        error: (error) => {
-          console.error('Login Error!', error);
-        }
-      });
+        this.router.navigate(['/menu']);
+      },
+      error: (error) => {
+        console.error('Login Error!', error);
+      },
+    });
   }
 }

@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { ReactiveFormsModule, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';  // <-- Import forms
-import { RouterModule } from '@angular/router'; // For the "login" link
-import { HttpClient } from '@angular/common/http'; // <-- Import HttpClient
+import { Subject, takeUntil } from 'rxjs';
 
-// Import all the Material modules you need
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy } from '@angular/core';
+import {
+    AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn,
+    Validators
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Router, RouterModule } from '@angular/router';
+import { UserDetails } from '@app/models/user-details';
 
 @Component({
   selector: 'app-register',
-  standalone: true, // Make it standalone
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,72 +26,72 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
-  templateUrl: './register.html', // Use 'register.html'
-  styleUrls: ['./register.scss'] // Use 'register.scss'
+  templateUrl: './register.html',
+  styleUrls: ['./register.scss'],
 })
+export class Register implements OnDestroy {
+  registerForm = new FormGroup(
+    {
+      name: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$'),
+      ]),
+      confirmPassword: new FormControl('', [Validators.required]),
+      termsAccepted: new FormControl(false, [Validators.requiredTrue]),
+    },
+    { validators: passwordsMatchValidator }
+  );
+  destroyed: Subject<boolean> = new Subject<boolean>();
 
-
-export class Register { // The class is 'Register'
-    
-    registerForm = new FormGroup(
-      {
-        // --- Your controls (these don't change) ---
-        name: new FormControl('', [Validators.required]),
-        username: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$')
-        ]),
-        confirmPassword: new FormControl('', [Validators.required]),
-        termsAccepted: new FormControl(false, [Validators.requiredTrue])
-      },
-      // --- ADD THIS "options" OBJECT ---
-      { validators: passwordsMatchValidator }
-    );
-
-  // 1. Add a constructor to "inject" the HttpClient
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    // when the form is submitted
-    if (this.registerForm.valid) {
+    console.log(this.registerForm.valid, this.registerForm.invalid);
+    if (!this.registerForm.invalid || !this.registerForm.errors) {
       console.log('Form is valid. Sending to backend...');
-      this.http.post('http://127.0.0.1:5000/register', this.registerForm.value)
+      const userDetails: UserDetails = {
+        Name: this.registerForm.get('name')?.value || '',
+        Password: this.registerForm.get('password')?.value || '',
+        Email: this.registerForm.get('email')?.value || '',
+      };
+      this.http
+        .post('/api/register', userDetails)
+        .pipe(takeUntil(this.destroyed))
         .subscribe({
           next: (response) => {
             console.log('Success!', response);
           },
           error: (error) => {
             console.error('Error!', error);
-          }
+          },
+          complete: () => {
+            this.router.navigate(['/login']);
+          },
         });
     } else {
       console.log('Form is invalid');
     }
   }
+
+  ngOnDestroy(): void {
+    this.destroyed.next(true);
+  }
 }
 
-/**
- * Custom validator to check if two fields match.
- */
 export const passwordsMatchValidator: ValidatorFn = (
   control: AbstractControl
 ): ValidationErrors | null => {
-  // Get the password and confirmPassword controls
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');
 
-  // If controls don't exist, or values are empty, don't validate
   if (!password || !confirmPassword || !password.value || !confirmPassword.value) {
     return null;
   }
-
-  // If they match, return null (no error).
-  // If they don't match, return an error object.
   return password.value === confirmPassword.value ? null : { passwordsMismatch: true };
 };
-

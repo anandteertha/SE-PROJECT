@@ -16,6 +16,10 @@ class SimpleQueries(Enum):
         VALUES (%s, %s, %s);
     '''
 
+    SELECT_DIETARY_PREFERENCE = '''
+        SELECT * FROM dietary_preference;
+    '''    
+    
     CREATE_USER_AUTHENTICATION_TABLE = '''
         CREATE TABLE IF NOT EXISTS user (
             Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -25,7 +29,7 @@ class SimpleQueries(Enum):
             Spiciness FLOAT CHECK (Spiciness >= 0 AND Spiciness <= 10) DEFAULT 5,
             Sweetness FLOAT CHECK (Sweetness >= 0 AND Sweetness <= 10) DEFAULT 5,
             Salt VARCHAR(6) CHECK (Salt IN ('Less', 'Medium', 'High')) DEFAULT 'Medium',
-            DietaryPreference VARCHAR(20),            
+            DietaryPreference VARCHAR(20) DEFAULT 'Vegetarian',
             
             FOREIGN KEY (DietaryPreference)
             REFERENCES dietary_preference (Name)
@@ -34,7 +38,11 @@ class SimpleQueries(Enum):
         );
     '''
     
-    
+    SELECT_USER_DETAILS = '''
+        SELECT * FROM user
+        WHERE Id = %s;
+    '''
+      
     CREATE_MENU_CATEGORIES_TABLE = '''
         CREATE TABLE IF NOT EXISTS menu_category (
             Name VARCHAR(255) PRIMARY KEY
@@ -59,12 +67,22 @@ class SimpleQueries(Enum):
             ProteinCount FLOAT NOT NULL,
             ImageUrl VARCHAR(255) NOT NULL,
             Category VARCHAR(255) NOT NULL DEFAULT 'NutriBite Special',
+            DietType VARCHAR(255) NOT NULL DEFAULT 'Vegetarian',
+            
+            FOREIGN KEY (DietType)
+            REFERENCES dietary_preference (Name)
+            ON DELETE SET DEFAULT
+            ON UPDATE CASCADE,
             
             FOREIGN KEY (Category)
             REFERENCES menu_category (Name)
             ON DELETE SET DEFAULT
             ON UPDATE CASCADE
         );
+    '''
+    
+    SELECT_MENU_ITEMS = '''
+        SELECT * FROM menu_item;
     '''
     
     CREATE_USER_CART_TABLE = '''
@@ -85,6 +103,33 @@ class SimpleQueries(Enum):
             ON DELETE CASCADE
             ON UPDATE CASCADE
         );
+    '''
+    
+    SELECT_USER_CART = '''
+        SELECT *
+        FROM cart
+        WHERE UserId = %s;
+    '''
+    
+    SELECT_USER_CART_WITH_MENU = '''
+        SELECT *
+        FROM cart
+        WHERE UserId = %s AND MenuItemId = %s;
+    '''
+    
+    INSERT_USER_CART = '''
+        INSERT INTO cart (UserId, MenuItemId, Quantity, ExtraNote)
+        VALUES (%s, %s, %s, %s)
+        ON DUPLICATE KEY UPDATE
+            Quantity = VALUES(Quantity),
+            ExtraNote = VALUES(ExtraNote);
+
+    '''
+    
+    DELETE_USER_CART = '''
+        DELETE *
+        FROM cart
+        WHERE UserId = %s;
     '''
     
     CREATE_USER_MENU_SETTINGS = '''
@@ -108,6 +153,33 @@ class SimpleQueries(Enum):
         );
     '''
     
+    INSERT_MOCK_USER = '''
+        INSERT INTO user (Name, Password, Email)
+        VALUES ("test", "test", "test@test.com")
+    '''
+    
+    UPDATE_USER = '''
+        UPDATE user SET 
+            Name = COALESCE(%s, Name),
+            Password = COALESCE(%s, Password),
+            Email = COALESCE(%s, Email),
+            Spiciness = COALESCE(%s, Spiciness),
+            Sweetness = COALESCE(%s, Sweetness),
+            Salt = COALESCE(%s, Salt),
+            DietaryPreference = COALESCE(%s, DietaryPreference)
+        WHERE Id = %s;
+    '''
+    
+    SELECT_USER_MENU_SETTINGS = '''
+        SELECT * FROM user_settings;
+    '''
+    
+    SELECT_ONE_USER_MENU_SETTINGS = '''
+        SELECT *
+        FROM user_settings
+        WHERE UserId = %s
+    '''
+    
     INSERT_DIETARY_PREFERENCES = '''
         INSERT INTO dietary_preference 
         VALUES ("Vegan"), 
@@ -117,7 +189,8 @@ class SimpleQueries(Enum):
         ("Non vegetarian"), 
         ("Gluten Free"),
         ("Kosher"), 
-        ("Halal");
+        ("Halal"),
+        ("all");
     '''
     
     INSERT_MENU_CATEGORIES = '''
@@ -133,6 +206,10 @@ class SimpleQueries(Enum):
         ("Tea"),
         ("Coffee"),
         ("Milkshake");
+    '''
+    
+    SELECT_MENU_CATEGORIES = '''
+        SELECT * FROM menu_category;
     '''
     
     INSERT_MENU_ITEMS = '''

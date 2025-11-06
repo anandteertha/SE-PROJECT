@@ -1,29 +1,25 @@
 <div class="register-page-container">
-  
-  <div class="image-column">
-    </div>
+  <div class="image-column"></div>
 
   <div class="form-column">
-    
     <div class="form-wrapper">
       <h2>Create account</h2>
-      
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        
+
+      <form [formGroup]="registerForm">
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
-          <input matInput formControlName="name">
+          <input matInput formControlName="name" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>E-mail</mat-label>
-          <input matInput type="email" formControlName="email">
+          <input matInput type="email" formControlName="email" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password">
-          
+          <input matInput type="password" formControlName="password" />
+
           <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
             Must be at least 10 characters long.
           </mat-error>
@@ -34,7 +30,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Confirm password</mat-label>
-          <input matInput type="password" formControlName="confirmPassword">
+          <input matInput type="password" formControlName="confirmPassword" />
 
           <mat-error *ngIf="registerForm.hasError('passwordsMismatch')">
             Passwords do not match.
@@ -44,8 +40,8 @@
         <mat-checkbox class="terms-checkbox" formControlName="termsAccepted">
           I agree terms & conditions
         </mat-checkbox>
-        
-        <button class="submit-button" mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">
+
+        <button class="submit-button" mat-raised-button color="primary" (click)="onSubmit()">
           Sign up
         </button>
       </form>
@@ -54,7 +50,6 @@
         <span>Already have an account? </span>
         <a routerLink="/login">Sign in Here</a>
       </div>
-
     </div>
   </div>
 </div>
