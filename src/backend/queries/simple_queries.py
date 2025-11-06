@@ -11,6 +11,11 @@ class SimpleQueries(Enum):
         );
     '''
     
+    INSERT_NEW_USER = '''
+        INSERT INTO user (Name, Email, Password)
+        VALUES (%s, %s, %s);
+    '''
+
     SELECT_DIETARY_PREFERENCE = '''
         SELECT * FROM dietary_preference;
     '''    
@@ -223,3 +228,10 @@ class SimpleQueries(Enum):
         ('Plain Rice',            'Steamed basmati rice',                       3.50, 205,  4.3, 'plain%20rice.png?updatedAt=1760828000563', 'Rice');
     '''
     
+    SELECT_USER_BY_EMAIL = '''
+          SELECT * FROM user where Email = %s;
+    '''
+
+    SELECT_USER_BY_USERNAME_OR_EMAIL = '''
+        SELECT * FROM user WHERE Name = %s OR Email = %s;
+    '''

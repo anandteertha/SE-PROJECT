@@ -1,10 +1,10 @@
 export interface UserDetails {
-  Id: number;
+  Id?: number;
   Name: string;
   Password: string;
   Email: string;
-  Spiciness: number;
-  Sweetness: number;
-  Salt: string;
-  DietaryPreference: string;
+  Spiciness?: number;
+  Sweetness?: number;
+  Salt?: string;
+  DietaryPreference?: string;
 }

@@ -104,7 +104,7 @@ describe('ViewMenuComponent (zoneless)', () => {
 
   it('loads data and applies dark mode', () => {
     expect(menuSpy.getMenuData).toHaveBeenCalled();
-    expect(menuSpy.getUserDetails).toHaveBeenCalledWith(1);
+    expect(menuSpy.getUserDetails).toHaveBeenCalledWith(13);
     expect(viewMenuComponent.menuItems.length).toBe(2);
     expect(viewMenuComponent.filteredItems.length).toBe(2);
     expect(viewMenuComponent.dietaryPreferences).toEqual(['VEG', 'NON_VEG']);

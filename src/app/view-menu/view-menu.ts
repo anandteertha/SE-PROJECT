@@ -3,6 +3,7 @@ import { map, mergeMap, Observable, Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FilterCriteria, FiltersPanelComponent, SaltLevel } from '@app/filters-panel/filters-panel';
 import { CartItem } from '@app/models/cart-item';
 import { MenuSettings } from '@app/models/menu-settings';
@@ -46,17 +47,15 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
   menuCategories: string[] = [];
   menuSettings: MenuSettings[] = [];
   cartItems: Map<number, CartItem> = new Map<number, CartItem>();
-  userId: number = 1;
+  userId: number = 13;
   userData!: UserDetails;
   destroyed: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private menuService: MenuService, private cart: CartService) {
+  constructor(private menuService: MenuService, private cart: CartService, private router: Router) {
     this.cartCount$ = this.cart.count$;
   }
 
   ngOnInit() {
-    this.darkMode = localStorage.getItem('darkMode') === 'yes';
-    this.setDarkMode();
     this.menuService
       .getMenuData(this.userId)
       .pipe(
@@ -79,10 +78,13 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (userDetails: UserDetails) => {
           this.userData = userDetails;
-          this.selectedDietaryPreference = this.userData.DietaryPreference;
+          this.selectedDietaryPreference = this.userData.DietaryPreference || 'all';
           this.selectedSalt = this.userData.Salt as SaltLevel;
-          this.selectedSpiciness = this.userData.Spiciness;
-          this.selectedSweetness = this.userData.Sweetness;
+          this.selectedSpiciness = this.userData.Spiciness || 5;
+          this.selectedSweetness = this.userData.Sweetness || 5;
+          this.userId = parseInt(localStorage.getItem('userId') || '1');
+          this.darkMode = localStorage.getItem('darkMode') === 'yes';
+          this.setDarkMode();
         },
       });
   }
@@ -192,7 +194,9 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
 
   onCartClick() {}
 
-  onProfileAction(action: string) {}
+  onProfileAction(action: string) {
+    if (action === 'signed-out') this.router.navigate(['/login']);
+  }
 
   private triggerCartBounce() {
     this.cartBounce = true;

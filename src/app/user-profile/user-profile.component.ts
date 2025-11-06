@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,12 +16,12 @@ export class UserProfileComponent {
   }
 
   get displayName(): string {
-    const userJson = localStorage.getItem('user');
-    if (!userJson) return 'Guest';
+    const user = localStorage.getItem('user');
+    const email = localStorage.getItem('user');
+    if (!user) return 'Guest';
 
-    const user = JSON.parse(userJson);
-    const emailName = user.email ? user.email.split('@')[0] : undefined;
-    return user.name || emailName || 'You';
+    const emailName = email ? email.split('@')[0] : undefined;
+    return user || emailName || 'You';
   }
 
   onPrimaryClick() {
@@ -30,6 +30,8 @@ export class UserProfileComponent {
 
   onSignOut() {
     localStorage.removeItem('user');
+    localStorage.removeItem('email');
+    localStorage.removeItem('userId');
     this.action.emit('signed-out');
   }
 }
