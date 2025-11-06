@@ -107,7 +107,9 @@ class SimpleQueries(Enum):
     
     SELECT_USER_CART = '''
         SELECT *
-        FROM cart
+        FROM cart c
+        INNER JOIN menu_item m
+        ON m.Id = c.MenuItemId
         WHERE UserId = %s;
     '''
     
@@ -227,6 +229,36 @@ class SimpleQueries(Enum):
         ('Paneer Butter Masala',  'Creamy tomato-butter sauce with paneer',    16.70, 294, 15.1, 'paneer%20butter%20masala.png?updatedAt=1760828001421', 'Curry'),
         ('Plain Rice',            'Steamed basmati rice',                       3.50, 205,  4.3, 'plain%20rice.png?updatedAt=1760828000563', 'Rice');
     '''
+
+    SELECT_CART_JOINED = """
+    SELECT
+        c.MenuItemId AS product_id,
+        mi.Name AS name,
+        mi.Cost AS price,
+        c.Quantity AS quantity,
+        mi.CalorieCount AS calories,
+        mi.ProteinCount AS protein
+    FROM cart c
+    JOIN menu_item mi ON mi.Id = c.MenuItemId
+    WHERE c.UserId = %s
+    ORDER BY mi.Name ASC;
+    """
+
+    INSERT_CART_ITEM = """
+    INSERT INTO cart (UserId, MenuItemId, Quantity)
+    VALUES (%s, %s, %s)
+    ON DUPLICATE KEY UPDATE Quantity = VALUES(Quantity);
+    """
+
+    DELETE_CART_ITEM = """
+    DELETE FROM cart WHERE UserId = %s AND MenuItemId = %s;
+    """
+
+    CLEAR_CART = """
+    DELETE FROM cart WHERE UserId = %s;
+    """
+
+    
     
     SELECT_USER_BY_EMAIL = '''
           SELECT * FROM user where Email = %s;

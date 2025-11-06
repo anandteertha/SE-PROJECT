@@ -101,6 +101,19 @@ def post_cart_items():
     cart_items.ExtraNote = data.get('ExtraNote')
     return jsonify(CartItems(connection).post(cart_items)), 201
 
+@app.delete('/api/cart')
+def delete_cart_item():
+    cart_items = CartItem()
+    cart_items.UserId = int(request.args.get('user_id'))
+    cart_items.MenuItemId = int(request.args.get('menu_item_id'))
+    print(cart_items)
+    return jsonify(CartItems(connection).delete_item(cart_items)), 200
+
+@app.get('/api/cart')
+def get_cart_items():
+    user_id = int(request.args.get('user_id'))
+    return jsonify(CartItems(connection).get(user_id)), 200
+
 @app.get('/api/user/details')
 def get_user_details():
     user_id = int(request.args.get('user_id'))

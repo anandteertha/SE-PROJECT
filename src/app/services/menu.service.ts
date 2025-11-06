@@ -23,6 +23,10 @@ export class MenuService {
     return this.http.post<CartItem>(`${this.dataUrl}/cart`, cartData);
   }
 
+  // deleteCartItem(cartData: MenuCartData): Observable<any> {
+  // return this.http.delete<any>(`${this.dataUrl}/cart`, cartData);
+  // }
+
   patchUserDetails(userDetailsData: UserDetails): Observable<{}> {
     return this.http.patch<{}>(`${this.dataUrl}/user/preferences`, userDetailsData);
   }

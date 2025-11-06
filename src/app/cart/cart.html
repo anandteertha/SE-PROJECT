@@ -1,0 +1,52 @@
+<div class="cart">
+  <div class="cart__header">
+    <h2>Your Cart</h2>
+    <div class="cart__actions">
+      <button class="btn btn--ghost" (click)="clearCart()" [disabled]="!items?.length">
+        Clear
+      </button>
+      <button class="btn btn--primary" (click)="checkout()" [disabled]="!items?.length">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="items.length; else emptyState" class="table-wrap">
+    <table class="cart__table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price ($)</th>
+          <th>Calories</th>
+          <th>Protein</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let it of items">
+          <td class="cell product" data-label="Product">{{ it.Name }}</td>
+
+          <td class="cell qty" data-label="Qty">
+            <div class="qty__controls">
+              <button class="icon-btn" aria-label="Decrease" (click)="dec(it)">−</button>
+              <span class="qty__value">{{ it.Quantity }}</span>
+              <button class="icon-btn" aria-label="Increase" (click)="inc(it)">＋</button>
+            </div>
+          </td>
+
+          <td class="cell" data-label="Price ($)">{{ it.Cost | number : '1.2-2' }}</td>
+          <td class="cell" data-label="Calories">{{ it.CalorieCount }}</td>
+          <td class="cell" data-label="Protein">{{ it.ProteinCount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="cart__empty">
+      <p>Your cart is empty.</p>
+      <button class="btn btn--primary" (click)="menu()">Browse Menu</button>
+    </div>
+  </ng-template>
+</div>

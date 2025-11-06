@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch --code-coverage",
-    "serve:ssr:view-menu-app": "node dist/view-menu-app/server/server.mjs"
+    "serve:ssr:view-menu-app": "node dist/view-menu-app/server/server.mjs",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage"
   },
   "prettier": {
     "printWidth": 100,
@@ -38,6 +39,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^20.3.9",
     "@angular/build": "^20.3.6",
     "@angular/cli": "^20.3.6",
     "@angular/compiler-cli": "^20.3.0",

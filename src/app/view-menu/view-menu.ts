@@ -1,7 +1,7 @@
 import { map, mergeMap, Observable, Subject, takeUntil } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FilterCriteria, FiltersPanelComponent, SaltLevel } from '@app/filters-panel/filters-panel';
@@ -51,7 +51,12 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
   userData!: UserDetails;
   destroyed: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private menuService: MenuService, private cart: CartService, private router: Router) {
+  constructor(
+    private menuService: MenuService,
+    private cart: CartService,
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.cartCount$ = this.cart.count$;
   }
 
@@ -71,6 +76,7 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
             this.cart.add(cartItem.Quantity);
           });
           this.filteredItems = [...this.menuItems];
+          this.changeDetectorRef.detectChanges();
           return this.menuService.getUserDetails(this.userId);
         }),
         takeUntil(this.destroyed)
@@ -192,7 +198,9 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCartClick() {}
+  onCartClick() {
+    this.router.navigate(['/cart']);
+  }
 
   onProfileAction(action: string) {
     if (action === 'signed-out') this.router.navigate(['/login']);
