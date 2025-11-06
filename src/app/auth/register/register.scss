@@ -1,5 +1,8 @@
 /* src/app/auth/register/register.scss */
 
+body, html {
+  overflow: hidden !important;
+}
 .register-page-container {
   display: grid;
   grid-template-columns: 1.2fr 1fr; /* 1.2fr for image, 1fr for form */

@@ -11,7 +11,10 @@ class CartItems:
     
     def get(self, user_id: int):
         return DatabaseUtils.execute(self.cursor, SimpleQueries.SELECT_USER_CART.value, [user_id])
-        
+    
+    def delete_item(self, cart_items: CartItem):
+        with self.connection.cursor(dictionary=True) as cur:
+            cur.execute(SimpleQueries.DELETE_CART_ITEM.value, [cart_items.UserId, cart_items.MenuItemId])
     
     def post(self, cart_items: CartItem):
         with self.connection.cursor(dictionary=True) as cur:

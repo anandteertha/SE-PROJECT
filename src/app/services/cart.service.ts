@@ -19,13 +19,17 @@ export class CartService {
     this._count$.next(0);
   }
 
-  getCart(user_id: number): Observable<any> {
+  getCart(user_id: string): Observable<any> {
     const params = new HttpParams().set('user_id', user_id);
     return this.http.get(this.baseUrl, { params });
   }
 
-  removeItem(productId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/items/${productId}`);
+  removeItem(menuItemId: number, userId: number): Observable<any> {
+    const params = new HttpParams().appendAll({
+      menu_item_id: menuItemId,
+      user_id: userId,
+    });
+    return this.http.delete(this.baseUrl, { params });
   }
 
   updateQuantity(productId: number, quantity: number): Observable<any> {
