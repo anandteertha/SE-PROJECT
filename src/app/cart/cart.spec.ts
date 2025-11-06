@@ -1,23 +1,24 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { Cart } from './cart';
+import { CartComponent } from '@app/cart/cart';
 
 describe('Cart', () => {
-  let component: Cart;
-  let fixture: ComponentFixture<Cart>;
+  let cartComponent: CartComponent;
+  let fixture: ComponentFixture<CartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Cart]
-    })
-    .compileComponents();
+      imports: [CartComponent, HttpClientTestingModule],
+      providers: [provideZonelessChangeDetection()],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Cart);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(CartComponent);
+    cartComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(cartComponent).toBeTruthy();
   });
 });
