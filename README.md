@@ -1,4 +1,6 @@
 [![Angular Tests](https://github.com/anandteertha/SE-PROJECT/actions/workflows/angular-tests.yml/badge.svg?branch=main)](https://github.com/anandteertha/SE-PROJECT/actions/workflows/angular-tests.yml)
+[![codecov](https://codecov.io/gh/anandteertha/SE-PROJECT/branch/main/graph/badge.svg)](https://codecov.io/gh/anandteertha/SE-PROJECT)
+![Version](https://img.shields.io/badge/version-v1.0.2-blue)
 
 # Current Version: v1.0.2
 #### NOTE: checkout `rules.md` for a better sense of the conventions followed in this project.
