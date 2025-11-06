@@ -23,8 +23,8 @@ export class MenuService {
     return this.http.post<CartItem>(`${this.dataUrl}/cart`, cartData);
   }
 
-  patchUserDetails(userDetailsData: UserDetails): Observable<UserDetails> {
-    return this.http.patch<UserDetails>(`${this.dataUrl}/user/preferences`, userDetailsData);
+  patchUserDetails(userDetailsData: UserDetails): Observable<{}> {
+    return this.http.patch<{}>(`${this.dataUrl}/user/preferences`, userDetailsData);
   }
 
   getUserDetails(user_id: number): Observable<UserDetails> {

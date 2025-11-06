@@ -1,12 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-revolving-button',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './revolving-button.component.html',
-  styleUrls: ['./revolving-button.component.scss']
+  templateUrl: './revolving-button.html',
+  styleUrls: ['./revolving-button.scss'],
 })
 export class RevolvingButtonComponent {
   @Input() text = '';

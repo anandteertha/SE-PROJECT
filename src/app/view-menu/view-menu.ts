@@ -3,14 +3,12 @@ import { map, mergeMap, Observable, Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-    FilterCriteria, FiltersPanelComponent, SaltLevel
-} from '@app/filters-panel/filters-panel.component';
+import { FilterCriteria, FiltersPanelComponent, SaltLevel } from '@app/filters-panel/filters-panel';
 import { CartItem } from '@app/models/cart-item';
 import { MenuSettings } from '@app/models/menu-settings';
 import { UserDetails } from '@app/models/user-details';
 import { PacmanLoaderComponent } from '@app/pacman-loader/pacman-loader.component';
-import { RevolvingButtonComponent } from '@app/revolving-button/revolving-button.component';
+import { RevolvingButtonComponent } from '@app/revolving-button/revolving-button';
 import { SearchBar } from '@app/search-bar/search-bar';
 import { CartService } from '@app/services/cart.service';
 import { MenuService } from '@app/services/menu.service';
@@ -29,8 +27,8 @@ import { MenuItem } from '@models/menu-item';
     FiltersPanelComponent,
     UserProfileComponent,
   ],
-  templateUrl: './view-menu.component.html',
-  styleUrls: ['./view-menu.component.scss'],
+  templateUrl: './view-menu.html',
+  styleUrls: ['./view-menu.scss'],
 })
 export class ViewMenuComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [];
@@ -73,6 +71,7 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
             this.cartItems.set(cartItem.MenuItemId, cartItem);
             this.cart.add(cartItem.Quantity);
           });
+          this.filteredItems = [...this.menuItems];
           return this.menuService.getUserDetails(this.userId);
         }),
         takeUntil(this.destroyed)
@@ -84,9 +83,6 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
           this.selectedSalt = this.userData.Salt as SaltLevel;
           this.selectedSpiciness = this.userData.Spiciness;
           this.selectedSweetness = this.userData.Sweetness;
-        },
-        complete: () => {
-          this.filteredItems = [...this.menuItems];
         },
       });
   }
@@ -160,8 +156,8 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
           (item.DietType && item.DietType.toLowerCase().includes(this.searchQuery))
       );
     }
-    this.updateUserDetails();
     this.filteredItems = items;
+    this.updateUserDetails();
   }
 
   addToCart(item: MenuItem) {

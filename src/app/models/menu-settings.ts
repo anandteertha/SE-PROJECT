@@ -1,4 +1,4 @@
-import { SaltLevel } from '../filters-panel/filters-panel.component';
+import { SaltLevel } from '@app/filters-panel/filters-panel';
 
 export interface MenuSettings {
   Spiciness: number;

@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch --code-coverage",
     "serve:ssr:view-menu-app": "node dist/view-menu-app/server/server.mjs"
   },
   "prettier": {

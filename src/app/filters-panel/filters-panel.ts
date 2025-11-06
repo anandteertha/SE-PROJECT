@@ -16,8 +16,8 @@ export interface FilterCriteria {
   selector: 'app-filters-panel',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './filters-panel.component.html',
-  styleUrls: ['./filters-panel.component.scss'],
+  templateUrl: './filters-panel.html',
+  styleUrls: ['./filters-panel.scss'],
 })
 export class FiltersPanelComponent {
   showPanel = false;
