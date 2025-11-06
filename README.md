@@ -1,3 +1,5 @@
+[![Angular Tests](https://github.com/anandteertha/SE-PROJECT/actions/workflows/angular-tests.yml/badge.svg?branch=main)](https://github.com/anandteertha/SE-PROJECT/actions/workflows/angular-tests.yml)
+
 # Current Version: v1.0.2
 #### NOTE: checkout `rules.md` for a better sense of the conventions followed in this project.
 
