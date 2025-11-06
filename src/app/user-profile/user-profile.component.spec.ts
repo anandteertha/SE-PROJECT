@@ -29,7 +29,7 @@ describe('UserProfileComponent', () => {
   });
 
   it('should show user name when user exists in localStorage', () => {
-    localStorage.setItem('user', JSON.stringify({ name: 'Alice' }));
+    localStorage.setItem('user', 'Alice');
     expect(userProfileComponent.displayName).toBe('Alice');
     expect(userProfileComponent.isAuthenticated).toBe(true);
     localStorage.removeItem('user');

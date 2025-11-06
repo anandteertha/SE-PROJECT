@@ -52,7 +52,6 @@ export class Register implements OnDestroy {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    console.log(this.registerForm.valid, this.registerForm.invalid);
     if (!this.registerForm.invalid || !this.registerForm.errors) {
       console.log('Form is valid. Sending to backend...');
       const userDetails: UserDetails = {
