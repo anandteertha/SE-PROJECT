@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { UserDetails } from '@app/models/user-details';
+import { environment } from '@src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,7 @@ export class Login {
       Password: this.loginForm.get('password')?.value || '',
       Email: this.loginForm.get('loginId')?.value || '',
     };
-    this.http.post<any>('/api/login', userDetails).subscribe({
+    this.http.post<any>(`${environment.apiBase}/login`, userDetails).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', response.username);

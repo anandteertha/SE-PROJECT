@@ -2,12 +2,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private readonly _count$ = new BehaviorSubject<number>(0);
   readonly count$ = this._count$.asObservable();
-  baseUrl = '/api/cart';
+  baseUrl = `${environment.apiBase}/cart`;
 
   constructor(private http: HttpClient) {}
 

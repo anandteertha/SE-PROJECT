@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { UserDetails } from '@app/models/user-details';
+import { environment } from '@src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -60,7 +61,7 @@ export class Register implements OnDestroy {
         Email: this.registerForm.get('email')?.value || '',
       };
       this.http
-        .post('/api/register', userDetails)
+        .post(`${environment.apiBase}/register`, userDetails)
         .pipe(takeUntil(this.destroyed))
         .subscribe({
           next: (response) => {
