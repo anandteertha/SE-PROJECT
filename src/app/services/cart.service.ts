@@ -12,14 +12,6 @@ export class CartService {
 
   constructor(private http: HttpClient) {}
 
-  add(quantity = 1) {
-    this._count$.next(this._count$.value + quantity);
-  }
-
-  clear() {
-    this._count$.next(0);
-  }
-
   getCart(user_id: string): Observable<any> {
     const params = new HttpParams().set('user_id', user_id);
     return this.http.get(this.baseUrl, { params });
@@ -31,6 +23,11 @@ export class CartService {
       user_id: userId,
     });
     return this.http.delete(this.baseUrl, { params });
+  }
+
+  removeAllItems(userId: string): Observable<any> {
+    const params = new HttpParams().append('user_id', userId);
+    return this.http.delete(`${this.baseUrl}/all`, { params });
   }
 
   updateQuantity(productId: number, quantity: number): Observable<any> {

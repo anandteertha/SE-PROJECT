@@ -103,13 +103,28 @@ def post_cart_items():
     cart_items.ExtraNote = data.get('ExtraNote')
     return jsonify(CartItems(connection).post(cart_items)), 201
 
+@app.patch('/api/cart')
+def patch_cart_items():
+    data = request.get_json()
+    cart_items = CartItem()
+    cart_items.UserId  = data.get('UserId')
+    cart_items.MenuItemId  = data.get('MenuItemId')
+    cart_items.Quantity = data.get('Quantity')
+    cart_items.ExtraNote = data.get('ExtraNote')
+    return jsonify(CartItems(connection).patch(cart_items)), 200
+
 @app.delete('/api/cart')
 def delete_cart_item():
     cart_items = CartItem()
     cart_items.UserId = int(request.args.get('user_id'))
     cart_items.MenuItemId = int(request.args.get('menu_item_id'))
-    print(cart_items)
     return jsonify(CartItems(connection).delete_item(cart_items)), 200
+
+@app.delete('/api/cart/all')
+def delete_all_cart_item():
+    cart_items = CartItem()
+    cart_items.UserId = int(request.args.get('user_id'))
+    return jsonify(CartItems(connection).delete_all_item(cart_items)), 200
 
 @app.get('/api/cart')
 def get_cart_items():

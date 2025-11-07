@@ -127,6 +127,13 @@ class SimpleQueries(Enum):
             ExtraNote = VALUES(ExtraNote);
 
     '''
+
+    UPDATE_USER_CART = '''
+        UPDATE cart SET
+            Quantity = COALESCE(%s, Quantity),
+            ExtraNote = COALESCE(%s, ExtraNote)
+        WHERE UserId = %s AND MenuItemId = %s;
+    '''
     
     DELETE_USER_CART = '''
         DELETE *

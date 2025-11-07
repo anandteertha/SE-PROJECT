@@ -1,4 +1,4 @@
-import { map, mergeMap, Observable, Subject, takeUntil } from 'rxjs';
+import { map, mergeMap, Subject, takeUntil } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
@@ -36,7 +36,6 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
   filteredItems: MenuItem[] = [];
   selectedDietaryPreference = 'all';
   darkMode!: boolean;
-  cartCount$: Observable<number>;
   searchQuery: string = '';
   cartBounce: boolean = false;
   selectedSpiciness: number = 0;
@@ -56,9 +55,7 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
     private cart: CartService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef
-  ) {
-    this.cartCount$ = this.cart.count$;
-  }
+  ) {}
 
   ngOnInit() {
     this.menuService
@@ -73,7 +70,6 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
           this.menuSettings = menuData.user_menu_settings;
           menuData.cart_items.forEach((cartItem) => {
             this.cartItems.set(cartItem.MenuItemId, cartItem);
-            this.cart.add(cartItem.Quantity);
           });
           this.filteredItems = [...this.menuItems];
           this.changeDetectorRef.detectChanges();
@@ -175,11 +171,16 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
       Quantity: count + 1,
       UserId: this.userId,
     });
-    this.cart.add(1);
     this.triggerCartBounce();
     this.menuService.postUserCartData(this.cartItems.get(item.Id) as CartItem).subscribe({
       complete: () => {},
     });
+  }
+
+  get cartSize(): number {
+    let cartSize = 0;
+    this.cartItems.forEach((item) => (cartSize += item.Quantity));
+    return cartSize;
   }
 
   removeFromCart(item: MenuItem) {
@@ -190,7 +191,6 @@ export class ViewMenuComponent implements OnInit, OnDestroy {
         ...cartItem,
         Quantity: cartItem.Quantity - 1,
       });
-      this.cart.add(-1);
       this.triggerCartBounce();
       this.menuService.postUserCartData(this.cartItems.get(item.Id) as CartItem).subscribe({
         complete: () => {},
