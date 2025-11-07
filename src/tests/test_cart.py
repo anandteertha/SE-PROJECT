@@ -190,3 +190,36 @@ def test_delete_cart_item_nonexistent(monkeypatch, client):
     assert r.status_code == 200
     assert "deleted" in r.get_json()
 
+def test_cart_round_trip(monkeypatch, client):
+    """Simulate post → get flow for consistency."""
+    items = [{"MenuItemId": 1, "Quantity": 2}]
+    monkeypatch.setattr(CartItems, "post", lambda self, c: items[0])
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: {"items": items})
+    client.post("/api/cart", json={"UserId": 1, "MenuItemId": 1, "Quantity": 2})
+    r = client.get("/api/cart?user_id=1")
+    assert len(r.get_json()["items"]) == 1
+
+def test_cart_handles_multiple_users(monkeypatch, client):
+    fake = {"items": [{"UserId": 2, "MenuItemId": 5, "Quantity": 3}]}
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: fake if uid == 2 else {"items": []})
+    r = client.get("/api/cart?user_id=2")
+    assert r.get_json()["items"][0]["UserId"] == 2
+
+def test_post_cart_sql_injection_attempt(monkeypatch, client):
+    bad_note = "'; DROP TABLE cart;--"
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"ExtraNote": c.ExtraNote})
+    r = client.post("/api/cart", json={"UserId": 1, "MenuItemId": 1, "Quantity": 1, "ExtraNote": bad_note})
+    assert r.status_code == 201
+    assert "DROP" in r.get_json()["ExtraNote"]
+
+def test_post_cart_invalid_json(client):
+    r = client.post("/api/cart", data="not a json", headers={"Content-Type": "application/json"})
+    assert r.status_code in (400, 500)
+
+
+def test_post_cart_very_long_note(monkeypatch, client):
+    note = "x" * 300
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"ExtraNote": c.ExtraNote})
+    body = {"UserId": 1, "MenuItemId": 2, "Quantity": 1, "ExtraNote": note}
+    r = client.post("/api/cart", json=body)
+    assert len(r.get_json()["ExtraNote"]) == 300
