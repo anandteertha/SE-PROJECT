@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -5,7 +6,6 @@ import { Injectable } from '@angular/core';
 import { CartItem } from '@app/models/cart-item';
 import { MenuData } from '@app/models/menu-data';
 import { UserDetails } from '@app/models/user-details';
-import { environment } from '@src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {

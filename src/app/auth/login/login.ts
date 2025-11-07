@@ -1,3 +1,5 @@
+import { environment } from 'environments/environment';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -7,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { UserDetails } from '@app/models/user-details';
-import { environment } from '@src/environments/environment';
 
 @Component({
   selector: 'app-login',

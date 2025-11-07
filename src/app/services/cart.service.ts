@@ -1,8 +1,8 @@
+import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {

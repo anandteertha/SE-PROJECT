@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { Subject, takeUntil } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 import { UserDetails } from '@app/models/user-details';
-import { environment } from '@src/environments/environment';
 
 @Component({
   selector: 'app-register',
