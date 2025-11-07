@@ -130,3 +130,9 @@ def test_get_cart_nonexistent_user(monkeypatch, client):
     data = r.get_json()
     assert data["items"] == []
 
+def test_get_cart_with_single_item(monkeypatch, client):
+    fake = {"items": [{"MenuItemId": 2, "Quantity": 1}], "totals": {"currencyTotal": 10}}
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: fake)
+    r = client.get("/api/cart?user_id=5")
+    assert r.status_code == 200
+    assert r.get_json()["items"][0]["MenuItemId"] == 2
