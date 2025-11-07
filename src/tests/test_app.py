@@ -244,7 +244,6 @@ def test_delete_cart_item_nonexistent(monkeypatch, client):
     assert "deleted" in r.get_json()
 
 def test_cart_round_trip(monkeypatch, client):
-    """Simulate post → get flow for consistency."""
     items = [{"MenuItemId": 1, "Quantity": 2}]
     monkeypatch.setattr(CartItems, "post", lambda self, c: items[0])
     monkeypatch.setattr(CartItems, "get", lambda self, uid: {"items": items})
