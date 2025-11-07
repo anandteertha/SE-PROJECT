@@ -1,5 +1,4 @@
 import { Subject, takeUntil } from 'rxjs';
-
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
