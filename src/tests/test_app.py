@@ -264,3 +264,15 @@ def test_post_cart_sql_injection_attempt(monkeypatch, client):
     r = client.post("/api/cart", json={"UserId": 1, "MenuItemId": 1, "Quantity": 1, "ExtraNote": bad_note})
     assert r.status_code == 201
     assert "DROP" in r.get_json()["ExtraNote"]
+
+def test_post_cart_invalid_json(client):
+    r = client.post("/api/cart", data="not a json", headers={"Content-Type": "application/json"})
+    assert r.status_code in (400, 500)
+
+
+def test_post_cart_very_long_note(monkeypatch, client):
+    note = "x" * 300
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"ExtraNote": c.ExtraNote})
+    body = {"UserId": 1, "MenuItemId": 2, "Quantity": 1, "ExtraNote": note}
+    r = client.post("/api/cart", json=body)
+    assert len(r.get_json()["ExtraNote"]) == 300
