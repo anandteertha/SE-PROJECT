@@ -62,3 +62,15 @@ def test_post_cart(monkeypatch, client):
     data = resp.get_json()
     assert data["MenuItemId"] == 2
     assert called["u"] == 1
+
+
+def test_delete_cart(monkeypatch, client):
+    deleted = {}
+    def fake_delete(self, c):
+        deleted["uid"] = c.UserId
+        deleted["mid"] = c.MenuItemId
+        return {"message": "deleted"}
+    monkeypatch.setattr(CartItems, "delete_item", fake_delete)
+    resp = client.delete("/api/cart?user_id=1&menu_item_id=2")
+    assert resp.status_code == 200
+    assert resp.get_json()["message"] == "deleted"
