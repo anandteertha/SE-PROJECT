@@ -9,7 +9,7 @@ import { UserDetails } from '@app/models/user-details';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
-  private dataUrl = `${environment.apiBase}/api`;
+  private dataUrl = `${environment.apiBase}`;
 
   constructor(private http: HttpClient) {}
 
