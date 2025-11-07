@@ -1,0 +1,102 @@
+<div class="filters-trigger" [class.open]="showPanel">
+  <button
+    class="filters-btn"
+    type="button"
+    aria-haspopup="true"
+    [attr.aria-expanded]="showPanel"
+    (click)="togglePanel()"
+  >
+    Filters
+  </button>
+
+  <div class="filters-panel" role="menu" *ngIf="showPanel">
+    <section class="group">
+      <h4>Categories</h4>
+      <div class="btns">
+        <button [class.active]="selectedCategory === 'all'" (click)="onCategory('all')">All</button>
+        <button
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === category"
+          (click)="onCategory(category)"
+        >
+          {{ category }}
+        </button>
+      </div>
+    </section>
+
+    <section class="group">
+      <h4>Dietary Preferences</h4>
+      <div class="btns">
+        <button
+          [class.active]="selectedDietaryPreference === 'all'"
+          (click)="onDietaryPreferenceChange('all')"
+        >
+          All
+        </button>
+        <button
+          *ngFor="let dietaryPreference of dietaryPreferences"
+          [class.active]="selectedDietaryPreference === dietaryPreference"
+          (click)="onDietaryPreferenceChange(dietaryPreference)"
+        >
+          {{ dietaryPreference }}
+        </button>
+      </div>
+    </section>
+
+    <section class="group two-col">
+      <div class="taste-row spicy">
+        <label
+          >Spiciness <span class="taste-value">{{ selectedSpiciness }}</span></label
+        >
+        <div class="range-wrap" [style.--val]="selectedSpiciness">
+          <input type="range" min="0" max="10" step="1" [(ngModel)]="selectedSpiciness" />
+          <output class="bubble">🔥 {{ selectedSpiciness }}</output>
+        </div>
+      </div>
+      <div class="taste-row sweet">
+        <label
+          >Sweetness <span class="taste-value">{{ selectedSweetness }}</span></label
+        >
+        <div class="range-wrap" [style.--val]="selectedSweetness">
+          <input type="range" min="0" max="10" step="1" [(ngModel)]="selectedSweetness" />
+          <output class="bubble">🍯 {{ selectedSweetness }}</output>
+        </div>
+      </div>
+    </section>
+
+    <section class="group">
+      <h4>Salt level</h4>
+      <div class="salt-control" [ngClass]="'salt-' + selectedSalt">
+        <div class="knob" aria-hidden="true"></div>
+        <button
+          type="button"
+          class="salt-btn"
+          [class.active]="selectedSalt === 'less'"
+          (click)="onSalt('less')"
+        >
+          Salt: Less
+        </button>
+        <button
+          type="button"
+          class="salt-btn"
+          [class.active]="selectedSalt === 'medium'"
+          (click)="onSalt('medium')"
+        >
+          Salt: Medium
+        </button>
+        <button
+          type="button"
+          class="salt-btn"
+          [class.active]="selectedSalt === 'high'"
+          (click)="onSalt('high')"
+        >
+          Salt: High
+        </button>
+      </div>
+    </section>
+    <div class="panel-actions">
+      <button type="button" class="btn-secondary" (click)="reset()">Reset</button>
+      <button type="button" class="btn-primary" (click)="apply()">Apply</button>
+    </div>
+  </div>
+</div>

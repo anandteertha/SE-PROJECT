@@ -1,0 +1,9 @@
+class UserDetail:
+    Id: int
+    Name: str
+    Password: str
+    Email: str
+    Spiciness: float
+    Sweetness: float
+    Salt: str
+    DietaryPreference: str

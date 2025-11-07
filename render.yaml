@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: nutribite-api
+    env: python
+    rootDir: src/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 2 -k gthread -b 0.0.0.0:$PORT app:app
+    autoDeploy: true
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: PORT
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SSL_CA
+        sync: false

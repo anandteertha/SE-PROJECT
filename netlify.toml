@@ -1,0 +1,20 @@
+[build]
+  # Build the production app
+  command = "npm ci && npm run build -- --configuration=production"
+  # After a local build, confirm the app name under dist/<APP_NAME>/browser and update the next line:
+  publish = "dist/view-menu-app/browser"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Proxy all /api/* calls to your Render Flask API (no CORS needed)
+[[redirects]]
+  from = "/api/*"
+  to = "https://se-project-ey8h.onrender.com/api/:splat"
+  status = 200
+
+# SPA fallback so deep links work
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

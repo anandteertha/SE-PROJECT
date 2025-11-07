@@ -1,0 +1,130 @@
+/* Global page-level styles used for full-page dark-mode
+	 The component `view-menu` has its own `.menu-container.dark-mode`
+	 overrides for component-scoped elements. These global rules ensure
+	 the page background and base text color also update when the
+	 body receives the `dark-mode` class. */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: #f9fff9;
+	margin: 0;
+	color: #1b5e20;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+	background-color: #121212;
+	color: #e8f5e9;
+}
+
+/* Optional: ensure app root stretches so body background covers full window */
+#app-root, #main, app-root {
+	min-height: 100%;
+}
+
+
+:root {
+  --nutri-orange-bright: #F95700;
+  --nutri-orange-dark: #E64A00;
+  --nutri-beige-light: #F3EEE3; /* Creamy form background */
+  --nutri-gray-input: #F1F1F1;
+  --nutri-text-dark: #3D332A;
+  --nutri-text-light: #796C5F;
+}
+
+// body {
+//   font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+//   background-color: #1a1a1a; /* Dark black background */ 
+//   margin: 0;
+//   padding: 0;
+//   color: var(--nutri-text-dark);
+// }
+
+// /* Update Angular Material Form Fields for placeholder-style labels */
+// .mat-mdc-form-field {
+//   .mdc-text-field--filled {
+//     background-color: var(--nutri-gray-input) !important;
+//     border-radius: 8px !important; /* Rounded corners for the whole field */
+//     height: 60px !important; /* Make fields taller */
+//     display: flex;
+//     align-items: center;
+//     padding: 0 16px !important; /* Padding inside the field */
+//   }
+
+//   /* Remove the bottom line */
+//   .mdc-line-ripple {
+//     display: none !important;
+//   }
+
+//   /* Style the label/placeholder */
+//   .mdc-floating-label {
+//     color: var(--nutri-text-light) !important;
+//     font-weight: 500;
+//     /* Position it as a placeholder */
+//     transform: translateY(0) scale(1) !important; 
+//     position: static !important; /* Keep it in line with input */
+//     padding-left: 0 !important;
+//   }
+
+//   /* Hide the actual input label when using a custom placeholder */
+//   .mdc-notched-outline {
+//     display: none !important;
+//   }
+
+//   .mat-mdc-form-field-flex {
+//     align-items: center !important; /* Center content vertically */
+//   }
+
+//   .mat-mdc-form-field-infix {
+//     padding: 0 !important; /* Remove default padding */
+//   }
+
+//   .mat-mdc-input-element {
+//     color: var(--nutri-text-dark);
+//     caret-color: var(--nutri-orange-bright); /* Cursor color */
+//     padding-left: 0 !important; /* Align input text */
+//   }
+
+//   /* For the "fill" appearance, ensure it's always filled */
+//   &.mat-mdc-form-field-appearance-fill .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+//       background-color: var(--nutri-gray-input) !important;
+//   }
+// }
+
+// .mat-mdc-raised-button.mat-primary {
+//   background-color: var(--nutri-orange-bright) !important;
+//   color: white !important;
+//   border-radius: 8px !important;
+// }
+// .mat-mdc-raised-button.mat-primary:hover {
+//   background-color: var(--nutri-orange-dark) !important;
+// }
+
+// /* Checkbox styles */
+// .mat-mdc-checkbox {
+//   --mdc-checkbox-selected-focus-state-layer-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-selected-hover-state-layer-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-selected-pressed-state-layer-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-selected-container-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-unselected-container-color: white;
+//   --mdc-checkbox-unselected-focus-state-layer-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-unselected-hover-state-layer-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-unselected-pressed-state-layer-color: var(--nutri-orange-bright);
+//   --mdc-checkbox-unselected-hover-state-layer-opacity: 0.1;
+//   --mdc-checkbox-unselected-focus-state-layer-opacity: 0.1;
+//   --mdc-checkbox-unselected-pressed-state-layer-opacity: 0.1;
+//   --mdc-checkbox-outline-color: var(--nutri-text-light);
+//   --mdc-checkbox-ripple-color: var(--nutri-orange-bright);
+
+//   .mdc-checkbox__background {
+//     border-radius: 4px; /* Square checkbox */
+//   }
+//   .mdc-label {
+//     color: var(--nutri-text-dark);
+//     font-weight: 500;
+//   }
+// }
