@@ -122,3 +122,11 @@ def test_post_cart_returns_full_row(monkeypatch, client):
     data = resp.get_json()
     assert data["MenuItemId"] == 10
     assert data["Quantity"] == 2
+
+def test_get_cart_nonexistent_user(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: {"items": [], "totals": {}})
+    r = client.get("/api/cart?user_id=9999")
+    assert r.status_code == 200
+    data = r.get_json()
+    assert data["items"] == []
+
