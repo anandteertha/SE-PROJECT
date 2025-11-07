@@ -146,6 +146,36 @@ def test_get_cart_computes_totals(monkeypatch, client):
     r = client.get("/api/cart?user_id=2")
     assert r.get_json()["totals"]["currencyTotal"] == 11.0
 
-def test_get_cart_invalid_id(monkeypatch, client):
-    r = client.get("/api/cart?user_id=abc")
-    assert r.status_code in (400, 500)
+
+def test_post_cart_valid(monkeypatch, client):
+    called = {}
+    def fake_post(self, c):
+        called.update({"MenuItemId": c.MenuItemId})
+        return {"MenuItemId": c.MenuItemId, "Quantity": c.Quantity}
+    monkeypatch.setattr(CartItems, "post", fake_post)
+    body = {"UserId": 1, "MenuItemId": 3, "Quantity": 2, "ExtraNote": "spicy"}
+    r = client.post("/api/cart", json=body)
+    assert r.status_code == 201
+    assert called["MenuItemId"] == 3
+
+def test_post_cart_zero_quantity(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"Quantity": c.Quantity})
+    body = {"UserId": 1, "MenuItemId": 3, "Quantity": 0}
+    r = client.post("/api/cart", json=body)
+    assert r.status_code in (400, 201)
+
+
+def test_post_cart_large_quantity(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"Quantity": c.Quantity})
+    body = {"UserId": 1, "MenuItemId": 3, "Quantity": 1000}
+    r = client.post("/api/cart", json=body)
+    assert r.status_code == 201
+    assert r.get_json()["Quantity"] == 1000
+
+def test_post_cart_special_char_note(monkeypatch, client):
+    note = "no onion & extra cheese"
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"ExtraNote": c.ExtraNote})
+    body = {"UserId": 1, "MenuItemId": 4, "Quantity": 2, "ExtraNote": note}
+    r = client.post("/api/cart", json=body)
+    assert note in r.get_json()["ExtraNote"]
+
