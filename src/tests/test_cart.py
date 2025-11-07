@@ -145,3 +145,7 @@ def test_get_cart_computes_totals(monkeypatch, client):
     monkeypatch.setattr(CartItems, "get", lambda self, uid: fake)
     r = client.get("/api/cart?user_id=2")
     assert r.get_json()["totals"]["currencyTotal"] == 11.0
+
+def test_get_cart_invalid_id(monkeypatch, client):
+    r = client.get("/api/cart?user_id=abc")
+    assert r.status_code in (400, 500)
