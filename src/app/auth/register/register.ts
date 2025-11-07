@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { Subject, takeUntil } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
@@ -60,7 +61,7 @@ export class Register implements OnDestroy {
         Email: this.registerForm.get('email')?.value || '',
       };
       this.http
-        .post('/api/register', userDetails)
+        .post(`${environment.apiBase}/register`, userDetails)
         .pipe(takeUntil(this.destroyed))
         .subscribe({
           next: (response) => {

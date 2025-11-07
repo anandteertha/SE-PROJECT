@@ -1,3 +1,5 @@
+import { environment } from 'environments/environment';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -42,7 +44,7 @@ export class Login {
       Password: this.loginForm.get('password')?.value || '',
       Email: this.loginForm.get('loginId')?.value || '',
     };
-    this.http.post<any>('/api/login', userDetails).subscribe({
+    this.http.post<any>(`${environment.apiBase}/login`, userDetails).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', response.username);

@@ -13,8 +13,8 @@
           </svg>
         </span>
         <span class="cart-text">Cart</span>
-        <span class="cart-badge" *ngIf="cartCount$ | async as count" [class.bounce]="cartBounce">
-          {{ count }}
+        <span class="cart-badge" *ngIf="cartSize" [class.bounce]="cartBounce">
+          {{ cartSize }}
         </span>
       </button>
     </div>

@@ -1,3 +1,4 @@
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -8,7 +9,7 @@ import { UserDetails } from '@app/models/user-details';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
-  private dataUrl = '/api';
+  private dataUrl = `${environment.apiBase}`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,10 +23,6 @@ export class MenuService {
   postUserCartData(cartData: CartItem): Observable<CartItem> {
     return this.http.post<CartItem>(`${this.dataUrl}/cart`, cartData);
   }
-
-  // deleteCartItem(cartData: MenuCartData): Observable<any> {
-  // return this.http.delete<any>(`${this.dataUrl}/cart`, cartData);
-  // }
 
   patchUserDetails(userDetailsData: UserDetails): Observable<{}> {
     return this.http.patch<{}>(`${this.dataUrl}/user/preferences`, userDetailsData);

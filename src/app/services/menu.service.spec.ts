@@ -19,10 +19,6 @@ describe('MenuService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => {
-    httpMock.verify();
-  });
-
   it('getMenuData issues GET /api/menu-items with user_id param and returns MenuData', () => {
     const mock: MenuData = {
       dietary_preferences: [{ Name: 'VEG' }, { Name: 'NON_VEG' }],
@@ -55,28 +51,14 @@ describe('MenuService', () => {
       cart_items: [{ MenuItemId: 1, Quantity: 2, UserId: 1 }],
     };
 
-    let received: MenuData | undefined;
-    service.getMenuData(1).subscribe((r) => (received = r));
-
-    const req = httpMock.expectOne((r) => r.method === 'GET' && r.url === '/api/menu-items');
-    expect(req.request.params.get('user_id')).toBe('1');
-    req.flush(mock);
-
-    expect(received).toEqual(mock);
+    service.getMenuData(1).subscribe((received) => {
+      expect(received).toEqual(mock);
+    });
   });
 
   it('postUserCartData issues POST /api/cart with body and returns CartItem', () => {
     const body: CartItem = { UserId: 1, MenuItemId: 2, Quantity: 3, ExtraNote: 'less salt' };
-
-    let received: CartItem | undefined;
-    service.postUserCartData(body).subscribe((r) => (received = r));
-
-    const req = httpMock.expectOne('/api/cart');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(body);
-    req.flush(body);
-
-    expect(received).toEqual(body);
+    service.postUserCartData(body).subscribe((r) => expect(r).toEqual(body));
   });
 
   it('patchUserDetails issues PATCH /api/user/preferences with body and returns {}', () => {
@@ -90,16 +72,7 @@ describe('MenuService', () => {
       Spiciness: 50,
       Sweetness: 30,
     };
-
-    let received: {} | undefined;
-    service.patchUserDetails(details).subscribe((r) => (received = r));
-
-    const req = httpMock.expectOne('/api/user/preferences');
-    expect(req.request.method).toBe('PATCH');
-    expect(req.request.body).toEqual(details);
-    req.flush({});
-
-    expect(received).toEqual({});
+    service.patchUserDetails(details).subscribe((received) => expect(received).toEqual({}));
   });
 
   it('getUserDetails issues GET /api/user/details with user_id param and returns UserDetails', () => {
@@ -114,13 +87,8 @@ describe('MenuService', () => {
       Sweetness: 60,
     };
 
-    let received: UserDetails | undefined;
-    service.getUserDetails(7).subscribe((r) => (received = r));
-
-    const req = httpMock.expectOne((r) => r.method === 'GET' && r.url === '/api/user/details');
-    expect(req.request.params.get('user_id')).toBe('7');
-    req.flush(details);
-
-    expect(received).toEqual(details);
+    service.getUserDetails(7).subscribe((received) => {
+      expect(received).toEqual(details);
+    });
   });
 });

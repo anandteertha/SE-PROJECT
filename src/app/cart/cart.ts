@@ -47,7 +47,15 @@ export class CartComponent implements OnInit, OnDestroy {
 
   clearCart() {
     if (confirm('Clear all items from cart?')) {
-      this.items = [];
+      this.cartService
+        .removeAllItems(this.user_id || '')
+        .pipe(takeUntil(this.destroyed))
+        .subscribe({
+          complete: () => {
+            this.items = [];
+            this.changeDetectorRef.detectChanges();
+          },
+        });
     }
   }
 
@@ -64,20 +72,23 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   dec(item: MenuCartData) {
-    const next = (item.Quantity || 0) - 1;
-    console.log(next);
-    if (next > 0) {
-      alert(`${item.Name} removed from cart`);
+    item.Quantity--;
+    if (item.Quantity > 0) {
       this.menuItemService
         .postUserCartData(item)
         .pipe(takeUntil(this.destroyed))
         .subscribe({
           next: (data) => {
             console.log('updated cart data!', data);
+            alert(`${item.Name} removed from cart`);
+          },
+          complete: () => {
+            this.items = this.items.filter((item) => item !== item && item.Quantity > 0);
+            this.changeDetectorRef.detectChanges();
           },
         });
       return;
-    } else if (next <= 0) {
+    } else if (item.Quantity <= 0) {
       this.cartService
         .removeItem(item.MenuItemId, item.UserId)
         .pipe(takeUntil(this.destroyed))
@@ -85,10 +96,12 @@ export class CartComponent implements OnInit, OnDestroy {
           next: (data) => {
             console.log(data);
           },
+          complete: () => {
+            this.items = this.items.filter((item) => item !== item && item.Quantity > 0);
+            this.changeDetectorRef.detectChanges();
+          },
         });
     }
-    item.Quantity = next;
-    this.items = this.items.filter((item) => item !== item && item.Quantity > 0);
   }
 
   menu(): void {

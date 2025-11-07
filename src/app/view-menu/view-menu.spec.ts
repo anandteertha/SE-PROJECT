@@ -1,5 +1,6 @@
 import { BehaviorSubject, of } from 'rxjs';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CartItem } from '@app/models/cart-item';
@@ -69,9 +70,6 @@ describe('ViewMenuComponent (zoneless)', () => {
       'patchUserDetails',
       'postUserCartData',
     ]);
-    cartSpy = jasmine.createSpyObj<CartService>('CartService', ['add'], {
-      count$: cartCount$.asObservable(),
-    });
 
     menuSpy.getMenuData.and.returnValue(of(MENU_DATA));
     menuSpy.getUserDetails.and.returnValue(of(USER_DETAILS));
@@ -82,12 +80,8 @@ describe('ViewMenuComponent (zoneless)', () => {
     localStorage.setItem('darkMode', 'yes');
 
     await TestBed.configureTestingModule({
-      imports: [ViewMenuComponent],
-      providers: [
-        provideZonelessChangeDetection(),
-        { provide: MenuService, useValue: menuSpy },
-        { provide: CartService, useValue: cartSpy },
-      ],
+      imports: [ViewMenuComponent, HttpClientTestingModule],
+      providers: [provideZonelessChangeDetection(), { provide: MenuService, useValue: menuSpy }],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ViewMenuComponent, { set: { template: '' } })
@@ -109,7 +103,6 @@ describe('ViewMenuComponent (zoneless)', () => {
     expect(viewMenuComponent.filteredItems.length).toBe(2);
     expect(viewMenuComponent.dietaryPreferences).toEqual(['VEG', 'NON_VEG']);
     expect(viewMenuComponent.menuCategories).toEqual(['Curry', 'Starter']);
-    expect(cartSpy.add).toHaveBeenCalledWith(2);
     expect(document.body.classList.contains('dark-mode')).toBeTrue();
   });
 
@@ -170,7 +163,6 @@ describe('ViewMenuComponent (zoneless)', () => {
     expect((viewMenuComponent as any).cartItems.get(item.Id)?.Quantity).toBe(2);
     viewMenuComponent.addToCart(item);
     expect((viewMenuComponent as any).cartItems.get(item.Id)?.Quantity).toBe(3);
-    expect(cartSpy.add).toHaveBeenCalled();
     expect(menuSpy.postUserCartData).toHaveBeenCalled();
     expect(viewMenuComponent.cartBounce).toBeTrue();
     jasmine.clock().tick(601);
