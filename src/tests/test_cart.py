@@ -179,3 +179,14 @@ def test_post_cart_special_char_note(monkeypatch, client):
     r = client.post("/api/cart", json=body)
     assert note in r.get_json()["ExtraNote"]
 
+def test_delete_cart_item_success(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "delete_item", lambda self, c: {"deleted": True})
+    r = client.delete("/api/cart?user_id=1&menu_item_id=3")
+    assert r.status_code == 200
+
+def test_delete_cart_item_nonexistent(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "delete_item", lambda self, c: {"deleted": False})
+    r = client.delete("/api/cart?user_id=1&menu_item_id=999")
+    assert r.status_code == 200
+    assert "deleted" in r.get_json()
+
