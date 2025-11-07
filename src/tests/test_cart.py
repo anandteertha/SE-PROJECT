@@ -136,3 +136,12 @@ def test_get_cart_with_single_item(monkeypatch, client):
     r = client.get("/api/cart?user_id=5")
     assert r.status_code == 200
     assert r.get_json()["items"][0]["MenuItemId"] == 2
+
+def test_get_cart_computes_totals(monkeypatch, client):
+    fake = {
+        "items": [{"MenuItemId": 1, "Quantity": 2, "Price": 5.5}],
+        "totals": {"currencyTotal": 11.0},
+    }
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: fake)
+    r = client.get("/api/cart?user_id=2")
+    assert r.get_json()["totals"]["currencyTotal"] == 11.0
