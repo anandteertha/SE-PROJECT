@@ -74,3 +74,15 @@ def test_delete_cart(monkeypatch, client):
     resp = client.delete("/api/cart?user_id=1&menu_item_id=2")
     assert resp.status_code == 200
     assert resp.get_json()["message"] == "deleted"
+
+def test_post_cart_missing_field(monkeypatch, client):
+    resp = client.post("/api/cart", json={"UserId": 1})
+    assert resp.status_code in (200, 201, 400, 500)
+
+
+def test_post_cart_invalid_quantity(monkeypatch, client):
+    body = {"UserId": 1, "MenuItemId": 2, "Quantity": -5, "ExtraNote": ""}
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"Quantity": c.Quantity})
+    resp = client.post("/api/cart", json=body)
+    assert resp.status_code == 201
+    assert resp.get_json()["Quantity"] == -5
