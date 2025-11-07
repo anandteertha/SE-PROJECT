@@ -35,3 +35,30 @@ def test_get_cart_empty(monkeypatch, client):
     data = resp.get_json()
     assert "items" in data
     assert data["items"] == []
+
+def test_get_cart_with_items(monkeypatch, client):
+    fake_cart = {
+        "items": [
+            {"product_id": 1, "name": "Paneer", "price": 10, "quantity": 2, "calories": 200, "protein": 10}
+        ],
+        "totals": {"currencyTotal": 20, "nutrition": {"calories": 200, "protein": 10}}
+    }
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: fake_cart)
+    resp = client.get("/api/cart?user_id=1")
+    assert resp.status_code == 200
+    assert resp.get_json()["items"][0]["name"] == "Paneer"
+
+
+def test_post_cart(monkeypatch, client):
+    called = {}
+    def fake_post(self, cart):
+        called["u"] = cart.UserId
+        return {"MenuItemId": cart.MenuItemId, "Quantity": cart.Quantity}
+    monkeypatch.setattr(CartItems, "post", fake_post)
+
+    body = {"UserId": 1, "MenuItemId": 2, "Quantity": 3, "ExtraNote": "less salt"}
+    resp = client.post("/api/cart", json=body)
+    assert resp.status_code in (200, 201, 400, 500)
+    data = resp.get_json()
+    assert data["MenuItemId"] == 2
+    assert called["u"] == 1
