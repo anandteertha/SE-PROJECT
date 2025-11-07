@@ -86,3 +86,24 @@ def test_post_cart_invalid_quantity(monkeypatch, client):
     resp = client.post("/api/cart", json=body)
     assert resp.status_code == 201
     assert resp.get_json()["Quantity"] == -5
+
+def test_delete_cart_invalid(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "delete_item", lambda self, c: {"message": "not found"})
+    resp = client.delete("/api/cart?user_id=99&menu_item_id=999")
+    assert resp.status_code == 200
+    assert "message" in resp.get_json()
+
+
+def test_cart_multiple_items(monkeypatch, client):
+    fake_cart = {
+        "items": [
+            {"product_id": 1, "name": "A", "price": 5, "quantity": 1, "calories": 50, "protein": 5},
+            {"product_id": 2, "name": "B", "price": 7, "quantity": 2, "calories": 140, "protein": 8}
+        ],
+        "totals": {"currencyTotal": 19, "nutrition": {"calories": 190, "protein": 13}}
+    }
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: fake_cart)
+    resp = client.get("/api/cart?user_id=1")
+    data = resp.get_json()
+    assert len(data["items"]) == 2
+    assert data["totals"]["currencyTotal"] == 19
