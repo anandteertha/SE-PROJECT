@@ -20,3 +20,18 @@ def fake_connection(monkeypatch):
 
     monkeypatch.setattr(appmod, "connection", FakeConnection(), raising=False)
 
+@pytest.fixture
+def client():
+    from backend.app import app
+    app.config["TESTING"] = True
+    with app.test_client() as client:
+        yield client
+
+
+def test_get_cart_empty(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: {"items": [], "totals": {}})
+    resp = client.get("/api/cart?user_id=1")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert "items" in data
+    assert data["items"] == []
