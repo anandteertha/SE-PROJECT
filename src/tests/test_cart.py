@@ -107,3 +107,18 @@ def test_cart_multiple_items(monkeypatch, client):
     data = resp.get_json()
     assert len(data["items"]) == 2
     assert data["totals"]["currencyTotal"] == 19
+
+def test_clear_cart_behavior(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "delete_item", lambda self, c: {"message": "all cleared"})
+    resp = client.delete("/api/cart?user_id=1&menu_item_id=0")
+    assert resp.status_code == 200
+    assert "cleared" in resp.get_json()["message"].lower()
+
+
+def test_post_cart_returns_full_row(monkeypatch, client):
+    result = {"UserId": 1, "MenuItemId": 10, "Quantity": 2, "ExtraNote": "spicy"}
+    monkeypatch.setattr(CartItems, "post", lambda self, c: result)
+    resp = client.post("/api/cart", json=result)
+    data = resp.get_json()
+    assert data["MenuItemId"] == 10
+    assert data["Quantity"] == 2
