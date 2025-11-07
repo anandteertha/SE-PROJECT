@@ -236,3 +236,18 @@ def test_delete_cart_item_success(monkeypatch, client):
     monkeypatch.setattr(CartItems, "delete_item", lambda self, c: {"deleted": True})
     r = client.delete("/api/cart?user_id=1&menu_item_id=3")
     assert r.status_code == 200
+
+def test_delete_cart_item_nonexistent(monkeypatch, client):
+    monkeypatch.setattr(CartItems, "delete_item", lambda self, c: {"deleted": False})
+    r = client.delete("/api/cart?user_id=1&menu_item_id=999")
+    assert r.status_code == 200
+    assert "deleted" in r.get_json()
+
+def test_cart_round_trip(monkeypatch, client):
+    """Simulate post → get flow for consistency."""
+    items = [{"MenuItemId": 1, "Quantity": 2}]
+    monkeypatch.setattr(CartItems, "post", lambda self, c: items[0])
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: {"items": items})
+    client.post("/api/cart", json={"UserId": 1, "MenuItemId": 1, "Quantity": 2})
+    r = client.get("/api/cart?user_id=1")
+    assert len(r.get_json()["items"]) == 1
