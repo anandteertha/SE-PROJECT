@@ -7,7 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch --code-coverage",
-    "serve:ssr:view-menu-app": "node dist/view-menu-app/server/server.mjs"
+    "serve:ssr:view-menu-app": "node dist/view-menu-app/server/server.mjs",
+    "e2e": "CYPRESS_COVERAGE=1 cypress run",
+    "e2e:open": "CYPRESS_COVERAGE=1 cypress open",
+  "e2e:start": "CYPRESS_COVERAGE=1 ng serve",
+    "e2e:ci": "start-server-and-test e2e:start http://localhost:4200 e2e",
+    "coverage:e2e": "nyc report --reporter=html --reporter=text-summary --report-dir=coverage/e2e"
   },
   "prettier": {
     "printWidth": 100,
@@ -36,18 +41,45 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.2",
     "@angular/build": "^20.3.6",
     "@angular/cli": "^20.3.6",
     "@angular/compiler-cli": "^20.3.0",
+    "@cypress/code-coverage": "^3.12.37",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "cypress": "^13.15.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.9.2"
+    "nyc": "^15.1.0",
+    "start-server-and-test": "^2.0.8",
+    "typescript": "~5.9.2",
+  "vite-plugin-istanbul": "^4.1.0"
+  },
+  "nyc": {
+    "all": true,
+    "extension": [
+      ".ts",
+      ".js"
+    ],
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "**/*.spec.ts",
+      "**/node_modules/**"
+    ],
+    "reporter": [
+      "text-summary",
+      "html",
+      "lcov"
+    ],
+    "cache": false
   }
 }

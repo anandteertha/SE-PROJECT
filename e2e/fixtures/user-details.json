@@ -1,0 +1,10 @@
+{
+  "Id": 1,
+  "Name": "Alice",
+  "Password": "",
+  "Email": "alice@example.com",
+  "Spiciness": 5,
+  "Sweetness": 5,
+  "Salt": "any",
+  "DietaryPreference": "all"
+}

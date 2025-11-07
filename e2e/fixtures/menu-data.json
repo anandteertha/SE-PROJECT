@@ -1,0 +1,66 @@
+{
+  "cart_items": [
+    { "UserId": 1, "MenuItemId": 2, "Quantity": 1 }
+  ],
+  "dietary_preferences": [
+    { "Name": "Vegan" },
+    { "Name": "Vegetarian" },
+    { "Name": "Non Vegetarian" },
+    { "Name": "Gluten Free" }
+  ],
+  "menu_categories": [
+    { "Name": "Breakfast" },
+    { "Name": "Lunch" },
+    { "Name": "Snacks" },
+    { "Name": "Dinner" }
+  ],
+  "menu_items": [
+    {
+      "CalorieCount": 420,
+      "Category": "Breakfast",
+      "Cost": 9.99,
+      "Description": "Veggies & quinoa",
+      "Id": 1,
+      "ImageUrl": "quinoa-bowl.jpg",
+      "Name": "Quinoa Bowl",
+      "ProteinCount": 18,
+      "DietType": "Vegan"
+    },
+    {
+      "CalorieCount": 560,
+      "Category": "Snacks",
+      "Cost": 8.49,
+      "Description": "Grilled chicken wrap",
+      "Id": 2,
+      "ImageUrl": "chicken-wrap.jpg",
+      "Name": "Chicken Wrap",
+      "ProteinCount": 24,
+      "DietType": "Non Vegetarian"
+    },
+    {
+      "CalorieCount": 310,
+      "Category": "Breakfast",
+      "Cost": 6.5,
+      "Description": "Avocado on multigrain bread",
+      "Id": 3,
+      "ImageUrl": "avocado-toast.jpg",
+      "Name": "Avocado Toast",
+      "ProteinCount": 6,
+      "DietType": "Vegetarian"
+    },
+    {
+      "CalorieCount": 700,
+      "Category": "Dinner",
+      "Cost": 12.99,
+      "Description": "Spicy paneer curry",
+      "Id": 4,
+      "ImageUrl": "paneer-curry.jpg",
+      "Name": "Paneer Curry",
+      "ProteinCount": 20,
+      "DietType": "Vegetarian"
+    }
+  ],
+  "user_menu_settings": [
+    { "UserId": 1, "Key": "theme", "Value": "light" }
+  ]
+}

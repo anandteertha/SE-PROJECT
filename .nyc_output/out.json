@@ -1,0 +1,641 @@
+{
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.config.server.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.config.server.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.config.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.config.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.routes.server.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.routes.server.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.routes.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.routes.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/app.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/directives/card-hover.directive.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/directives/card-hover.directive.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/filters-panel/filters-panel.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/filters-panel/filters-panel.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/filters-panel/filters-panel.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/filters-panel/filters-panel.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/filters-panel/filters-panel.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/filters-panel/filters-panel.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/cart-item.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/cart-item.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/menu-data.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/menu-data.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/menu-item.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/menu-item.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/menu-settings.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/menu-settings.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/name-model.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/name-model.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/user-details.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/models/user-details.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/pacman-loader/pacman-loader.component.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/pacman-loader/pacman-loader.component.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/pacman-loader/pacman-loader.component.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/pacman-loader/pacman-loader.component.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/pacman-loader/pacman-loader.component.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/pacman-loader/pacman-loader.component.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/revolving-button/revolving-button.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/revolving-button/revolving-button.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/revolving-button/revolving-button.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/revolving-button/revolving-button.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/revolving-button/revolving-button.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/revolving-button/revolving-button.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/search-bar/search-bar.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/search-bar/search-bar.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/search-bar/search-bar.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/search-bar/search-bar.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/search-bar/search-bar.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/search-bar/search-bar.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/services/cart.service.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/services/cart.service.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/services/menu.service.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/services/menu.service.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/services/user.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/services/user.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/README.md": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/README.md",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/user-profile.component.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/user-profile.component.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/user-profile.component.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/user-profile.component.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/user-profile.component.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/user-profile/user-profile.component.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/view-menu/view-menu.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/view-menu/view-menu.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/view-menu/view-menu.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/view-menu/view-menu.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/view-menu/view-menu.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/app/view-menu/view-menu.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/avocado-toast.jpg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/avocado-toast.jpg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/buddha-bowl.svg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/buddha-bowl.svg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/chicken-bowl.svg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/chicken-bowl.svg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/chicken-wrap.jpg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/chicken-wrap.jpg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/nutribite-logo.svg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/nutribite-logo.svg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/quinoa-bowl.jpg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/images/quinoa-bowl.jpg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/placeholder-food.svg": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/assets/placeholder-food.svg",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/__init__.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/__init__.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/cart_item.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/cart_item.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/menu_data.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/menu_data.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/user_detail.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/Models/user_detail.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/__init__.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/__init__.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/app.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/app.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/connect_to_database.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/connect_to_database.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/__init__.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/__init__.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/cart_items.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/cart_items.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/menu_items.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/menu_items.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/user_details.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/controllers/user_details.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/database_utils.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/database_utils.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/queries/__init__.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/queries/__init__.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/queries/simple_queries.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/queries/simple_queries.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/queries/static_data.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/queries/static_data.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/requirements.txt": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/requirements.txt",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/setup_database.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend/setup_database.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend.zip": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/backend.zip",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/index.html": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/index.html",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/main.server.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/main.server.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/main.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/main.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/models/menu-item.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/models/menu-item.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/pytest.ini": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/pytest.ini",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/requirements-dev.txt": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/requirements-dev.txt",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/server.ts": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/server.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/styles.scss": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/styles.scss",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/tests/conftest.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/tests/conftest.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/tests/test_app.py": {
+    "path": "/Users/aditshah/SE-PROJECT/SE-PROJECT-7/src/tests/test_app.py",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  }
+}
