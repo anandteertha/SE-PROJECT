@@ -18,6 +18,8 @@ bcrypt = Bcrypt(app)
 app.config["JWT_SECRET_KEY"] = "keep-the-user-logged-in"
 jwt = JWTManager(app)
 
+# CORS(CORS(app, resources={r"/api/*": {"origins": ["http://localhost:4200"]}}))
+
 @app.route('/')
 def home():
     return "Hello from Flask Backend!"
