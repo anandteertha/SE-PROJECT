@@ -251,3 +251,16 @@ def test_cart_round_trip(monkeypatch, client):
     client.post("/api/cart", json={"UserId": 1, "MenuItemId": 1, "Quantity": 2})
     r = client.get("/api/cart?user_id=1")
     assert len(r.get_json()["items"]) == 1
+
+def test_cart_handles_multiple_users(monkeypatch, client):
+    fake = {"items": [{"UserId": 2, "MenuItemId": 5, "Quantity": 3}]}
+    monkeypatch.setattr(CartItems, "get", lambda self, uid: fake if uid == 2 else {"items": []})
+    r = client.get("/api/cart?user_id=2")
+    assert r.get_json()["items"][0]["UserId"] == 2
+
+def test_post_cart_sql_injection_attempt(monkeypatch, client):
+    bad_note = "'; DROP TABLE cart;--"
+    monkeypatch.setattr(CartItems, "post", lambda self, c: {"ExtraNote": c.ExtraNote})
+    r = client.post("/api/cart", json={"UserId": 1, "MenuItemId": 1, "Quantity": 1, "ExtraNote": bad_note})
+    assert r.status_code == 201
+    assert "DROP" in r.get_json()["ExtraNote"]
